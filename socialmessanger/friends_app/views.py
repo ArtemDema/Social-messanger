@@ -4,5 +4,6 @@ from django.shortcuts import render
 def render_friends(request):
     return render(
         request=request,
-        template_name='friends_app/friends.html'
+        template_name='friends_app/friends.html',
+        context = {"which_site": "friends"}
     )

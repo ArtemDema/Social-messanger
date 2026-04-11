@@ -15,34 +15,73 @@
         <img src="{% static 'images/logo.png' %}" alt="" id = 'logo'>
 
         <nav>
-            <div>
-                <img src="{% static 'images/home.png' %}" alt="">
-                <a href="{% url 'home_page' %}">Головна</a>
-            </div>
-            
-            <div>
-                <img src="{% static 'images/posts.png' %}" alt="">
-                <a href="{% url 'post_page' %}">Мої публікації</a>
-            </div>
-            
-            <div>
-                <img src="{% static 'images/friends.png' %}" alt="">
-                <a href="{% url 'friends_page' %}">Друзі</a>
-            </div>
 
-            <div>
-                <img src="{% static 'images/chats.png' %}" alt="">
-                <a href="{% url 'home_page' %}">Чати</a>
-            </div>
+            {% if which_site == "home" %}
+                <div class="select" class="redirect-link">
+                    <img src="{% static 'images/home.png' %}" alt="">
+                    <a href="{% url 'home_page' %}">Головна</a>
+                </div>
+            {% else %}
+                <div class="redirect-link">
+                    <img src="{% static 'images/home.png' %}" alt="">
+                    <a href="{% url 'home_page' %}">Головна</a>
+                </div>
+            {% endif %}
 
-            <div>
-                <img src="{% static 'images/settings.png' %}" alt="">
-                <a href="{% url 'home_page' %}">Налаштування</a>
-            </div>
+            
+            {% if which_site == "post" %}
+                <div class="select" class="redirect-link">
+                    <img src="{% static 'images/posts.png' %}" alt="">
+                    <a href="{% url 'post_page' %}">Мої публікації</a>
+                </div>
+            {% else %}
+                <div class="redirect-link">
+                    <img src="{% static 'images/posts.png' %}" alt="">
+                    <a href="{% url 'post_page' %}">Мої публікації</a>
+                </div>
+            {% endif %}
+            
+
+            {% if which_site == "friends" %}
+                <div class="select" class="redirect-link">
+                    <img src="{% static 'images/friends.png' %}" alt="">
+                    <a href="{% url 'friends_page' %}">Друзі</a>
+                </div>
+            {% else %}
+                <div  class="redirect-link">
+                    <img src="{% static 'images/friends.png' %}" alt="">
+                    <a href="{% url 'friends_page' %}">Друзі</a>
+                </div>
+            {% endif %}
+
+            {% if which_site == "chats" %}
+                <div class="select" class="redirect-link">
+                    <img src="{% static 'images/chats.png' %}" alt="">
+                    <a href="{% url 'home_page' %}">Чати</a>
+                </div>
+            {% else %}
+                <div class="redirect-link">
+                    <img src="{% static 'images/chats.png' %}" alt="">
+                    <a href="{% url 'home_page' %}">Чати</a>
+                </div>
+            {% endif %}
+
+
+            {% if which_site == "settings" %}
+                <div class="select" class="redirect-link">
+                    <img src="{% static 'images/settings.png' %}" alt="">
+                    <a href="{% url 'home_page' %}">Налаштування</a>
+                </div>
+            {% else %}
+                <div class="redirect-link">
+                    <img src="{% static 'images/settings.png' %}" alt="">
+                    <a href="{% url 'home_page' %}">Налаштування</a>
+                </div>
+            {% endif %}
             
             <button>
                 <img src="{% static 'images/exit.png' %}" alt="">
-                Вийти
+                Вихід
             </button>
         </nav>
     </header>
@@ -50,8 +89,10 @@
     {% block content %}
     {% endblock %}
     
-    {% block sidebar %}
-    {% endblock %}
+    <div class="sidebar">
+        {% block sidebar %}
+        {% endblock %}
+    </div>
     
     {% block scripts %}
     {% endblock %}

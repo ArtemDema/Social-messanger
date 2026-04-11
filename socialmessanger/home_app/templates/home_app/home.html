@@ -1,5 +1,50 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block content %}
-    <h1>Hello</h1>
+{% block sidebar %}
+    <div class="profile-block">
+        <img src="{% static 'images/profile_image.png' %}" alt="" id="profile-image">
+        
+        <h1>Lina Li</h1>
+
+        <h3>@thelili</h3>
+        
+        <div class="info-profile">
+            
+            <div class="info">
+                <h1 class="count">566</h1>
+                <h3 class="description">Дописи</h3>
+            </div>
+
+            <div class="info" id="readers">
+                <h1 class="count">12.1К</h1>
+                <h3 class="description">Читачі</h3>
+            </div>
+            
+            <div class="info">
+                <h1 class="count">222</h1>
+                <h3 class="description">Друзі</h3>
+            </div>
+
+        </div>
+    </div>
+    
+    <div  class="block">
+        <div class = 'name-block'>
+            <img src="{% static 'images/friends.png' %}" alt="">
+            <h2>Запити</h2>
+        </div>
+
+        <h3>Дивитись всі</h3>
+    </div>
+
+    <div  class="block">
+        <div class = 'name-block'>
+            <img src="{% static 'images/chats.png' %}" alt="">
+            <h2>Друзі</h2>
+
+        </div>
+
+        <h3>Дивитись всі</h3>
+    </div>
 {% endblock%}

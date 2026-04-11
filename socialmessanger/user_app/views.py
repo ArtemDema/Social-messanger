@@ -4,5 +4,6 @@ from django.shortcuts import render
 def render_user(request):
     return render(
         request=request,
-        template_name='user_app/user.html'
+        template_name='user_app/user.html',
+        context = {"which_site": "user"}
     )

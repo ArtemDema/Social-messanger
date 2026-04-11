@@ -4,5 +4,6 @@ from django.shortcuts import render
 def render_home(request):
     return render(
         request=request,
-        template_name='home_app/home.html'
+        template_name='home_app/home.html',
+        context = {"which_site": "home"}
     )
