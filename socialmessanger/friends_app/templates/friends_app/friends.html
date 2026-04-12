@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
+{% load static %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'friends_app/css/friends.css'%}">
+{% endblock %} 
+
+{% block sidebar%}
+    <button id='main-btn'>Головна</button>
+    <button id='requests-btn'>Запити</button>
+    <button id='recomendations-btn'>Рекомендації</button>
+    <button id='all-friends-btn'>Всі друзі</button>
+{% endblock %}
 
 {% block content %}
-    <h1>hi</h1>
-{% endblock%}
+    <div id='main-cnt'>
+        <h1>Головна</h1>
+    </div>
+
+    <div class="hidden" id="requests-cnt">
+        <h1>Запити</h1>
+    </div>
+
+    <div class="hidden" id="recomendations-cnt">
+        <h1>Рекомендації</h1>
+    </div>
+
+    <div class="hidden" id ='all-friends-cnt'>
+        <h1>Всі друзі</h1>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'friends_app/js/buttons.js' %}"></script>
+{% endblock %}

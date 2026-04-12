@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'user_app/css/user.css'%}">
+{% endblock %} 
+
+{% block sidebar%}
+    <button id='my-info-btn'>Особиста інформація</button>
+    <button id='album-btn'>Альбоми</button>
+{% endblock %}
+
+{% block content %}
+    <div id='my-info-cnt'>
+        <h1>Особиста інформація</h1>
+    </div>
+    
+    <div class="hidden" id ='album-cnt'>
+        <h1>Альбоми</h1>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'user_app/js/button.js' %}"></script>
+{% endblock %}

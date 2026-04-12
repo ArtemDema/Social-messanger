@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block links %}
+    <link rel="stylesheet" href="{% static 'home_app/css/home.css'%}">
+{% endblock %}
+
 {% block sidebar %}
     <div class="profile-block">
         <img src="{% static 'images/profile_image.png' %}" alt="" id="profile-image">
         
-        <h1>Lina Li</h1>
+        <h1 id="name">Lina Li</h1>
 
-        <h3>@thelili</h3>
+        <h3 id="username">@thelili</h3>
         
         <div class="info-profile">
             
@@ -16,10 +20,14 @@
                 <h3 class="description">Дописи</h3>
             </div>
 
-            <div class="info" id="readers">
+            <div class="vertical-line"></div>
+
+            <div class="info">
                 <h1 class="count">12.1К</h1>
                 <h3 class="description">Читачі</h3>
             </div>
+
+            <div class="vertical-line"></div>
             
             <div class="info">
                 <h1 class="count">222</h1>

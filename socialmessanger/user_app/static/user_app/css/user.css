@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Nunito-Regular';
+    src: url('../fonts/Nunito-Regular.ttf') format('truetype');
+    font-weight: normal; 
+    font-style: normal;
+}
+
+.sidebar{
+    width: 25vw;
+    height: 100vh;
+    padding-left: 2.5vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    padding-top: 1vw;
+}
+
+.sidebar button{
+    background-color: #FAF8FF;
+    border: none;
+    font-family: 'Nunito-Regular';
+    text-align: left;
+    font-size: 1vw;
+}
+
+.hidden{
+    display: none;
+}

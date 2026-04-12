@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <link rel="stylesheet" href="{% static 'css/base.css'%}">
+
+    {% block links %}
+    {% endblock %}
+    
     <title>
         {% block title %}
         {% endblock %}
@@ -70,12 +74,12 @@
             {% if which_site == "settings" %}
                 <div class="select" class="redirect-link">
                     <img src="{% static 'images/settings.png' %}" alt="">
-                    <a href="{% url 'home_page' %}">Налаштування</a>
+                    <a href="{% url 'settings_page' %}">Налаштування</a>
                 </div>
             {% else %}
                 <div class="redirect-link">
                     <img src="{% static 'images/settings.png' %}" alt="">
-                    <a href="{% url 'home_page' %}">Налаштування</a>
+                    <a href="{% url 'settings_page' %}">Налаштування</a>
                 </div>
             {% endif %}
             
@@ -86,11 +90,13 @@
         </nav>
     </header>
     
-    {% block content %}
-    {% endblock %}
-    
     <div class="sidebar">
         {% block sidebar %}
+        {% endblock %}
+    </div>
+
+    <div class="content">
+        {% block content %}
         {% endblock %}
     </div>
     
