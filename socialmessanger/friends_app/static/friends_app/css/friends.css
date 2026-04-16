@@ -6,23 +6,30 @@
 }
 
 .sidebar{
-    width: 25vw;
-    height: 100vh;
-    padding-left: 2.5vw;
+    width: clamp(0px, 25vw, 500px);
+    height: 60vh;
     display: flex;
     flex-direction: column;
     gap: 1vh;
-    padding-top: 1vw;
 }
 
 .sidebar button{
+    width: 8vw;
     background-color: #FAF8FF;
     border: none;
     font-family: 'Nunito-Regular';
-    text-align: left;
-    font-size: 1vw;
+    display: flex;
+    align-items: flex-start;
+    color: gray;
 }
 
 .hidden{
     display: none;
+}
+
+.select-button{
+    font-size: clamp(0px, 1.1vw, 1.1rem);
+    color: black !important;
+    text-decoration: underline;
+    text-underline-offset: 6px;
 }

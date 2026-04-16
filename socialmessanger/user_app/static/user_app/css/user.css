@@ -6,13 +6,11 @@
 }
 
 .sidebar{
-    width: 25vw;
-    height: 100vh;
-    padding-left: 2.5vw;
+    width: clamp(0px, 25vw, 500px);
+    height: 60vh;
     display: flex;
     flex-direction: column;
     gap: 1vh;
-    padding-top: 1vw;
 }
 
 .sidebar button{

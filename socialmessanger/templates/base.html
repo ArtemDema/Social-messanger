@@ -19,69 +19,31 @@
         <img src="{% static 'images/logo.png' %}" alt="" id = 'logo'>
 
         <nav>
-
-            {% if which_site == "home" %}
-                <div class="select" class="redirect-link">
-                    <img src="{% static 'images/home.png' %}" alt="">
-                    <a href="{% url 'home_page' %}">Головна</a>
-                </div>
-            {% else %}
-                <div class="redirect-link">
-                    <img src="{% static 'images/home.png' %}" alt="">
-                    <a href="{% url 'home_page' %}">Головна</a>
-                </div>
-            {% endif %}
+            <div class="redirect-link home-link">
+                <img src="{% static 'images/home.png' %}" alt="">
+                <a href="{% url 'home_page' %}">Головна</a>
+            </div>
 
             
-            {% if which_site == "post" %}
-                <div class="select" class="redirect-link">
-                    <img src="{% static 'images/posts.png' %}" alt="">
-                    <a href="{% url 'post_page' %}">Мої публікації</a>
-                </div>
-            {% else %}
-                <div class="redirect-link">
-                    <img src="{% static 'images/posts.png' %}" alt="">
-                    <a href="{% url 'post_page' %}">Мої публікації</a>
-                </div>
-            {% endif %}
-            
+            <div class="redirect-link posts-link">
+                <img src="{% static 'images/posts.png' %}" alt="">
+                <a href="{% url 'post_page' %}">Мої публікації</a>
+            </div>
 
-            {% if which_site == "friends" %}
-                <div class="select" class="redirect-link">
-                    <img src="{% static 'images/friends.png' %}" alt="">
-                    <a href="{% url 'friends_page' %}">Друзі</a>
-                </div>
-            {% else %}
-                <div  class="redirect-link">
-                    <img src="{% static 'images/friends.png' %}" alt="">
-                    <a href="{% url 'friends_page' %}">Друзі</a>
-                </div>
-            {% endif %}
+            <div  class="redirect-link friends-link">
+                <img src="{% static 'images/friends.png' %}" alt="">
+                <a href="{% url 'friends_page' %}">Друзі</a>
+            </div>
 
-            {% if which_site == "chats" %}
-                <div class="select" class="redirect-link">
-                    <img src="{% static 'images/chats.png' %}" alt="">
-                    <a href="{% url 'home_page' %}">Чати</a>
-                </div>
-            {% else %}
-                <div class="redirect-link">
-                    <img src="{% static 'images/chats.png' %}" alt="">
-                    <a href="{% url 'home_page' %}">Чати</a>
-                </div>
-            {% endif %}
+            <div class="redirect-link">
+                <img src="{% static 'images/chats.png' %}" alt="">
+                <a href="{% url 'home_page' %}">Чати</a>
+            </div>
 
-
-            {% if which_site == "settings" %}
-                <div class="select" class="redirect-link">
-                    <img src="{% static 'images/settings.png' %}" alt="">
-                    <a href="{% url 'settings_page' %}">Налаштування</a>
-                </div>
-            {% else %}
-                <div class="redirect-link">
-                    <img src="{% static 'images/settings.png' %}" alt="">
-                    <a href="{% url 'settings_page' %}">Налаштування</a>
-                </div>
-            {% endif %}
+            <div class="redirect-link settings-link">
+                <img src="{% static 'images/settings.png' %}" alt="">
+                <a href="{% url 'settings_page' %}">Налаштування</a>
+            </div>
             
             <button>
                 <img src="{% static 'images/exit.png' %}" alt="">
@@ -97,10 +59,12 @@
 
     <div class="content">
         {% block content %}
+        <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt, error. Ipsa a, id aperiam quasi facilis similique at! Asperiores doloremque hic fuga cupiditate ratione itaque quo quos dolores unde est accusantium quisquam eveniet explicabo, repellendus tenetur accusamus illo a fugiat? Ullam impedit iusto inventore dolorem ad nisi repudiandae pariatur quidem?</h1>
         {% endblock %}
     </div>
     
     {% block scripts %}
     {% endblock %}
+    <script src="{% static 'js/base.js' %}"></script>
 </body>
 </html>

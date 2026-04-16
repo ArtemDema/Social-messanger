@@ -20,7 +20,15 @@ body{
     margin: 0;
     display: flex;
     flex-wrap: wrap;
-    
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(20px, 1vw, 1px);
+}
+
+.content{
+    width: clamp(0px, 64vw, 1150px);
+    background-color: #543C52;
+    height: 1200px;
 }
 
 header{
@@ -28,22 +36,22 @@ header{
     height: 6vh;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-left: 2.5vw;
-    padding-right: 2.5vw;
     background: white;
+    gap: clamp(1vw, 44vw, 860px);
+    position: fixed;
 }
 
 #logo{
-    max-height: 2vh;
-    width: 8vw;
+    height: clamp(0px, 4vw, 20px);
+    width: clamp(0px, 15vw, 130px);
 }
 
 header nav{
     display: flex;
     flex-direction: row;
-    gap: 2vw;
+    gap: clamp(0px, 1vw, 20px);
 }
 
 header a{
@@ -62,26 +70,38 @@ header div{
     gap: 0.4vw;
 }
 
-header button{
-    width: 5vw;
-    height: 4vh;
+button{
+    width: clamp(0px, 3.7vw, 95px);
+    height: clamp(0px, 3vw, 40px);
     border-radius: 30px;
     background-color: white;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: 0.4vw;
     align-items: center;
     border: 1px solid #543C52;
     font-family: "Nunito-Regular";
+    gap: clamp(0px, 0.5vw, 8px);
+    font-size: clamp(0px, 1vw, 1rem);
+}
+
+button img{
+    width: clamp(0px, 1vw, 15px);
 }
 
 .select a{
-    font-size: 1vw;
+    font-size: clamp(0px, 1vw, 1rem);
+}
+
+.select img{
+    width: clamp(0px, 1vw, 15px);
 }
 
 .redirect-link a{
-    font-size: 1vw;
+    font-size: clamp(0px, 1vw, 1rem);
+}
+
+.select img{
+    width: clamp(0px, 1vw, 15px);
 }
 
 .select{
