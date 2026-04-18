@@ -4,13 +4,11 @@ from django.shortcuts import render
 def render_user(request):
     return render(
         request=request,
-        template_name='user_app/user.html',
-        context = {"which_site": "user"}
+        template_name='user_app/user.html'
     )
 
 def render_settings(request):
     return render(
         request=request,
-        template_name='user_app/settings.html',
-        context = {"which_site": "settings"}
+        template_name='user_app/settings.html'
     )

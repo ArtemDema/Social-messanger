@@ -1,25 +1,26 @@
 .sidebar{
     width: clamp(0px, 25vw, 500px);
-    height: 60vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     gap: 1vh;
-    position: sticky;
-    top: 4vw;
 }
 
 .profile-block{
-    width: clamp(0px, 25vw, 450px);
+    width: clamp(0px, 26vw, 460px);
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
     border: 1px solid #CDCED2;
+    position: sticky;
+    top: 8vh;
 }
 
 #profile-image{
     max-width: 7vw;
-    max-height: 10vh;   
+    max-height: 10vh;
+    padding: 1vh; 
 }
 
 .info-profile{
@@ -46,7 +47,7 @@
     align-items: center;
     border-radius: 10px;
     border: 1px solid #CDCED2;
-    position: sticky;
+    padding: 0.3vw;
 }
 
 .block img{
@@ -80,7 +81,7 @@
 }
 
 #name{
-    font-size: clamp(0px, 1vw, 1rem);
+    font-size: clamp(0px, 1.4vw, 1.4rem);
 }
 
 #username{

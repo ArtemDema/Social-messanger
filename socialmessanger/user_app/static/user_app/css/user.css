@@ -13,14 +13,23 @@
     gap: 1vh;
 }
 
-.sidebar button{
+.settings-button{
+    width: 12vw;
     background-color: #FAF8FF;
     border: none;
     font-family: 'Nunito-Regular';
-    text-align: left;
-    font-size: 1vw;
+    display: flex;
+    align-items: flex-start;
+    color: gray;
 }
 
 .hidden{
     display: none;
+}
+
+.select-button{
+    font-size: clamp(0px, 1.1vw, 1.1rem);
+    color: black !important;
+    text-decoration: underline;
+    text-underline-offset: 6px;
 }
