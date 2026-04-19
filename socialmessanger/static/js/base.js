@@ -5,7 +5,7 @@ const postLink = document.querySelector(".posts-link")
 const friendsLink = document.querySelector(".friends-link")
 const settingsLink = document.querySelector(".settings-link")
 
-if (url.includes("/home")){
+if (url.includes("/")){
     homeLink.classList.add('select')
 }
 if (url.includes("/post")){

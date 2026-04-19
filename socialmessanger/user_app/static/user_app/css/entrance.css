@@ -5,13 +5,12 @@
     font-style: normal;
 }
 
-
 nav{
     display: none !important;
 }
 
-.authorisation-content{
-    display: none;
+.sidebar{
+    display: none !important;
 }
 
 .registration-content {
@@ -19,31 +18,28 @@ nav{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: clamp(0px, 27vw, 540px);
-    height: clamp(0px, 45vh, 440px);
+    width: clamp(0px, 34vw, 540px);
+    height: clamp(0px, 57vh, 540px);
     background-color: white;
     border-radius: 20px;
+    gap: 1vh;
+    position: relative;
+    z-index: 30;
 }
 
 p{
     display: flex;
     flex-direction: column;
-
-}
-
-.content{
-    display: flex;
-    flex-direction: row;
-}
-
-.content img{
-    width: clamp(0px, 30vw, 600px);
-    height: clamp(0px, 30vh, 600px);
-    margin-right: 3vw;
+    gap: 1vh;
 }
 
 body{
     background-color: #E9E5EE;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 .switch{
@@ -63,7 +59,7 @@ input{
     border: 2px solid #CDCED2;
 }
 
-.switch-button{
+span{
     font-size: clamp(0px, 2vw, 2rem);
     background-color: white;
     border: none;
@@ -72,7 +68,7 @@ input{
 }
 
 .confirm{
-    width: clamp(0px, 22vw, 440px);
+    width: clamp(0px, 22.5vw, 440px);
     height: clamp(0px, 5vh, 40px);
     border-radius: 1234px;
     background-color: #543C52;
@@ -85,7 +81,21 @@ form{
     width: 80%;
 }
 
-form h3{
+.registration-content h3{
+    text-align: center;
+}
+
+.content{
+    position: relative; 
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.content img{
+    width: clamp(0px, 65vw, 650px);
+    height: clamp(0px, 50vh, 500px);
+    position: relative;
+    right: clamp(0px, 2vw, 40px);
+    z-index: 2;
 }
