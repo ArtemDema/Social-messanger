@@ -44,7 +44,7 @@ header{
 
 #logo{
     height: clamp(0px, 3vw, 18px);
-    width: clamp(0px, 13vw, 120px);
+    width: clamp(0px, 14vw, 140px);
 }
 
 header nav{

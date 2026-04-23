@@ -10,4 +10,9 @@ class AuthForm(forms.Form):
     password = forms.CharField(required=True, label="Пароль")
 
 class ConfirmForm(forms.Form):
-    confirm = forms.CharField(required=True, label="Код підтвердження")
+    confirm1 = forms.CharField(required=True, label="")
+    confirm2 = forms.CharField(required=True, label="")
+    confirm3 = forms.CharField(required=True, label="")
+    confirm4 = forms.CharField(required=True, label="")
+    confirm5 = forms.CharField(required=True, label="")
+    confirm6 = forms.CharField(required=True, label="")

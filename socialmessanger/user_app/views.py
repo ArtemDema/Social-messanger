@@ -22,23 +22,5 @@ class AuthView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["form_register"] = RegForm()
         context["form_login"] = AuthForm()
-        context["form_comfirm"] = ConfirmForm()
+        context["form_confirm"] = ConfirmForm()
         return context
-    
-    # def post(self, request, *args, **kwargs):
-    #     if "register" in request.POST:
-    #         form = RegForm()
-    #         if form.is_valid():
-    #             pass
-            
-    #     elif "login" in request.POST:
-    #         form = AuthForm(data=request.POST)
-    #         if form.is_valid():
-    #             email = form.cleaned_data'email']
-    #             password = form.cleaned_data['password']
-
-    #     elif "confirm" in request.POST:
-    #         form = ConfirmForm()
-    #         if form.is_valid():
-    #             pass
-

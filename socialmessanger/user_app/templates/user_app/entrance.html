@@ -1,20 +1,30 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block meta %}
+    <meta name="csrf_token" content = '{{ csrf_token }}'>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="registration-content">
-            {% if request.path == '/user/register/' %}
-                {% include "user_app/particles/form_register.html" %}
-            {% endif %}
-            
-            {% if request.path == '/user/login/' %}
-                {% include "user_app/particles/form_login.html" %}
-            {% endif %}
+            <div class="switch">
+                <button id='main-btn' class="settings-button register-button select-button">Реєстрація</button>
+                <button id='requests-btn' class="settings-button auth-button">Авторизація</button>
+            </div>
 
-            {% if request.path == '/user/confirm/' %}
+            <div class = 'register-form'>
+                {% include "user_app/particles/form_register.html" %}
+            </div>
+
+            <div class = 'login-form hidden-form'>
+                {% include "user_app/particles/form_login.html" %}
+            </div>
+            
+            <div class = 'confirm-form hidden-form'>
                 {% include "user_app/particles/form_confirm_email.html" %}
-            {% endif %}
+            </div>
+            
         </div>
     </div>
     <img src="{% static 'user_app/images/registration.png' %}" alt="">
@@ -23,4 +33,8 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'user_app/css/entrance.css'%}">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'user_app/js/entrance.js' %}"></script>
 {% endblock %}
