@@ -24,7 +24,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
     border-radius: 10px;
     border: 1px solid #CDCED2;
 }
@@ -115,4 +114,11 @@
     flex-direction: column;
     justify-content: center;
     border: 1px solid gray;
+}
+
+.block-side-info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(0px, 0.6vw, 10px);
 }

@@ -16,13 +16,13 @@ nav{
 .registration-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: top;
     align-items: center;
     width: clamp(0px, 34vw, 540px);
     height: clamp(0px, 57vh, 540px);
     background-color: white;
     border-radius: 20px;
-    gap: 1vh;
+    gap: clamp(0px, 1vw, 17px);
     position: relative;
     z-index: 30;
 }
@@ -30,7 +30,7 @@ nav{
 p{
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: clamp(0px, 1vw, 17px);
 }
 
 body{
@@ -46,6 +46,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding-top: 1vh;
 }
 
 label{
@@ -53,14 +54,14 @@ label{
 }
 
 input{
-    height: clamp(0px, 4vh, 100px);
+    height: clamp(0px, 3.5vh, 35px);
     border-radius: 10px;
     border: 2px solid #CDCED2;
 }
 
 .confirm{
-    width: clamp(0px, 20vw, 400px);
-    height: clamp(0px, 5vh, 40px);
+    width: clamp(0px, 18vw, 350px);
+    height: clamp(0px, 4vh, 35px);
     border-radius: 1234px;
     background-color: #543C52;
     color: white;
@@ -125,10 +126,6 @@ form{
     align-items: center;
 }
 
-.confirm-form .switch{
-    display: none;
-}
-
 .confirm-form form{
     flex-direction: 0;
     gap: 0.5vw;
@@ -145,7 +142,7 @@ form{
 }
 
 .settings-button{
-    width: 8vw;
+    width: clamp(0px, 17vw, 170px);
     background-color: white;
     border: none;
     font-family: 'Nunito-Regular';

@@ -1,6 +1,6 @@
 <h3>Раді тебе знову бачити!</h3>
 
-<form method="post">
+<form method="post" action="{% url 'login_page' %}">
     {% csrf_token %}
     {{ form_login.as_p }}
     <button type="submit", class="confirm">Увійти</button>

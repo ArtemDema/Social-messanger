@@ -37,7 +37,7 @@ header{
     justify-content: center;
     align-items: center;
     background: white;
-    gap: clamp(1vw, 43vw, 860px);
+    gap: clamp(0px, 41.5vw, 820px);
     position: sticky;
     top: 0;
 }
@@ -51,6 +51,7 @@ header nav{
     display: flex;
     flex-direction: row;
     gap: clamp(0px, 1.2vw, 25px);
+    align-items: center;
 }
 
 header a{
@@ -58,6 +59,10 @@ header a{
     color:  #070A1C;
     font-weight: black;
     font-family: "Nunito-Regular";
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(0px, 0.5vw, 8px);
 }
 
 header div{
@@ -65,7 +70,7 @@ header div{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 0.4vw;
+    gap: clamp(0px, 0.4vw, 8px);
 }
 
 .exit{
@@ -87,24 +92,16 @@ button img{
     width: clamp(0px, 0.8vw, 13px);
 }
 
-.select a{
-    font-size: clamp(0px, 1vw, 1rem);
-}
-
-.select img{
-    width: clamp(0px, 1vw, 15px);
-}
-
-.redirect-link a{
-    font-size: clamp(0px, 1vw, 1rem);
-}
-
 .redirect-link img{
     width: clamp(0px, 1vw, 15px);
 }
 
-.select img{
-    width: clamp(0px, 1vw, 15px);
+.select span{
+    font-size: clamp(0px, 1vw, 1rem);
+}
+
+.redirect-link span{
+    font-size: clamp(0px, 1vw, 1rem);
 }
 
 .select{

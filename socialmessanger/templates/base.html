@@ -23,31 +23,31 @@
         <img src="{% static 'images/logo.png' %}" alt="" id = 'logo'>
 
         <nav>
-            <div class="redirect-link home-link">
+            <a href="{% url 'home_page' %}" class="redirect-link home-link">
                 <img src="{% static 'images/home.png' %}" alt="">
-                <a href="{% url 'home_page' %}">Головна</a>
-            </div>
+                <span>Головна</span>
+            </a>
 
             
-            <div class="redirect-link posts-link">
+            <a href="{% url 'post_page' %}" class="redirect-link posts-link">
                 <img src="{% static 'images/posts.png' %}" alt="">
-                <a href="{% url 'post_page' %}">Мої публікації</a>
-            </div>
+                <span>Мої публікації</span>
+            </a>
 
-            <div  class="redirect-link friends-link">
+            <a href="{% url 'friends_page' %}"  class="redirect-link friends-link">
                 <img src="{% static 'images/friends.png' %}" alt="">
-                <a href="{% url 'friends_page' %}">Друзі</a>
-            </div>
+                <span>Друзі</span>
+            </a>
 
-            <div class="redirect-link">
+            <a href="/chat" class="redirect-link">
                 <img src="{% static 'images/chats.png' %}" alt="">
-                <a href="{% url 'home_page' %}">Чати</a>
-            </div>
+                <span>Чати</span>
+            </a>
 
-            <div class="redirect-link settings-link">
+            <a href="{% url 'settings_page' %}" class="redirect-link settings-link">
                 <img src="{% static 'images/settings.png' %}" alt="">
-                <a href="{% url 'settings_page' %}">Налаштування</a>
-            </div>
+                <span>Налаштування</span>
+            </a>
             
             <button class="exit">
                 <img src="{% static 'images/exit.png' %}" alt="">
