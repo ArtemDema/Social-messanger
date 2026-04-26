@@ -1,7 +1,6 @@
 <h3>Приєднуйтесь до World IT</h3>
 
 <form method="post" action="{% url 'register_page' %}">
-    {% csrf_token %}
     {{ form_register.as_p }}
     <button type="submit", class="confirm">Створити акаунт</button>
 </form>

@@ -74,7 +74,6 @@ class AuthForm(AuthenticationForm):
 
         user = authenticate(self.request, username = username, password = password)
         if not user:
-            print("ecnm")
             raise forms.ValidationError(message = 'Користувача не існує')
         else:
             self.confirm_login_allowed(user = user)
@@ -83,9 +82,41 @@ class AuthForm(AuthenticationForm):
 
     
 class ConfirmForm(forms.Form):
-    confirm1 = forms.CharField(required=True, label="")
-    confirm2 = forms.CharField(required=True, label="")
-    confirm3 = forms.CharField(required=True, label="")
-    confirm4 = forms.CharField(required=True, label="")
-    confirm5 = forms.CharField(required=True, label="")
-    confirm6 = forms.CharField(required=True, label="")
+    confirm1 = forms.CharField(required=True, label="", max_length= 1)
+    confirm2 = forms.CharField(required=True, label="", max_length= 1)
+    confirm3 = forms.CharField(required=True, label="", max_length= 1)
+    confirm4 = forms.CharField(required=True, label="", max_length= 1)
+    confirm5 = forms.CharField(required=True, label="", max_length= 1)
+    confirm6 = forms.CharField(required=True, label="", max_length= 1)
+
+    def __init__(self, *args, **kwargs):
+        self.reg_data = kwargs.pop('reg_data', None)
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        confirm1 = self.cleaned_data.get('confirm1')
+        confirm2 = self.cleaned_data.get('confirm2')
+        confirm3 = self.cleaned_data.get('confirm3')
+        confirm4 = self.cleaned_data.get('confirm4')
+        confirm5 = self.cleaned_data.get('confirm5')
+        confirm6 = self.cleaned_data.get('confirm6')
+        list_of_numbers = ["0","1","2","3","4","5","6","7","8","9"]
+
+        if confirm1 not in list_of_numbers:
+            raise forms.ValidationError(message = 'Ви ввели не число!')
+        
+        if confirm2 not in list_of_numbers:
+            raise forms.ValidationError(message = 'Ви ввели не число!')
+        
+        if confirm3 not in list_of_numbers:
+            raise forms.ValidationError(message = 'Ви ввели не число!')
+        
+        if confirm4 not in list_of_numbers:
+            raise forms.ValidationError(message = 'Ви ввели не число!')
+        
+        if confirm5 not in list_of_numbers:
+            raise forms.ValidationError(message = 'Ви ввели не число!')
+        
+        if confirm6 not in list_of_numbers:
+            raise forms.ValidationError(message = 'Ви ввели не число!')
+        
