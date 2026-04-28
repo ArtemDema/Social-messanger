@@ -30,8 +30,11 @@ class RegForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        if User.objects.filter(email = email).exists():
-            raise forms.ValidationError(message = 'Користувач з такою поштою вже існує')
+        if email:
+            if User.objects.filter(email = email).exists():
+                raise forms.ValidationError(message = 'Користувач з такою поштою вже існує')
+        else:
+            raise forms.ValidationError(message = 'Поля пусті!')
         return email
     
     def clean(self):
@@ -71,12 +74,13 @@ class AuthForm(AuthenticationForm):
     def clean(self):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
-
-        user = authenticate(self.request, username = username, password = password)
-        if not user:
-            raise forms.ValidationError(message = 'Користувача не існує')
-        else:
-            self.confirm_login_allowed(user = user)
+        
+        if self.user_cache and password:
+            self.user_cache = authenticate(self.request, username = username, password = password)
+            if not self.user_cache:
+                raise forms.ValidationError(message = 'Користувача не існує')
+            else:
+                self.confirm_login_allowed(user = self.user_cache)
 
         return self.cleaned_data
 
@@ -88,10 +92,6 @@ class ConfirmForm(forms.Form):
     confirm4 = forms.CharField(required=True, label="", max_length= 1)
     confirm5 = forms.CharField(required=True, label="", max_length= 1)
     confirm6 = forms.CharField(required=True, label="", max_length= 1)
-
-    def __init__(self, *args, **kwargs):
-        self.reg_data = kwargs.pop('reg_data', None)
-        super().__init__(*args, **kwargs)
 
     def clean(self):
         confirm1 = self.cleaned_data.get('confirm1')
@@ -119,4 +119,3 @@ class ConfirmForm(forms.Form):
         
         if confirm6 not in list_of_numbers:
             raise forms.ValidationError(message = 'Ви ввели не число!')
-        

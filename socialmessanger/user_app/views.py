@@ -54,9 +54,9 @@ class RegisterView(View):
                 "answer": True
             })
         
-        return JsonResponse(data={
-                "answer": False
-            })
+        return JsonResponse({
+            "answer": False,
+        }, status=400)
         
 
 
@@ -71,9 +71,9 @@ class LoginView(View):
                 "answer": True
             })
         
-        return JsonResponse(data={
-                "answer": False
-            })
+        return JsonResponse({
+            "answer": False,
+        }, status=400)
     
 class ConfirmView(View):
     def post(self, request, *args, **kwargs):
@@ -100,9 +100,12 @@ class ConfirmView(View):
                 )
                 user.set_password(reg_data['password'])
 
-                return redirect(reverse_lazy("home_page"))
+                user.save()
+
+                return JsonResponse({
+                    "answer": True,
+                }) 
             
-        return JsonResponse(data={
-            "answer": False
-            })       
-            
+        return JsonResponse({
+            "answer": False,
+        }, status=400)     
