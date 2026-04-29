@@ -2,7 +2,7 @@
 
 <h3>Ми надіслали 6-значний код на вашу пошту (you@example.com). Введіть його нижче, щоб підтвердити акаунт</h3>
 
-<form method="post"action="{% url 'confirm_page' %}">
+<form method="post"action="{% url 'confirm_page' %}" class="form-for-confirm">
     {{ form_confirm.as_p }}
     <button type="submit", class="confirm">Підтвердити</button>
 </form>

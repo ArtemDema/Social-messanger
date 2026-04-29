@@ -31,7 +31,7 @@ function getCSRFToken(){
     return document.querySelector('meta[name="csrf_token"]').getAttribute('content')
 }
 
-document.querySelector(".register-form").addEventListener(
+document.querySelector(".form-for-register").addEventListener(
     "submit",
     (event) => {
         event.preventDefault();
@@ -70,7 +70,7 @@ document.querySelector(".register-form").addEventListener(
 )
 
 
-document.querySelector(".confirm-form").addEventListener(
+document.querySelector(".form-for-confirm").addEventListener(
     "submit",
     (event) => {
         event.preventDefault();
@@ -100,6 +100,42 @@ document.querySelector(".confirm-form").addEventListener(
                 
                 authBtn.classList.add('select-button')
                 registerBtn.classList.remove('select-button')
+
+                navBtns.classList.remove('hidden-form')
+            })
+            .catch((data)=>{
+                if(data.errors){
+                    console.log(data.errors)
+                }
+            })
+    }
+)
+
+document.querySelector(".form-for-login").addEventListener(
+    "submit",
+    (event) => {
+        event.preventDefault();
+        
+        const form = event.target;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: "POST", 
+            headers: {
+                "X-CSRFToken": getCSRFToken(),
+                "X-Requested-With": "XMLHttpRequest",
+            },
+            body: formData  
+        })
+            .then(async (response) => {
+                const data = await response.json()
+                if (!response.ok){
+                    throw data;    
+                }
+                return data
+            })
+            .then((data)=>{ // Что в случае успеха
+                window.location.href = "/";
             })
             .catch((data)=>{
                 if(data.errors){
