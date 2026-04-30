@@ -66,4 +66,22 @@
         <div class="example-friends"></div>
         <div class="example-friends"></div>
     </div>
+
+    <!-- {% if user.username == None %} -->
+
+        {% block modal_window %}
+            <div class="modal-info">
+                <h1>Додай деталі про себе</h1>
+                <form method="post" action="" class="modal-form">
+                    {% csrf_token %}
+                    {{ home_form.as_p }}
+                    <button>Створити</button>
+                </form>
+            </div>
+        {% endblock %}
+    
+        {% block scripts %}
+            <script src="{% static 'home_app/js/home.js' %}"></script>
+        {% endblock %}
+    <!-- {% endif %} -->
 {% endblock%}

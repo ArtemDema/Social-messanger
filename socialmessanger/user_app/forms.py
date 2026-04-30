@@ -4,8 +4,11 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 
 
+
 class RegForm(forms.ModelForm):
     password = forms.CharField(
+        min_length= 6,
+        max_length= 30,
         required=True, 
         label="Пароль",
         widget= forms.PasswordInput(attrs={
@@ -13,10 +16,15 @@ class RegForm(forms.ModelForm):
         }))
     
     confirm_password = forms.CharField(
+        min_length= 6,
+        max_length= 30,
         required=True, 
         label="Підтвердіть пароль",
         widget= forms.PasswordInput(attrs={
             'placeholder': 'Повторіть пароль'
+
+        
+
         }))
 
     class Meta:
@@ -74,6 +82,7 @@ class AuthForm(AuthenticationForm):
     def clean(self):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
+
         
         if self.user_cache and password:
             self.user_cache = authenticate(self.request, username = username, password = password)

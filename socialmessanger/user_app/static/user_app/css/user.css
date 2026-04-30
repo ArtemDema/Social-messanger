@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Nunito-Regular';
-    src: url('../fonts/Nunito-Regular.ttf') format('truetype');
+    font-family: 'GTWalsheimPro';
+    src: url('../fonts/GTWalsheimPro-Medium.ttf') format('truetype');
     font-weight: normal; 
     font-style: normal;
 }
@@ -17,7 +17,7 @@
     width: 12vw;
     background-color: #FAF8FF;
     border: none;
-    font-family: 'Nunito-Regular';
+    font-family: 'GTWalsheimPro';
     display: flex;
     align-items: flex-start;
     color: gray;

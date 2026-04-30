@@ -2,13 +2,11 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from .forms import *
 from django.contrib.auth import login
-from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.contrib.auth.forms import AuthenticationForm
 import random
 from django.core.mail import send_mail
 from .models import User
-from django.urls import reverse_lazy
 
 # Create your views here.
 def render_user(request):
@@ -56,7 +54,9 @@ class RegisterView(View):
         
         return JsonResponse({
             "answer": False,
-        }, status=400)
+            "errors": form.errors.get_json_data()
+        })
+
         
 
 
@@ -73,7 +73,8 @@ class LoginView(View):
         
         return JsonResponse({
             "answer": False,
-        }, status=400)
+            "errors": form.errors.get_json_data()
+        })
     
 class ConfirmView(View):
     def post(self, request, *args, **kwargs):
@@ -90,7 +91,6 @@ class ConfirmView(View):
             verification_code = request.session.get("verification_code")
             user_code = f"{confirm1}{confirm2}{confirm3}{confirm4}{confirm5}{confirm6}"
 
-            print(verification_code, user_code)
             if str(verification_code) == user_code:
                 reg_data = request.session.get("reg_data")
 
@@ -99,13 +99,17 @@ class ConfirmView(View):
                     email = reg_data['email']
                 )
                 user.set_password(reg_data['password'])
-
                 user.save()
 
+                del request.session['verification_code']
+                del request.session['reg_data']
+                
+                
                 return JsonResponse({
                     "answer": True,
                 }) 
             
         return JsonResponse({
             "answer": False,
-        }, status=400)     
+            "errors": form.errors.get_json_data()
+        })     

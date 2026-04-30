@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'Nunito-Regular';
-    src: url('../fonts/Nunito-Regular.ttf') format('truetype');
+    font-family: 'GTWalsheimPro';
+    src: url('../fonts/GTWalsheimPro-Medium.ttf') format('truetype');
     font-weight: normal; 
     font-style: normal;
 }
@@ -50,7 +50,7 @@ body{
 }
 
 label{
-    font-family: 'Nunito-Regular';
+    font-family: 'GTWalsheimPro';
 }
 
 input{
@@ -66,7 +66,7 @@ input{
     background-color: #543C52;
     color: white;
     border: 0px;
-    font-family: 'Nunito-Regular';
+    font-family: 'GTWalsheimPro';
 }
 
 form{
@@ -145,7 +145,7 @@ form{
     width: clamp(0px, 17vw, 170px);
     background-color: white;
     border: none;
-    font-family: 'Nunito-Regular';
+    font-family: 'GTWalsheimPro';
     display: flex;
     align-items: flex-start;
     color: gray;

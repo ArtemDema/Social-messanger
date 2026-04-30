@@ -131,4 +131,5 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR/ 'static']
 
-LOGIN_REDIRECT_URL = reverse_lazy('')
+LOGIN_URL = 'auth_page'
+LOGIN_REDIRECT_URL = 'home_page'

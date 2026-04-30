@@ -1,18 +1,18 @@
 @font-face {
-    font-family: 'Nunito-Regular';
-    src: url('../fonts/Nunito-Regular.ttf') format('truetype');
+    font-family: 'GTWalsheimPro';
+    src: url('../fonts/GTWalsheimPro-Medium.ttf') format('truetype');
     font-weight: normal; 
     font-style: normal;
 }
 
 h1{
-    font-family: 'Nunito-Regular';
+    font-family: 'GTWalsheimPro';
 }
 h2{
-    font-family: 'Nunito-Regular';
+    font-family: 'GTWalsheimPro';
 }
 h3{
-    font-family: 'Nunito-Regular';
+    font-family: 'GTWalsheimPro';
 }
 
 body{
@@ -58,7 +58,7 @@ header a{
     text-decoration: none;
     color:  #070A1C;
     font-weight: black;
-    font-family: "Nunito-Regular";
+    font-family: "GTWalsheimPro";
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -83,7 +83,7 @@ header div{
     justify-content: center;
     align-items: center;
     border: 1px solid #543C52;
-    font-family: "Nunito-Regular";
+    font-family: "GTWalsheimPro";
     gap: clamp(0px, 0.5vw, 8px);
     font-size: clamp(0px, 0.8vw, 0.85rem);
 }

@@ -7,6 +7,7 @@ const authForm = document.querySelector(".login-form")
 const confirmForm = document.querySelector(".confirm-form")
 
 const navBtns = document.querySelector(".switch")
+const errorContainer = document.querySelector(".error_container")
 
 
 registerBtn.addEventListener('click', () => {
@@ -70,6 +71,8 @@ document.querySelector(".form-for-register").addEventListener(
 )
 
 
+
+
 document.querySelector(".form-for-confirm").addEventListener(
     "submit",
     (event) => {
@@ -103,7 +106,7 @@ document.querySelector(".form-for-confirm").addEventListener(
 
                 navBtns.classList.remove('hidden-form')
             })
-            .catch((data)=>{
+            .catch((data)=>{ // Что в случае провала
                 if(data.errors){
                     console.log(data.errors)
                 }
@@ -138,7 +141,7 @@ document.querySelector(".form-for-login").addEventListener(
                 window.location.href = "/";
             })
             .catch((data)=>{
-                if(data.errors){
+                if(data.errors){ // Что в случае провала
                     console.log(data.errors)
                 }
             })
