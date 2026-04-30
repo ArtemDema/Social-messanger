@@ -158,3 +158,11 @@ form{
     text-decoration: underline;
     text-underline-offset: 6px;
 }
+
+.back{
+    font-size: clamp(0px, 1vw, 1rem);
+    text-underline-offset: 6px;
+    background-color: white;
+    border: none;
+    font-family: 'GTWalsheimPro';
+}

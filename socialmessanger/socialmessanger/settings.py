@@ -132,4 +132,3 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR/ 'static']
 
 LOGIN_URL = 'auth_page'
-LOGIN_REDIRECT_URL = 'home_page'
