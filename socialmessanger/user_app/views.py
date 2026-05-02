@@ -3,10 +3,10 @@ from django.views.generic import TemplateView, View
 from .forms import *
 from django.contrib.auth import login
 from django.http import JsonResponse
-from django.contrib.auth.forms import AuthenticationForm
 import random
 from django.core.mail import send_mail
 from .models import User
+from django.views import View
 
 # Create your views here.
 def render_user(request):
@@ -62,7 +62,7 @@ class RegisterView(View):
 
 class LoginView(View):
     def post(self, request, *args, **kwargs):
-        form = AuthenticationForm(request, request.POST)
+        form = AuthForm(request, request.POST)
 
         if form.is_valid():
             user = form.get_user()
@@ -107,9 +107,9 @@ class ConfirmView(View):
                 
                 return JsonResponse({
                     "answer": True,
-                }) 
+                })
             
         return JsonResponse({
             "answer": False,
             "errors": form.errors.get_json_data()
-        })     
+        })

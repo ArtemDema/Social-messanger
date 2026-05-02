@@ -22,9 +22,6 @@ class RegForm(forms.ModelForm):
         label="Підтвердіть пароль",
         widget= forms.PasswordInput(attrs={
             'placeholder': 'Повторіть пароль'
-
-        
-
         }))
 
     class Meta:
@@ -38,11 +35,13 @@ class RegForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data['email']
+        
         if email:
             if User.objects.filter(email = email).exists():
                 raise forms.ValidationError(message = 'Користувач з такою поштою вже існує')
         else:
             raise forms.ValidationError(message = 'Поля пусті!')
+        
         return email
     
     def clean(self):
@@ -83,11 +82,10 @@ class AuthForm(AuthenticationForm):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
 
-        
-        if self.user_cache and password:
+        if username and password:
             self.user_cache = authenticate(self.request, username = username, password = password)
             if not self.user_cache:
-                raise forms.ValidationError(message = 'Користувача не існує')
+                raise forms.ValidationError(message = 'Користувача не існує, або введені невірні дані')
             else:
                 self.confirm_login_allowed(user = self.user_cache)
 

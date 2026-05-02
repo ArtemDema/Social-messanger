@@ -166,3 +166,10 @@ form{
     border: none;
     font-family: 'GTWalsheimPro';
 }
+
+.error{
+    display: flex;
+    flex-direction: row;
+    font-family: 'GTWalsheimPro';
+    font-size: clamp(0px, 0.8vw, 0.8rem);
+}

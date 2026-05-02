@@ -1,0 +1,19 @@
+{% load static %}
+
+<div class="modal-window" style="display: none;">
+    <div class="modal-info">
+        <button class="modal-exit">
+            <img src="{% static 'post_app/images/modal-exit.png' %}" alt="">
+        </button>
+        <h1>Стрворити публікацію</h1>
+        <div class="modal-form-div">
+            
+            <div class="error-container"></div>
+    
+            <form method="post" action="" class="modal-form">
+                {{ post_form.as_p }}
+                <button class="confirm">Продовжити</button>
+            </form>
+        </div>
+    </div>
+</div>

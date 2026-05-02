@@ -1,0 +1,15 @@
+<div class="modal-window">
+    <div class="modal-info">
+        <h1>{{ user.first_name }}</h1>
+        <h1>Додай деталі про себе</h1>
+        <div class="modal-form-div">
+            <div class="error-container"></div>
+
+            <form method="post" action="" class="modal-form">
+            {% csrf_token %}
+            {{ home_form.as_p }}
+            <button class="confirm">Продовжити</button>
+            </form>
+        </div>
+    </div>
+</div>

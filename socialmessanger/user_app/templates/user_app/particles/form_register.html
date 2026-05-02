@@ -1,5 +1,7 @@
 <h3>Приєднуйтесь до World IT</h3>
 
+<div class="register-error-container"></div>
+
 <form method="post" action="{% url 'register_page' %}" class="form-for-register">
     {{ form_register.as_p }}
     <button type="submit", class="confirm">Створити акаунт</button>

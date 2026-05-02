@@ -2,26 +2,34 @@ const registerBtn = document.querySelector('.register-button')
 const authBtn = document.querySelector('.auth-button')
 const backBtn = document.querySelector('.back')
 
-const registerForm = document.querySelector(".register-form")
-const authForm = document.querySelector(".login-form")
-const confirmForm = document.querySelector(".confirm-form")
+const registerFormDiv = document.querySelector(".register-form")
+const authFormDiv = document.querySelector(".login-form")
+const confirmFormDiv = document.querySelector(".confirm-form")
+
+const registerForm = document.querySelector(".form-for-register")
+const authForm = document.querySelector(".form-for-login")
+const confirmForm = document.querySelector(".form-for-confirm")
+
+const registerErrors = document.querySelector(".register-error-container")
+const authErrors = document.querySelector(".login-error-container")
+const confirmErrors = document.querySelector(".confirm-error-container")
 
 const navBtns = document.querySelector(".switch")
 
 
 registerBtn.addEventListener('click', () => {
-    registerForm.classList.remove('hidden-form')
-    authForm.classList.add('hidden-form')
-    confirmForm.classList.add('hidden-form')
+    registerFormDiv.classList.remove('hidden-form')
+    authFormDiv.classList.add('hidden-form')
+    confirmFormDiv.classList.add('hidden-form')
 
     registerBtn.classList.add('select-button')
     authBtn.classList.remove('select-button')
 })
 
 authBtn.addEventListener('click', () => {
-    registerForm.classList.add('hidden-form')
-    authForm.classList.remove('hidden-form')
-    confirmForm.classList.add('hidden-form')
+    registerFormDiv.classList.add('hidden-form')
+    authFormDiv.classList.remove('hidden-form')
+    confirmFormDiv.classList.add('hidden-form')
 
     authBtn.classList.add('select-button')
     registerBtn.classList.remove('select-button')
@@ -31,124 +39,114 @@ function getCSRFToken(){
     return document.querySelector('meta[name="csrf_token"]').getAttribute('content')
 }
 
-document.querySelector(".form-for-register").addEventListener(
-    "submit",
-    (event) => {
-        event.preventDefault();
-        
-        const form = event.target;
-        const formData = new FormData(form);
+registerForm.addEventListener("submit", async function(event){
+    event.preventDefault()
 
-        fetch(form.action, {
-            method: "POST", 
+    const formData = new FormData(event.target)
+
+    const responce = await fetch(registerForm.action, {
+            method: "POST",
+            body: formData,
             headers: {
                 "X-CSRFToken": getCSRFToken(),
-                "X-Requested-With": "XMLHttpRequest",
-            },
-            body: formData  
-        })
-            .then(async (response) => {
-                const data = await response.json()
-                if (!response.ok){
-                    throw data;    
-                }
-                return data
-            })   
-            .then((data)=>{ // Что в случае успеха
-                registerForm.classList.add('hidden-form')
-                authForm.classList.add('hidden-form')
-                confirmForm.classList.remove('hidden-form')
+                "X-Requested-With": "XMLHttpRequest"
+            }
+    })
+    const data = await responce.json()
+    if (data.answer == true){
+            registerFormDiv.classList.add('hidden-form')
+            authFormDiv.classList.add('hidden-form')
+            confirmFormDiv.classList.remove('hidden-form')
 
-                navBtns.classList.add('hidden-form')
-            })
-            .catch((data)=>{
-                if(data.errors){
-                    console.log(data.errors)
-                }
-            })
+            navBtns.classList.add('hidden-form')
     }
-)
+    else{
+        registerErrors.innerHTML = ""
+        for (const key in data.errors){
+            const errors = data.errors[key]
+            errors.forEach(error => {
+                const errorElement = document.createElement("p")
+                errorElement.classList.add("error")
+                errorElement.textContent = error.message
+                registerErrors.append(errorElement)
+            })
+        }
+    }
+})
 
+confirmForm.addEventListener("submit", async function(event){
+    event.preventDefault()
 
-document.querySelector(".form-for-confirm").addEventListener(
-    "submit",
-    (event) => {
-        event.preventDefault();
+    const formData = new FormData(event.target)
+
+    const responce = await fetch(confirmForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRFToken": getCSRFToken(),
+            "X-Requested-With": "XMLHttpRequest"
+        }
+    })
+    const data = await responce.json()
+    if (data.answer == true){
+        registerFormDiv.classList.add('hidden-form')
+        authFormDiv.classList.remove('hidden-form')
+        confirmFormDiv.classList.add('hidden-form')
         
-        const form = event.target;
-        const formData = new FormData(form);
+        authBtn.classList.add('select-button')
+        registerBtn.classList.remove('select-button')
 
-        fetch(form.action, {
-            method: "POST", 
-            headers: {
-                "X-CSRFToken": getCSRFToken(),
-                "X-Requested-With": "XMLHttpRequest",
-            },
-            body: formData  
-        })
-            .then(async (response) => {
-                const data = await response.json()
-                if (!response.ok){
-                    throw data;    
-                }
-                return data
-            })
-            .then((data)=>{ // Что в случае успеха
-                registerForm.classList.add('hidden-form')
-                authForm.classList.remove('hidden-form')
-                confirmForm.classList.add('hidden-form')
-                
-                authBtn.classList.add('select-button')
-                registerBtn.classList.remove('select-button')
-
-                navBtns.classList.remove('hidden-form')
-            })
-            .catch((data)=>{
-                if(data.errors){
-                    console.log(data.errors)
-                }
-            })
+        navBtns.classList.remove('hidden-form')
     }
-)
-
-document.querySelector(".form-for-login").addEventListener(
-    "submit",
-    (event) => {
-        event.preventDefault();
-        
-        const form = event.target;
-        const formData = new FormData(form);
-
-        fetch(form.action, {
-            method: "POST", 
-            headers: {
-                "X-CSRFToken": getCSRFToken(),
-                "X-Requested-With": "XMLHttpRequest",
-            },
-            body: formData  
-        })
-            .then(async (response) => {
-                const data = await response.json()
-                if (!response.ok){
-                    throw data;    
-                }
-                return data
+    else{
+        confirmErrors.innerHTML = ""
+        for (const key in data.errors){
+            const errors = data.errors[key]
+            errors.forEach(error => {
+                const errorElement = document.createElement("p")
+                errorElement.classList.add("error")
+                errorElement.textContent = error.message
+                confirmErrors.append(errorElement)
             })
-            .then((data)=>{ // Что в случае успеха
-                window.location.href = "/";
-            })
-            .catch((data)=>{
-                if(data.errors){
-                    console.log(data.errors)
-                }
-            })
+        }
     }
-)
+})
+
+authForm.addEventListener("submit", async function(event){
+    event.preventDefault()
+
+    const formData = new FormData(event.target)
+
+    const responce = await fetch(authForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRFToken": getCSRFToken(),
+            "X-Requested-With": "XMLHttpRequest"
+        }
+    })
+    const data = await responce.json()
+    if (data.answer == true){
+        window.location.href = "/";
+    }
+    else{
+        authErrors.innerHTML = ""
+        for (const key in data.errors){
+            const errors = data.errors[key]
+            errors.forEach(error => {
+                const errorElement = document.createElement("p")
+                errorElement.classList.add("error")
+                errorElement.textContent = error.message
+                authErrors.append(errorElement)
+            })
+        }
+    }
+})
 
 backBtn.addEventListener('click', () => {
-    registerForm.classList.remove('hidden-form')
-    authForm.classList.add('hidden-form')
-    confirmForm.classList.add('hidden-form')
+    registerFormDiv.classList.remove('hidden-form')
+    authFormDiv.classList.add('hidden-form')
+    confirmFormDiv.classList.add('hidden-form')
 
     authBtn.classList.remove('select-button')
     registerBtn.classList.add('select-button')

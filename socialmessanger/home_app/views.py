@@ -3,6 +3,7 @@ from .forms import *
 from django.views.generic import TemplateView
 from .forms import SetUsernameForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
@@ -12,3 +13,25 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["home_form"] = SetUsernameForm()
         return context
+    
+    def post(self, request, *args, **kwargs):
+        form = SetUsernameForm(request.POST)
+
+        if form.is_valid():
+            first_name = form.cleaned_data.get('first_name')
+            username = form.cleaned_data.get('username')
+
+            request.user.first_name = first_name
+            request.user.username = username
+            request.user.save()
+
+            return JsonResponse({
+                "answer": True,
+                })
+            
+        return JsonResponse({
+            "answer": False,
+            "errors": form.errors.get_json_data()
+        })
+            
+            

@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('home_app.urls')),
     path('post/', include('post_app.urls')),
     path('user/', include('user_app.urls')),
+    path('user/', include('user_app.urls'))
 ]

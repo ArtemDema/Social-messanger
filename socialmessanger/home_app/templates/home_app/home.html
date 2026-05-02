@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="{% static 'home_app/css/home.css'%}">
 {% endblock %}
 
+{% block meta %}
+    <meta name="csrf_token" content = '{{ csrf_token }}'>
+{% endblock %}
+
 {% block sidebar %}
     <div class="profile-block">
         <img src="{% static 'images/profile_image.png' %}" alt="" id="profile-image">
@@ -66,22 +70,18 @@
         <div class="example-friends"></div>
         <div class="example-friends"></div>
     </div>
-
-    <!-- {% if user.username == None %} -->
-
-        {% block modal_window %}
-            <div class="modal-info">
-                <h1>Додай деталі про себе</h1>
-                <form method="post" action="" class="modal-form">
-                    {% csrf_token %}
-                    {{ home_form.as_p }}
-                    <button>Створити</button>
-                </form>
-            </div>
-        {% endblock %}
-    
-        {% block scripts %}
-            <script src="{% static 'home_app/js/home.js' %}"></script>
-        {% endblock %}
-    <!-- {% endif %} -->
 {% endblock%}
+
+{% block content %}
+    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam suscipit esse quam maiores hic quo ratione eaque nulla numquam quibusdam veritatis sapiente excepturi expedita laudantium deleniti fugit harum eius, natus amet tempore dignissimos cumque quod? Saepe, accusamus totam! Nesciunt illum, obcaecati odio culpa incidunt minus fugiat est ipsa, maxime consequatur qui beatae consequuntur in cupiditate voluptate suscipit unde assumenda quisquam aut harum. Ullam nisi quod, enim et blanditiis eligendi, suscipit iusto repellat doloribus quis dignissimos hic eum, inventore quo minus sapiente facere iure harum praesentium. Repellat quisquam deserunt delectus ullam quaerat? Veniam neque ipsa quam earum sunt vel autem itaque eveniet odio ut cupiditate temporibus dicta, nulla blanditiis quibusdam ratione nostrum voluptas? Deserunt omnis, ipsam quidem minima, earum facere voluptatibus assumenda nisi iste impedit eum itaque iure amet adipisci exercitationem delectus praesentium sed sapiente, ducimus aperiam ullam perspiciatis. Necessitatibus saepe illo accusamus, omnis, id consectetur perspiciatis cupiditate illum eveniet delectus ad exercitationem est repudiandae nemo nesciunt, quos cumque odit maiores dolorum quibusdam placeat? Eveniet quibusdam, nemo quisquam dolore veniam deleniti illo suscipit reprehenderit harum doloremque quos. Debitis atque hic nisi labore numquam quos culpa minus inventore mollitia beatae officia, laborum excepturi exercitationem alias eveniet sunt libero, facilis aspernatur, doloremque eum veritatis error! Unde esse natus animi rem possimus nisi praesentium, quia illo beatae ipsa sapiente eveniet quisquam soluta maxime, labore ad! Delectus veniam quos, aspernatur neque voluptatum qui rem architecto, veritatis distinctio minus nemo ipsam ad vel laborum doloremque inventore beatae, tempore explicabo culpa quo eaque. Velit aut accusantium quasi?</h1>
+{% endblock %}
+
+{% block modal %}
+    {% if not user.first_name %}
+        {% include "home_app/particles/username.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'home_app/js/home.js' %}"></script>
+{% endblock %}
