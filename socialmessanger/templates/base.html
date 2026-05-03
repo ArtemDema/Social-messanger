@@ -49,10 +49,12 @@
                 <span>Налаштування</span>
             </a>
             
-            <button class="exit">
+            <a href="{% url 'logout_page' %}">
+                <button class="exit">
                 <img src="{% static 'images/exit.png' %}" alt="">
                 Вихід
             </button>
+            </a>
         </nav>
     </header>
     

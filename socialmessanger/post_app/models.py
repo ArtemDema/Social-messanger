@@ -1,22 +1,28 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
-# Create your models here.
-from django.db import models
-from user_app.models import User
 
-# Create your models here.
+User = get_user_model()
 
-class PostTag(models.Model):
-    name = models.CharField(max_length= 50, unique= True)
 
 class Post(models.Model):
-    title = models.CharField(max_length=100)
-    topic = models.CharField(max_length=100)
-    content = models.TextField()
-    author = models.ForeignKey(User, on_delete= models.CASCADE, related_name= 'posts')
-    created_at = models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField(PostTag, related_name= 'post')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    topic = models.CharField(max_length=255, null=True, blank=True)
+    content = models.TextField(null=True)
+    tags = models.ManyToManyField('PostTag', blank=True)
+    
+
+class PostTag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
 
 class PostLink(models.Model):
-    url = models.URLField(max_length=200)
-    post = models.ForeignKey(Post, on_delete= models.CASCADE, related_name= 'links')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    url = models.URLField(max_length=500)
+    
+
+class PostImage(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    original = models.ImageField(upload_to="post_images/originals/")
+    compressed = models.ImageField(upload_to="post_images/compressed/")

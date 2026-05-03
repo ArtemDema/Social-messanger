@@ -22,6 +22,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
             username = form.cleaned_data.get('username')
 
             request.user.first_name = first_name
+            username = f'@{username}'
             request.user.username = username
             request.user.save()
 

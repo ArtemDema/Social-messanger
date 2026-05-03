@@ -2,18 +2,29 @@
 
 <div class="modal-window" style="display: none;">
     <div class="modal-info">
-        <button class="modal-exit">
-            <img src="{% static 'post_app/images/modal-exit.png' %}" alt="">
-        </button>
-        <h1>Стрворити публікацію</h1>
+        
+            <div class="button-exit">
+                <button class="modal-exit">
+                    <img src="{% static 'post_app/images/modal-exit.png' %}" alt="">
+                </button>
+            </div>
+
+        <h1>Стрворення публікації</h1>
+
         <div class="modal-form-div">
             
             <div class="error-container"></div>
-    
+            
             <form method="post" action="" class="modal-form">
                 {{ post_form.as_p }}
-                <button class="confirm">Продовжити</button>
+                <button class="confirm">Публікація</button>
+                
+                <div class="list-links">
+                    <input type="url" name="link" placeholder="Введіть посилання">
+                </div>
+                <button class="create-link" type="button">+</button>
             </form>
+
         </div>
     </div>
 </div>

@@ -33,6 +33,9 @@ class SetUsernameForm(forms.Form):
             
             if User.objects.filter(username = username).exists():
                 raise forms.ValidationError(message = "Користувач з таким им'ям вже існує")
+            
+            if username[0] == "@":
+                raise forms.ValidationError(message = "Собачка не має бути на початку імені")
         else:
             raise forms.ValidationError(message = 'Поля пусті')
 

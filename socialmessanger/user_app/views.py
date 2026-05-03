@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, View
 from .forms import *
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.http import JsonResponse
 import random
 from django.core.mail import send_mail
 from .models import User
 from django.views import View
+from django.http import HttpRequest
+from django.shortcuts import redirect
 
 # Create your views here.
 def render_user(request):
@@ -113,3 +115,9 @@ class ConfirmView(View):
             "answer": False,
             "errors": form.errors.get_json_data()
         })
+
+class LogoutView(View):
+    def get(self, request: HttpRequest):
+        logout(request)
+        return redirect("auth_page")
+

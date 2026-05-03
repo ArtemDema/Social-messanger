@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{% static 'post_app/css/post.css'%}">
 {% endblock %}
 
+{% block meta %}
+    <meta name="csrf_token" content = '{{ csrf_token }}'>
+{% endblock %}
 {% block sidebar %}
     <div class="profile-block">
         <img src="{% static 'images/profile_image.png' %}" alt="" id="profile-image">
@@ -53,8 +56,13 @@
 
 {% block modal %}
     {% include "post_app/particles/createPost.html" %}
+
+    <!-- {% if not user.first_name %}
+        {% include "post_app/particles/username.html" %}
+    {% endif %} -->
 {% endblock %}
 
 {% block scripts %}
     <script src="{% static 'post_app/js/post.js' %}"></script>
 {% endblock %}
+
