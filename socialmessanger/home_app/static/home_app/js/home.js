@@ -7,6 +7,12 @@ function getCSRFToken(){
     return document.querySelector('meta[name="csrf_token"]').getAttribute('content')
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    if (modalWindow) {
+        document.body.classList.add('modal-open');
+    }
+})
+
 usernameForm.addEventListener("submit", async function(event){
     event.preventDefault()
 
@@ -23,6 +29,7 @@ usernameForm.addEventListener("submit", async function(event){
     const data = await responce.json()
     if (data.answer == true){
         modalWindow.remove()
+        document.body.classList.remove('modal-open');
     }
     else{
         usernameError.innerHTML = ""

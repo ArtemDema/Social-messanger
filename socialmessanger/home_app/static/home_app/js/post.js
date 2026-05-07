@@ -8,7 +8,7 @@ const createlinkBtn = document.querySelector('.post-create-link')
 const listLink = document.querySelector('.post-list-links')
 const delLinkBtn = document.querySelector('.post-delete-link')
 
-const modalWindow = document.querySelector('.post-modal-window')
+const postModalWindow = document.querySelector('.post-modal-window')
 
 
 const tagsContainer = document.querySelector('#id_tags')
@@ -17,29 +17,28 @@ const textArea = document.querySelector('#id_content')
 
 
 postButton.addEventListener('click', () => {
-    modalWindow.style = ""
+    postModalWindow.style = ""
 })
 
 
 
 closeButton.addEventListener('click', () => {
-    modalWindow.style.display = 'none'
+    postModalWindow.style.display = 'none'
 })
 
 
 
 createlinkBtn.addEventListener('click', () => {
-    console.log(listLink.childElementCount)
-    if(listLink.childElementCount == 2){
+    if(listLink.childElementCount == 1){
         button = document.createElement('button')
         button.type = 'button'
         button.textContent = '-'
         button.classList.add('delete-link')
 
-        listLink.append(button)
+        modalForm.append(button)
 
         button.addEventListener('click', () => {
-            if(listLink.childElementCount == 3){
+            if(listLink.childElementCount == 2){
                 button.remove()
             }
             link = listLink.lastElementChild
@@ -47,15 +46,13 @@ createlinkBtn.addEventListener('click', () => {
         })
     }
 
-    if(listLink.childElementCount <= 12){
+    if(listLink.childElementCount <= 9){
         link = document.createElement('input')
         link.type = 'url'
         link.name = 'link'
         link.placeholder = "Введіть посилання"
 
-        const lastElement = listLink.children[-1];
-        
-        listLink.insertBefore(link, lastElement);
+        listLink.append(link)
     }
 })
 
@@ -79,7 +76,7 @@ modalForm.addEventListener("submit", async function(event){
     })
     const data = await responce.json()
     if (data.answer == true){
-        modalWindow.style.display = 'none'
+        postModalWindow.style.display = 'none'
     }
     else{
         modalError.innerHTML = ""

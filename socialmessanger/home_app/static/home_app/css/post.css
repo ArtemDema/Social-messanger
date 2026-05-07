@@ -24,8 +24,6 @@
 }
 
 .post-modal-form{
-    width: clamp(0px, 45vw, 940px);
-    height: clamp(0px, 90vh, 972px);
     display: flex;
     flex-direction: column;
     gap: 1.5vh;
@@ -75,6 +73,15 @@
     justify-content: left;
 }
 
+.post-modal-form p input{
+    height: clamp(0px, 4vh, 50px);
+    width: clamp(0px, 20vw, 400px);
+    border-radius: 10px;
+    border: 2px solid #CDCED2;
+    display: flex;
+    justify-content: left;
+}
+
 .post-div{
     width: 100%;
     height:  clamp(0px, 8vh, 160px);
@@ -99,6 +106,7 @@
     justify-content: right;
     
 }
+
 
 textarea{
     width: 35vw;

@@ -25,16 +25,12 @@ class PostForm(forms.ModelForm):
         widget = forms.CheckboxSelectMultiple
     )
 
-    # links = forms.URLField(
-    #     required=False, 
-    #     label="Введіть посилання",
-    #     widget= forms.TextInput()
-    # )
-
     images = MultipleFileField(
         label= "Зображення",
         required=False,
-        widget = MultipleFileInput
+        widget= MultipleFileInput(
+            attrs= {'multiple': True, "accept": "images/*"}
+        )
     )
 
     class Meta:
