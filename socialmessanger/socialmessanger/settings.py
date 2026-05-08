@@ -133,5 +133,5 @@ STATICFILES_DIRS = [BASE_DIR/ 'static']
 
 LOGIN_URL = 'auth_page'
 
-MEDIA_ROOT = [BASE_DIR / 'media']
+MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = 'media/'

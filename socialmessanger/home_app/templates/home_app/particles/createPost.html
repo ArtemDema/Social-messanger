@@ -15,7 +15,7 @@
             
             <div class="post-error-container"></div>
             
-            <form method="post" action="" class="post-modal-form">
+            <form method="post" action="{% url 'post_page' %}" class="post-modal-form">
                 <p>Назва публікації</p>
                 {{ post_form.title}}
                 <p>Тема публікації</p>
@@ -26,14 +26,18 @@
                 {{ post_form.content}}
 
                 <div class="post-list-links">
-                    <input type="url" name="link" placeholder="Введіть посилання">
-                </div>
-                <button class="post-create-link" type="button">+</button>
+                    <input type="url" name="links" placeholder="Введіть посилання">
 
-                <button class="confirm">
-                    Публікація
-                <img src="{% static 'home_app/images/post_image.png' %}" alt="">
-                </button>
+                    <img class="post-create-link" src="{% static 'post_app/images/plus_link.png' %}" alt="">
+                </div>
+
+                <div class="confirm-post-button">
+                    <button class="confirm" type="submit">
+                        Публікація
+                        <img src="{% static 'post_app/images/post_image.png' %}" alt="">
+                    </button>
+                </div>
+                
             </form>
 
         </div>

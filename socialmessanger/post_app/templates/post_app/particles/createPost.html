@@ -17,24 +17,26 @@
             
             <form method="post" action="" class="post-modal-form">
                 <p>Назва публікації</p>
-                {{ post_form.title}}
+                {{ form.title}}
                 <p>Тема публікації</p>
-                {{ post_form.topic}}
+                {{ form.topic}}
                 
-                {{ post_form.tags}}
+                {{ form.tags}}
                 
-                {{ post_form.content}}
+                {{ form.content}}
 
                 <div class="post-list-links">
-                    <input type="url" name="link" placeholder="Введіть посилання">
-                    <button class="post-create-link" type="button">+</button>
+                    <input type="url" name="links" placeholder="Введіть посилання">
+
+                    <img class="post-create-link" src="{% static 'post_app/images/plus_link.png' %}" alt="">
                 </div>
-                    <div class="confirm-post-button">
-                        <button class="confirm">
-                            Публікація
-                            <img src="{% static 'post_app/images/post_image.png' %}" alt="">
-                        </button>
-                    </div>
+
+                <div class="confirm-post-button">
+                    <button class="confirm" type="submit">
+                        Публікація
+                        <img src="{% static 'post_app/images/post_image.png' %}" alt="">
+                    </button>
+                </div>
                 
             </form>
 

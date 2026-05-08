@@ -86,7 +86,7 @@
 {% endblock %}
 
 {% block modal %}
-    {% include "post_app/particles/createPost.html" %}
+    {% include "home_app/particles/createPost.html" %}
 
     {% if not user.first_name %}
         {% include "home_app/particles/username.html" %}
@@ -96,4 +96,7 @@
 {% block scripts %}
     <script src="{% static 'home_app/js/home.js' %}"></script>
     <script src="{% static 'home_app/js/post.js' %}"></script>
+    <script>
+        const MINUS_ICON = "{% static 'post_app/images/minus_link.png' %}"
+    </script>
 {% endblock %}

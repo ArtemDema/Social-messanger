@@ -24,9 +24,11 @@
 }
 
 .post-modal-form{
+    width: clamp(0px, 45vw, 940px);
+    height: clamp(0px, 90vh, 972px);
     display: flex;
     flex-direction: column;
-    gap: 1.5vh;
+    gap: clamp(0px, 1.5vh, 30px);
 }
 
 .post-modal-form-div{
@@ -45,16 +47,6 @@
     gap: clamp(0px, 1vh, 17px);
 }
 
-.post-modal-form button{
-    width: clamp(0px, 10vw, 200px);
-    height: clamp(0px, 4vh, 35px);
-    border-radius: 1234px;
-    background-color: #543C52;
-    color: white;
-    border: 0px;
-    font-family: 'GTWalsheimPro';
-}
-
 #id_title{
     height: clamp(0px, 4vh, 50px);
     width: clamp(0px, 20vw, 400px);
@@ -65,15 +57,6 @@
 }
 
 #id_topic{
-    height: clamp(0px, 4vh, 50px);
-    width: clamp(0px, 20vw, 400px);
-    border-radius: 10px;
-    border: 2px solid #CDCED2;
-    display: flex;
-    justify-content: left;
-}
-
-.post-modal-form p input{
     height: clamp(0px, 4vh, 50px);
     width: clamp(0px, 20vw, 400px);
     border-radius: 10px;
@@ -107,10 +90,9 @@
     
 }
 
-
 textarea{
-    width: 35vw;
-    height: 12vh;
+    width: clamp(0px, 35vw, 672px);
+    height: clamp(0px, 12vh, 130px);
     resize: none;
 }
 
@@ -130,7 +112,7 @@ textarea{
 #id_tags{
     display: flex;
     flex-direction: row;
-    gap: 0.5vw;
+    gap: clamp(0px, 0.5vw, 10px);
 }
 
 #id_tags input{
@@ -160,4 +142,36 @@ textarea{
     display: flex;
     flex-direction: row;
     justify-content: right;
+}
+
+.confirm-post-button button{
+    width: clamp(0px, 5vw, 100px) !important;
+    display: flex;
+    flex: row;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(0px, 0.2vw, 4px);
+    height: clamp(0px, 4vh, 35px);
+    border-radius: 1234px;
+    background-color: #543C52;
+    color: white;
+    border: 0px;
+    font-family: 'GTWalsheimPro';
+}
+
+.post-create-link{
+    width: clamp(0px, 1.3vw, 27px);
+    height: clamp(0px, 2.5vh, 30px);
+    border-radius: 1234px;
+    background-color: #543C52;
+    color: white;
+    border: 0px;
+    font-family: 'GTWalsheimPro';
+}
+
+.post-list-links{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(0px, 0.2vw, 4px);
 }

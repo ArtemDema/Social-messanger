@@ -29,33 +29,34 @@ closeButton.addEventListener('click', () => {
 
 
 createlinkBtn.addEventListener('click', () => {
-    console.log(listLink.childElementCount)
-    if(listLink.childElementCount == 2){
-        button = document.createElement('button')
-        button.type = 'button'
-        button.textContent = '-'
-        button.classList.add('delete-link')
-
-        listLink.append(button)
-
-        button.addEventListener('click', () => {
-            if(listLink.childElementCount == 3){
-                button.remove()
-            }
-            link = listLink.lastElementChild
-            link.remove()
-        })
-    }
-
-    if(listLink.childElementCount <= 12){
+    if(listLink.childElementCount <= 11){
         link = document.createElement('input')
         link.type = 'url'
-        link.name = 'link'
+        link.name = 'links'
         link.placeholder = "Введіть посилання"
 
-        const lastElement = listLink.children[-1];
+        if(listLink.childElementCount == 2){
+            const lastElement = listLink.lastElementChild;
+        }
+        const lastElement = listLink.children[listLink.children.length - 2];
         
         listLink.insertBefore(link, lastElement);
+    }
+
+    if(listLink.childElementCount == 3){
+        img = document.createElement('img')
+        img.src = MINUS_ICON
+        img.classList.add('delete-link')
+
+        listLink.append(img)
+
+        img.addEventListener('click', () => {
+            if(listLink.childElementCount == 4){
+                img.remove()
+            }
+            link = listLink.children[listLink.children.length - 3];
+            link.remove()
+        })
     }
 })
 

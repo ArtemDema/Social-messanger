@@ -35,5 +35,3 @@ class HomeView(LoginRequiredMixin, TemplateView):
             "answer": False,
             "errors": form.errors.get_json_data()
         })
-            
-            
