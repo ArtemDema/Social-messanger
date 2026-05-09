@@ -1,0 +1,23 @@
+{% for post in posts %}
+    <div class="post">
+        <h1>{{ post.title }}</h1>
+        <h1>{{ post.author.email }}</h1>
+        <h1>{{ post.topic }}</h1>
+        <p>{{ post.content }}</p>
+        {% for image in post.image.all %}
+            <img src="{{ image.compressed.url }}">
+        {% endfor %}
+        <h1>Tags:</h1>
+        <ul>
+            {% for tag in post.tags.all %}
+                <li>{{ tag.name }}</li>
+            {% endfor %} 
+        </ul>
+        <h1>Links:</h1>
+        <ul>
+            {% for link in post.links.all %}
+                <li>{{ link.url }}</li>
+            {% endfor %} 
+        </ul>
+    </div>
+{% endfor %}

@@ -15,15 +15,18 @@
             
             <div class="post-error-container"></div>
             
-            <form method="post" action="" class="post-modal-form">
+            <form method="post" action="" class="post-modal-form" enctype="multipart/form-data">
                 <p>Назва публікації</p>
-                {{ form.title}}
+                {{ form_post.title}}
                 <p>Тема публікації</p>
-                {{ form.topic}}
+                {{ form_post.topic}}
                 
-                {{ form.tags}}
+                <div class="form-tags-div">
+                    {{ form_post.tags}}
+                    <img class="post-create-tag" src="{% static 'post_app/images/plus_link.png' %}" alt="">
+                </div>
                 
-                {{ form.content}}
+                {{ form_post.content}}
 
                 <div class="post-list-links">
                     <input type="url" name="links" placeholder="Введіть посилання">
@@ -31,7 +34,13 @@
                     <img class="post-create-link" src="{% static 'post_app/images/plus_link.png' %}" alt="">
                 </div>
 
+                <div class="post-preview-container"></div>
+
                 <div class="confirm-post-button">
+                    {{ form_post.images }}
+                    
+                    <img id="photo-img" src="{% static 'post_app/images/add_photo.png' %}" alt="">
+
                     <button class="confirm" type="submit">
                         Публікація
                         <img src="{% static 'post_app/images/post_image.png' %}" alt="">
@@ -39,7 +48,7 @@
                 </div>
                 
             </form>
-
+        
         </div>
     </div>
 </div>

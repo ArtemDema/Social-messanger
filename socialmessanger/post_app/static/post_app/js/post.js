@@ -8,22 +8,56 @@ const createlinkBtn = document.querySelector('.post-create-link')
 const listLink = document.querySelector('.post-list-links')
 const delLinkBtn = document.querySelector('.post-delete-link')
 
-const modalWindow = document.querySelector('.post-modal-window')
+const postModalWindow = document.querySelector('.post-modal-window')
 
 
 const tagsContainer = document.querySelector('#id_tags')
 const textArea = document.querySelector('#id_content')
 
+const postImage = document.querySelector('#photo-img')
+const postImageButton = document.querySelector('#id_images')
+
+const previewContainer = document.querySelector('.post-preview-container')
+
+postImage.addEventListener('click', ()=> {
+    postImageButton.click()
+})
+
+postImageButton.addEventListener('change', function() {
+    previewContainer.innerHTML = ""
+    
+    const files = this.files
+
+    for(const file of files){
+
+        if(!file.type.startsWith("image/")){
+            continue
+        }
+
+        const reader = new FileReader()
+
+        reader.onload = function(event){
+
+            const img = document.createElement('img')
+            img.src = event.target.result
+            img.classList.add('preview-image')
+
+            previewContainer.append(img)
+        }
+
+        reader.readAsDataURL(file)
+    }
+})
 
 
 postButton.addEventListener('click', () => {
-    modalWindow.style = ""
+    postModalWindow.style = ""
 })
 
 
 
 closeButton.addEventListener('click', () => {
-    modalWindow.style.display = 'none'
+    postModalWindow.style.display = 'none'
 })
 
 
@@ -71,16 +105,16 @@ modalForm.addEventListener("submit", async function(event){
     const formData = new FormData(event.target)
 
     const responce = await fetch(modalForm.action, {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-CSRFToken": getCSRFToken(),
-                "X-Requested-With": "XMLHttpRequest"
-            }
+        method: "POST",
+        body: formData,
+        headers: {
+            "X-CSRFToken": getCSRFToken(),
+            "X-Requested-With": "XMLHttpRequest"
+        }
     })
     const data = await responce.json()
     if (data.answer == true){
-        modalWindow.style.display = 'none'
+        postModalWindow.style.display = 'none'
     }
     else{
         modalError.innerHTML = ""

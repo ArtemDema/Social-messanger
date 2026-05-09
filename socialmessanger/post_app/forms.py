@@ -3,7 +3,7 @@ from .models import *
 from PIL import Image
 from io import BytesIO
 from django.core.files.base import ContentFile
-
+from .models import PostTag
 
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
@@ -141,6 +141,16 @@ class PostForm(forms.ModelForm):
                 height = int(height * 0.9)
                 image_obj = image_obj.resize((width, height), Image.Resampling.LANCZOS)
 
-            image.seek(0)
-            compressed_name = f"compressed_{image.name.rsplit('.', 1)[0]}.jpg"
-            return ContentFile(buffer.getvalue(), name=compressed_name)
+        image.seek(0)
+        compressed_name = f"compressed_{image.name.rsplit('.', 1)[0]}.jpg"
+        return ContentFile(buffer.getvalue(), name=compressed_name)
+
+
+class PostTagForm(forms.ModelForm):
+    class Meta:
+        model = PostTag
+        fields = ("name",)
+        widget = {"name": forms.TextInput(attrs={"placeholder": "#"})}
+    
+        labels = {
+            "name": "Назва"}

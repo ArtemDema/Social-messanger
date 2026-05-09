@@ -16,6 +16,8 @@ const confirmErrors = document.querySelector(".confirm-error-container")
 
 const navBtns = document.querySelector(".switch")
 
+const confInputs = document.querySelectorAll('[id^="id_confirm"]');
+
 
 registerBtn.addEventListener('click', () => {
     registerFormDiv.classList.remove('hidden-form')
@@ -153,3 +155,23 @@ backBtn.addEventListener('click', () => {
 
     navBtns.classList.remove('hidden-form')
 })
+
+
+confInputs.forEach((input, index) => {
+
+    input.addEventListener('input', (e) => {
+        const value = e.target.value;
+
+        if (value && index < confInputs.length - 1) {
+            confInputs[index + 1].focus();
+        }
+    });
+
+    input.addEventListener('keydown', (e) => {
+
+        if (e.key === 'Backspace' && !input.value && index > 0) {
+            confInputs[index - 1].focus();
+        }
+    });
+
+});

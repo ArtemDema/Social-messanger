@@ -20,7 +20,9 @@
 
 <body>
     <header>
-        <img src="{% static 'images/logo.png' %}" alt="" id = 'logo'>
+            <a href="{% url 'home_page' %}">
+                <img src="{% static 'images/logo.png' %}" alt="" id = 'logo'>
+            </a>
 
         <nav>
             <a href="{% url 'home_page' %}" class="redirect-link home-link">

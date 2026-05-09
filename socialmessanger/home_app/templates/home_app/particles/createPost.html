@@ -15,7 +15,7 @@
             
             <div class="post-error-container"></div>
             
-            <form method="post" action="{% url 'post_page' %}" class="post-modal-form">
+            <form method="post" action="{% url 'post_page' %}" class="post-modal-form" enctype="multipart/form-data">
                 <p>Назва публікації</p>
                 {{ post_form.title}}
                 <p>Тема публікації</p>

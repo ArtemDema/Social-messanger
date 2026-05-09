@@ -9,6 +9,7 @@
 {% block meta %}
     <meta name="csrf_token" content = '{{ csrf_token }}'>
 {% endblock %}
+
 {% block sidebar %}
     <div class="profile-block">
         <img src="{% static 'images/profile_image.png' %}" alt="" id="profile-image">
@@ -52,10 +53,19 @@
                 <button type="button" class="post-create-post">Перейти до оформлення</button>
         </div> 
     </div>
+
+    <div id="post-list">
+
+        {% include "post_app/particles/post_list.html" %}
+
+        <div id="load-post-line" style="width: 100%; height: 1vh;"></div>
+    </div>
 {% endblock %}
 
 {% block modal %}
     {% include "post_app/particles/createPost.html" %}
+
+    {% include "post_app/particles/createTag.html" %}
 
     <!-- {% if not user.first_name %}
         {% include "post_app/particles/username.html" %}
@@ -64,6 +74,8 @@
 
 {% block scripts %}
     <script src="{% static 'post_app/js/post.js' %}"></script>
+    <script src="{% static 'post_app/js/load_post.js' %}"></script>
+    <script src="{% static 'post_app/js/tag.js' %}"></script>
     <script>
         const MINUS_ICON = "{% static 'post_app/images/minus_link.png' %}"
     </script>

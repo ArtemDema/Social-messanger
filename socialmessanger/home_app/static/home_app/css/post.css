@@ -113,6 +113,7 @@ textarea{
     display: flex;
     flex-direction: row;
     gap: clamp(0px, 0.5vw, 10px);
+    flex-wrap: wrap;
 }
 
 #id_tags input{
@@ -174,4 +175,5 @@ textarea{
     flex-direction: row;
     align-items: center;
     gap: clamp(0px, 0.2vw, 4px);
+    flex-wrap: wrap;
 }
