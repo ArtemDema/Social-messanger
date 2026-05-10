@@ -16,38 +16,78 @@ const textArea = document.querySelector('#id_content')
 
 const postImage = document.querySelector('#photo-img')
 const postImageButton = document.querySelector('#id_images')
-
 const previewContainer = document.querySelector('.post-preview-container')
 
-postImage.addEventListener('click', ()=> {
+const postTextArea = document.querySelector('#post-textarea')
+
+let selectedFiles = []
+
+postImage.addEventListener('click', () => {
     postImageButton.click()
 })
 
-postImageButton.addEventListener('change', function() {
+
+postImageButton.addEventListener('change', function () {
+
+    selectedFiles = Array.from(this.files)
+
+    renderPreviews()
+})
+
+
+function renderPreviews() {
+
     previewContainer.innerHTML = ""
-    
-    const files = this.files
 
-    for(const file of files){
+    selectedFiles.forEach((file, index) => {
 
-        if(!file.type.startsWith("image/")){
-            continue
-        }
+        if (!file.type.startsWith("image/")) return
 
         const reader = new FileReader()
 
-        reader.onload = function(event){
+        reader.onload = function (event) {
+
+            const wrapper = document.createElement('div')
+            wrapper.classList.add('preview-wrapper')
 
             const img = document.createElement('img')
             img.src = event.target.result
             img.classList.add('preview-image')
 
-            previewContainer.append(img)
+            const btn = document.createElement('button')
+            btn.type = "button"
+            btn.textContent = "✕"
+            btn.classList.add('remove-btn')
+
+            btn.addEventListener('click', () => {
+                removeFile(index)
+            })
+
+            wrapper.appendChild(img)
+            wrapper.appendChild(btn)
+
+            previewContainer.appendChild(wrapper)
         }
 
         reader.readAsDataURL(file)
-    }
-})
+    })
+}
+
+
+function removeFile(index) {
+
+    selectedFiles.splice(index, 1)
+
+    const dataTransfer = new DataTransfer()
+
+    selectedFiles.forEach(file => {
+        dataTransfer.items.add(file)
+    })
+
+    postImageButton.files = dataTransfer.files
+
+    renderPreviews()
+}
 
 
 postButton.addEventListener('click', () => {
@@ -154,4 +194,8 @@ tagsContainer.addEventListener('change', function(event) {
         textArea.value = textArea.value.replace(hashtag, '').replace(/\s\s+/g, ' ').trim();
         label.classList.toggle('is-active')
     }
+})
+
+postButton.addEventListener('click', ()=> {
+    textArea.value = postTextArea.value
 })

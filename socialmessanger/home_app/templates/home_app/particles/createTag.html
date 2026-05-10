@@ -16,13 +16,13 @@
             <div class="tag-error-container"></div>
             
             <form method="post" action="{% url 'tag_page' %}" class="tag-modal-form">
-                {{ form_tag.as_p }}
+                {{ tag_form.as_p }}
 
                 <div class="confirm-tag-button">
                     <button class="back" type="button">
                         Скасувати
                     </button>
-
+                    
                     <button class="confirm" type="submit">
                         Зберегти
                     </button>

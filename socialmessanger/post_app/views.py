@@ -1,4 +1,4 @@
-from django.views.generic import ListView, View
+from django.views.generic import ListView, View, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PostForm
 from django.http import JsonResponse
@@ -12,22 +12,13 @@ class HomeView(LoginRequiredMixin, ListView):
     template_name = "post_app/post.html"
     model = Post
     context_object_name = "posts"
-    paginate_by = 3
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form_post"] = PostForm()
         context["form_tag"] = PostTagForm()
         return context
-    
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-
-        if self.request.method == "POST":
-            kwargs["links"] = self.request.POST.getlist("links")
-            kwargs["images"] = self.request.FILES.getlist("images")
-        
-        return kwargs
     
     def get(self, request, *args, **kwargs):
         if request.headers.get("X-Requested-With") == "XMLHttpRequest":
@@ -41,10 +32,24 @@ class HomeView(LoginRequiredMixin, ListView):
                 })
             return JsonResponse({
                     "answer": True,
-                    "html": render_to_string(template_name = "post_app/particles/post_list.html", context = {"posts": post_list})
+                    "html": render_to_string(template_name = "post_app/particles/post_list.html", 
+                                             context = {
+                                                 "posts": post_list,
+                                                 "user": request.user
+                                                })
                 })
         return super().get(request, *args ,**kwargs)
 
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST, 
+                        request.FILES,     
+                        links=request.POST.getlist("links"),
+                        images=request.FILES.getlist("images"))
+    
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
     
     def form_valid(self, form):
         if self.request.user.is_authenticated:

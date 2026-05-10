@@ -9,19 +9,22 @@
                 </button>
             </div>
 
-        <h1>Стрворення публікації</h1>
+        <h1>Створення публікації</h1>
 
         <div class="post-modal-form-div">
             
             <div class="post-error-container"></div>
             
-            <form method="post" action="{% url 'post_page' %}" class="post-modal-form" enctype="multipart/form-data">
+            <form method="post" action="" class="post-modal-form" enctype="multipart/form-data">
                 <p>Назва публікації</p>
                 {{ post_form.title}}
                 <p>Тема публікації</p>
                 {{ post_form.topic}}
                 
-                {{ post_form.tags}}
+                <div class="form-tags-div">
+                    {{ post_form.tags}}
+                    <img class="post-create-tag" src="{% static 'post_app/images/plus_link.png' %}" alt="">
+                </div>
                 
                 {{ post_form.content}}
 
@@ -31,7 +34,13 @@
                     <img class="post-create-link" src="{% static 'post_app/images/plus_link.png' %}" alt="">
                 </div>
 
+                <div class="post-preview-container"></div>
+
                 <div class="confirm-post-button">
+                    {{ post_form.images }}
+                    
+                    <img id="photo-img" src="{% static 'post_app/images/add_photo.png' %}" alt="">
+
                     <button class="confirm" type="submit">
                         Публікація
                         <img src="{% static 'post_app/images/post_image.png' %}" alt="">
@@ -39,7 +48,7 @@
                 </div>
                 
             </form>
-
+        
         </div>
     </div>
 </div>

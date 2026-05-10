@@ -29,7 +29,7 @@ class PostForm(forms.ModelForm):
         label= "Зображення",
         required=False,
         widget= MultipleFileInput(
-            attrs= {'multiple': True, "accept": "images/*"}
+            attrs= {'multiple': True, "accept": "image/*"}
         )
     )
 

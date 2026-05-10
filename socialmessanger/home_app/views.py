@@ -1,4 +1,4 @@
-from post_app.forms import PostForm
+from post_app.forms import PostForm, PostTagForm
 from .forms import *
 from django.views.generic import TemplateView
 from .forms import SetUsernameForm
@@ -13,6 +13,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["home_form"] = SetUsernameForm()
         context["post_form"] = PostForm()
+        context["tag_form"] = PostTagForm()
         return context
     
     def post(self, request, *args, **kwargs):
