@@ -1,0 +1,27 @@
+{% for user in users %}
+    <div class="card">
+        <h3>{{ user.email }}</h3>
+
+        {% if section == 'friends' %}
+            <div class="card-buttons">
+                <button class="first-button">Повідомлення</button>
+                <button class="second-button">Видалити</button>
+            </div>
+        {% endif %}
+        
+        {% if section == 'recommendations' %}
+            <div class="card-buttons">
+                <button class="first-button">Додати</button>
+                <button class="second-button">Видалити</button>
+            </div>
+        {% endif %}
+        
+        {% if section == 'requests' %}
+            <div class="card-buttons">
+                <button class="first-button">Підтвердити</button>
+                <button class="second-button">Видалити</button>
+            </div>
+        {% endif %}
+
+    </div>
+{% endfor %}

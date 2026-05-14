@@ -14,20 +14,50 @@
 {% endblock %}
 
 {% block content %}
-    <div id='main-cnt'>
-        <h1>Головна</h1>
+    <div class="section main-cnt">
+        {% for key, section in sections.items %}
+            <div class="section-background">
+                <div class="section-top">
+                    <h2>{{ section.title }}</h2>
+                    <button>Дивитись усі</button>
+                </div>
+                
+                <div class="section-cards">
+                    {% include "friends_app/particles/friends_cards.html" with users=section.users section=key %}
+                </div>
+            </div>
+
+        {% endfor %}
     </div>
 
-    <div class="hidden" id="requests-cnt">
+    <div class="section requests-cnt hidden">
         <h1>Запити</h1>
+
+        <div class="section-background">
+            <div class="section-cards">
+                {% include "friends_app/particles/friends_cards.html" with users=sections.requests.users section="requests" %}
+            </div>
+        </div>
     </div>
 
-    <div class="hidden" id="recomendations-cnt">
+    <div class="section recomendations-cnt hidden">
         <h1>Рекомендації</h1>
+
+        <div class="section-background">
+            <div class="section-cards">
+                {% include "friends_app/particles/friends_cards.html" with users=sections.recommendations.users section="recommendations" %}
+            </div>
+           
+        </div>
     </div>
 
-    <div class="hidden" id ='all-friends-cnt'>
+    <div class="section all-friends-cnt hidden">
         <h1>Всі друзі</h1>
+
+        <div class="section-background">
+            <div class="section-cards">
+                {% include "friends_app/particles/friends_cards.html" with users=sections.friends.users section="friends" %}
+            </div> 
     </div>
 {% endblock %}
 

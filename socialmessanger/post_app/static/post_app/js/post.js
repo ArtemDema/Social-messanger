@@ -54,17 +54,18 @@ function renderPreviews() {
             img.src = event.target.result
             img.classList.add('preview-image')
 
-            const btn = document.createElement('button')
-            btn.type = "button"
-            btn.textContent = "✕"
-            btn.classList.add('remove-btn')
+            const photo_img = document.createElement('img')
+            photo_img.src = DELETE_BUTTON
+            photo_img.classList.add('delete-photo')
 
-            btn.addEventListener('click', () => {
+            photo_img.classList.add('remove-btn')
+
+            photo_img.addEventListener('click', () => {
                 removeFile(index)
             })
 
             wrapper.appendChild(img)
-            wrapper.appendChild(btn)
+            wrapper.appendChild(photo_img)
 
             previewContainer.appendChild(wrapper)
         }

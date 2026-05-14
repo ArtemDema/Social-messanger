@@ -3,10 +3,10 @@ const btnRequests = document.querySelector('#requests-btn')
 const btnRecomendations = document.querySelector('#recomendations-btn')
 const btnAllFriends = document.querySelector('#all-friends-btn')
 
-const cntMain = document.querySelector('#main-cnt')
-const cntRequests = document.querySelector('#requests-cnt')
-const cntRecomendations = document.querySelector('#recomendations-cnt')
-const cntAllFriends = document.querySelector('#all-friends-cnt')
+const cntMain = document.querySelector('.main-cnt')
+const cntRequests = document.querySelector('.requests-cnt')
+const cntRecomendations = document.querySelector('.recomendations-cnt')
+const cntAllFriends = document.querySelector('.all-friends-cnt')
 
 
 btnMain.addEventListener('click', () => {

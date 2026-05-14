@@ -31,7 +31,7 @@
     align-items: top;
     flex-direction: column;
     gap: 2vh;
-    border-radius: 20px;
+    -radius: 20px;
     padding: clamp(0px, 1.5vh, 25px);
 }
 
@@ -261,8 +261,8 @@ textarea{
 }
 
 .preview-image{
-    width: 15vw;
-    height: 27.5vh;
+    width: clamp(0px, 15vw, 300px);
+    height: clamp(0px, 27.5vh, 300px);
     border-radius: 16px;
 }
 
@@ -389,4 +389,18 @@ p{
 
 .image-post{
     flex-wrap: wrap;
+}
+
+.remove-btn{
+    width: clamp(0px, 2.5vw, 35px);
+    height: clamp(0px, 3.5vh, 70px);
+    position: absolute;
+    left: clamp(0px, 12.5vw, 245px);
+    top: clamp(0px, 0.7vh, 14px);
+}
+
+.preview-wrapper{
+    display: flex;
+    flex-direction: row;
+    position: relative;
 }

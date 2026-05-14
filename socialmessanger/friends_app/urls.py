@@ -2,5 +2,5 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', render_friends, name= 'friends_page')
+    path('', FriendsView.as_view(), name= 'friends_page')
 ]
