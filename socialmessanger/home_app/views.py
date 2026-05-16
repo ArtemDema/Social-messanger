@@ -1,13 +1,17 @@
 from post_app.forms import PostForm, PostTagForm
 from .forms import *
-from django.views.generic import TemplateView
+from django.views.generic import ListView
 from .forms import SetUsernameForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
+from post_app.models import Post
 
 
-class HomeView(LoginRequiredMixin, TemplateView):
+class HomeView(LoginRequiredMixin, ListView):
     template_name = 'home_app/home.html'
+    model = Post
+    context_object_name = "posts"
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

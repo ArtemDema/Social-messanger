@@ -1,66 +1,92 @@
-const btnMain = document.querySelector('#main-btn')
-const btnRequests = document.querySelector('#requests-btn')
-const btnRecomendations = document.querySelector('#recomendations-btn')
-const btnAllFriends = document.querySelector('#all-friends-btn')
+const sectionButtons = document.querySelectorAll("[data-section-link]")
+const allSections = document.querySelector('.main-cnt')
 
-const cntMain = document.querySelector('.main-cnt')
-const cntRequests = document.querySelector('.requests-cnt')
-const cntRecomendations = document.querySelector('.recomendations-cnt')
-const cntAllFriends = document.querySelector('.all-friends-cnt')
+const currentSection = document.querySelector('#current-section')
+const currentSectionTitle = document.querySelector('#current-section-title')
+const currentSectionList = document.querySelector('#current-section-list')
+const currentSectionLoadLine = document.querySelector('#current-section-load-line')
 
+const sectionSideButtons = document.querySelectorAll('.settings-button')
 
-btnMain.addEventListener('click', () => {
-    btnMain.classList.add('select-button')
-    btnRequests.classList.remove('select-button')
-    btnRecomendations.classList.remove('select-button')
-    btnAllFriends.classList.remove('select-button')
+const titles = {
+    requests: 'Запити',
+    recommendations: "Рекомендації",
+    friends: "Всі друзі"
+}
+
+let currentSectionName = ''
+let currentPage = 1
+let hasNext = false
+let isLoading = false
+
+function setActiveButton(activeButton){
+    sectionButtons.forEach((button)=>{
+        button.classList.remove('select-button')
+    })
+
+    activeButton.classList.add('select-button')
+}
+
+async function loadSection(section, page) {
+    isLoading = true
+    const response = await fetch(`/friends/${section}/?page=${page}`, {headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+    }})
+    const data = await response.json()
+    hasNext = data.has_next
+    if (hasNext == false){
+        friendsObserver.disconnect()
+    }
+    const h_two = `<h2>${titles[section]}</h2>`
     
+    const htmlString = `<div class="section-background">
+                            <div class="section-top">
+                               ${h_two}
+                            </div>
+                            <div class="section-cards">
+                                ${data.html}
+                             </div>
+                        </div>`;
+    currentSectionLoadLine.insertAdjacentHTML('beforebegin', htmlString)
+    isLoading = false
 
-    cntMain.classList.remove('hidden')
-    cntRequests.classList.add('hidden')
-    cntRecomendations.classList.add('hidden')
-    cntAllFriends.classList.add('hidden')
+}
+
+async function openSection(section){
+    currentSectionName = section
+    allSections.style.display = 'none'
+    currentSection.style.display = 'flex'
+    currentPage = 1
+    currentSection.querySelector('.section-background').remove()
+    friendsObserver.observe(currentSectionLoadLine)
+    await loadSection(section, currentPage)
+}
+
+const friendsObserver = new IntersectionObserver(async (entries)=>{
+    if (entries[0].isIntersecting && isLoading == false && hasNext == true){
+        currentPage += 1
+        await loadSection(currentSectionName, currentPage)
     }
-)
+}, {
+    rootMargin: "200px"
+})
 
-btnRequests.addEventListener('click', () => {
-    btnRequests.classList.add('select-button')
-    btnMain.classList.remove('select-button')
-    btnRecomendations.classList.remove('select-button')
-    btnAllFriends.classList.remove('select-button')
+sectionButtons.forEach((sectionButton) => {
+    sectionButton.addEventListener('click', async function(){
+        setActiveButton(sectionButton)
 
+        if (sectionButton.dataset.sectionLink == 'main'){
+            allSections.style.display = 'flex'
+            currentSection.style.display = 'none'
+            return
+        }
 
-    cntRequests.classList.remove('hidden')
-    cntMain.classList.add('hidden')
-    cntRecomendations.classList.add('hidden')
-    cntAllFriends.classList.add('hidden')
-    }
-)
+        sectionSideButtons.forEach((sectionSideButton) => {
+            if (sectionSideButton.dataset.sectionLink == sectionButton.dataset.sectionLink){
+                sectionSideButton.classList.add('select-button')
+            }
+        })
 
-btnRecomendations.addEventListener('click', () => {
-    btnRequests.classList.remove('select-button')
-    btnMain.classList.remove('select-button')
-    btnRecomendations.classList.add('select-button')
-    btnAllFriends.classList.remove('select-button')
-
-
-    cntMain.classList.add('hidden')
-    cntRequests.classList.add('hidden') 
-    cntAllFriends.classList.add('hidden')
-    cntRecomendations.classList.remove('hidden')
-    }
-)
-
-btnAllFriends.addEventListener('click', () => {
-    btnAllFriends.classList.add('select-button')
-    btnMain.classList.remove('select-button')
-    btnRecomendations.classList.remove('select-button')
-    btnRequests.classList.remove('select-button')
-
-
-    cntMain.classList.add('hidden')
-    cntRequests.classList.add('hidden')
-    cntRecomendations.classList.add('hidden')
-    cntAllFriends.classList.remove('hidden')
-    }
-)
+        await openSection(sectionButton.dataset.sectionLink)
+    })
+})

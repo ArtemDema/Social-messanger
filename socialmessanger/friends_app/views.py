@@ -1,6 +1,9 @@
-from .utils.friends import *
+from django.views.generic import TemplateView, View
+from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
+from .utils.friends import get_friends_by_section
+from django.core.paginator import Paginator
+from django.template.loader import render_to_string
 
 class FriendsView(LoginRequiredMixin, TemplateView):
     template_name = 'friends_app/friends.html'
@@ -9,9 +12,21 @@ class FriendsView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         context["sections"] = {
-            "request": {"title": "Запити", "users": get_friends_by_section(current_user = self.request.user, section = "requests")},
-            "recommendations": {"title": "Рекомендації", "users": get_friends_by_section(current_user = self.request.user, section = "recommendations")},
-            "friends": {"title": "Друзі", "users": get_friends_by_section(current_user = self.request.user, section = "friends")}
+            "requests": {"title": "Запити", "users": get_friends_by_section(current_user = self.request.user, section = "requests")[:3]},
+            "recommendations": {"title": "Рекомендації", "users": get_friends_by_section(current_user = self.request.user, section = "recommendations")[:6]},
+            "friends": {"title": "Друзі", "users": get_friends_by_section(current_user = self.request.user, section = "friends")[:6]}
         }
 
         return context
+    
+class FriendsSectionView(View):
+    def get(self, request, section):
+        users = get_friends_by_section(current_user=request.user, section = section)
+        page_num = request.GET.get('page')
+        page = Paginator(users, 10).get_page(page_num)
+        html = render_to_string(
+            'friends_app/particles/friends_cards.html',
+            {'users': page.object_list, 
+             'section': section}
+        )
+        return JsonResponse({'html': html, "has_next": page.has_next()})

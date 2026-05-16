@@ -7,10 +7,10 @@
 {% endblock %} 
 
 {% block sidebar%}
-    <button id='main-btn' class="settings-button select-button">Головна</button>
-    <button id='requests-btn' class="settings-button">Запити</button>
-    <button id='recomendations-btn' class="settings-button">Рекомендації</button>
-    <button id='all-friends-btn' class="settings-button">Всі друзі</button>
+    <button data-section-link="main" class="settings-button select-button">Головна</button>
+    <button data-section-link="requests" class="settings-button">Запити</button>
+    <button data-section-link="recommendations" class="settings-button">Рекомендації</button>
+    <button data-section-link="friends" class="settings-button">Всі друзі</button>
 {% endblock %}
 
 {% block content %}
@@ -19,7 +19,7 @@
             <div class="section-background">
                 <div class="section-top">
                     <h2>{{ section.title }}</h2>
-                    <button>Дивитись усі</button>
+                    <button data-section-link="{{ key }}">Дивитись усі</button>
                 </div>
                 
                 <div class="section-cards">
@@ -29,36 +29,7 @@
 
         {% endfor %}
     </div>
-
-    <div class="section requests-cnt hidden">
-        <h1>Запити</h1>
-
-        <div class="section-background">
-            <div class="section-cards">
-                {% include "friends_app/particles/friends_cards.html" with users=sections.requests.users section="requests" %}
-            </div>
-        </div>
-    </div>
-
-    <div class="section recomendations-cnt hidden">
-        <h1>Рекомендації</h1>
-
-        <div class="section-background">
-            <div class="section-cards">
-                {% include "friends_app/particles/friends_cards.html" with users=sections.recommendations.users section="recommendations" %}
-            </div>
-           
-        </div>
-    </div>
-
-    <div class="section all-friends-cnt hidden">
-        <h1>Всі друзі</h1>
-
-        <div class="section-background">
-            <div class="section-cards">
-                {% include "friends_app/particles/friends_cards.html" with users=sections.friends.users section="friends" %}
-            </div> 
-    </div>
+    {% include "friends_app/particles/friends_section.html" %}
 {% endblock %}
 
 <!-- {% block modal %}
