@@ -242,11 +242,21 @@ textarea{
 }
 
 .post-list-links{
+    width: 60%;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: clamp(0px, 0.2vw, 4px);
     flex-wrap: wrap;
+}
+
+.post-list-links input{
+    height: clamp(0px, 4vh, 50px);
+    width: clamp(0px, 20vw, 400px);
+    border-radius: 10px;
+    border: 2px solid #CDCED2;
+    display: flex;
+    justify-content: left;
 }
 
 #id_images{
@@ -404,3 +414,10 @@ p{
     flex-direction: row;
     position: relative;
 }
+
+.post-list-links{
+    display: flex;
+    flex-direction: row;
+
+}
+

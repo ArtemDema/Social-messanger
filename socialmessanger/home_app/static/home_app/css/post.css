@@ -247,6 +247,7 @@ textarea{
     align-items: center;
     gap: clamp(0px, 0.2vw, 4px);
     flex-wrap: wrap;
+
 }
 
 #id_images{
