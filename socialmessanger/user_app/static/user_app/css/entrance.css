@@ -13,6 +13,10 @@ nav{
     display: none !important;
 }
 
+.header-div{
+    justify-content: center !important;
+}
+
 .registration-content {
     display: flex;
     flex-direction: column;

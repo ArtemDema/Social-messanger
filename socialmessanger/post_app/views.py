@@ -6,6 +6,7 @@ from .models import Post
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from .forms import PostTagForm
+from home_app.forms import SetUsernameForm
 
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -18,6 +19,7 @@ class HomeView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["form_post"] = PostForm()
         context["form_tag"] = PostTagForm()
+        context["home_form"] = SetUsernameForm()
         return context
     
     def get(self, request, *args, **kwargs):

@@ -67,15 +67,16 @@
 
     {% include "post_app/particles/createTag.html" %}
 
-    <!-- {% if not user.first_name %}
+    {% if not user.first_name %}
         {% include "post_app/particles/username.html" %}
-    {% endif %} -->
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}
     <script src="{% static 'post_app/js/post.js' %}"></script>
     <script src="{% static 'post_app/js/load_post.js' %}"></script>
     <script src="{% static 'post_app/js/tag.js' %}"></script>
+    <script src="{% static 'home_app/js/home.js' %}"></script>
     <script>
         const MINUS_ICON = "{% static 'post_app/images/minus_link.png' %}"
     </script>

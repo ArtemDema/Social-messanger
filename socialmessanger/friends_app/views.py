@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .utils.friends import get_friends_by_section
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
+from home_app.forms import SetUsernameForm
 
 class FriendsView(LoginRequiredMixin, TemplateView):
     template_name = 'friends_app/friends.html'
@@ -11,6 +12,7 @@ class FriendsView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        context["home_form"] = SetUsernameForm()
         context["sections"] = {
             "requests": {"title": "Запити", "users": get_friends_by_section(current_user = self.request.user, section = "requests")[:3]},
             "recommendations": {"title": "Рекомендації", "users": get_friends_by_section(current_user = self.request.user, section = "recommendations")[:6]},

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block meta %}
+    <meta name="csrf_token" content = '{{ csrf_token }}'>
+{% endblock %}
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'friends_app/css/friends.css'%}">
@@ -32,13 +35,14 @@
     {% include "friends_app/particles/friends_section.html" %}
 {% endblock %}
 
-<!-- {% block modal %}
+{% block modal %}
     {% if not user.first_name %}
         {% include "friends_app/particles/username.html" %}
     {% endif %}
-{% endblock %} -->
+{% endblock %}
 
 {% block scripts %}
     <script src="{% static 'friends_app/js/buttons.js' %}"></script>
+    <script src="{% static 'home_app/js/home.js' %}"></script>
 {% endblock %}
 

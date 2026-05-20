@@ -9,6 +9,7 @@ from .models import User
 from django.views import View
 from django.http import HttpRequest
 from django.shortcuts import redirect
+from home_app.forms import SetUsernameForm
 
 # Create your views here.
 def render_user(request):
@@ -17,11 +18,13 @@ def render_user(request):
         template_name='user_app/user.html'
     )
 
-def render_settings(request):
-    return render(
-        request=request,
-        template_name='user_app/settings.html'
-    )
+class SettingsView(TemplateView):
+    template_name = 'user_app/settings.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["home_form"] = SetUsernameForm()
+        return context
 
 class AuthView(TemplateView):
     template_name = 'user_app/entrance.html'

@@ -2,7 +2,6 @@ const sectionButtons = document.querySelectorAll("[data-section-link]")
 const allSections = document.querySelector('.main-cnt')
 
 const currentSection = document.querySelector('#current-section')
-const currentSectionTitle = document.querySelector('#current-section-title')
 const currentSectionList = document.querySelector('#current-section-list')
 const currentSectionLoadLine = document.querySelector('#current-section-load-line')
 
@@ -37,19 +36,8 @@ async function loadSection(section, page) {
     if (hasNext == false){
         friendsObserver.disconnect()
     }
-    const h_two = `<h2>${titles[section]}</h2>`
-    
-    const htmlString = `<div class="section-background">
-                            <div class="section-top">
-                               ${h_two}
-                            </div>
-                            <div class="section-cards">
-                                ${data.html}
-                             </div>
-                        </div>`;
-    currentSectionLoadLine.insertAdjacentHTML('beforebegin', htmlString)
+    currentSectionList.insertAdjacentHTML('beforeend', data.html)
     isLoading = false
-
 }
 
 async function openSection(section){
@@ -57,7 +45,14 @@ async function openSection(section){
     allSections.style.display = 'none'
     currentSection.style.display = 'flex'
     currentPage = 1
-    currentSection.querySelector('.section-background').remove()
+    currentSectionList.innerHTML = ""
+
+    const h_two = `<h2>${titles[section]}</h2>`
+    const htmlString = `<div class="section-top">
+                            ${h_two}
+                        </div>`
+    currentSectionList.insertAdjacentHTML('beforeend', htmlString)
+
     friendsObserver.observe(currentSectionLoadLine)
     await loadSection(section, currentPage)
 }
@@ -68,7 +63,7 @@ const friendsObserver = new IntersectionObserver(async (entries)=>{
         await loadSection(currentSectionName, currentPage)
     }
 }, {
-    rootMargin: "200px"
+    rootMargin: "80px"
 })
 
 sectionButtons.forEach((sectionButton) => {
@@ -86,7 +81,7 @@ sectionButtons.forEach((sectionButton) => {
                 sectionSideButton.classList.add('select-button')
             }
         })
-
+        
         await openSection(sectionButton.dataset.sectionLink)
     })
 })
