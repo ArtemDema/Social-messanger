@@ -3,5 +3,6 @@ from .views import *
 
 urlpatterns = [
     path('', FriendsView.as_view(), name= 'friends_page'),
-    path('<str:section>/', FriendsSectionView.as_view(), name = 'friends_section')
+    path('<str:section>/', FriendsSectionView.as_view(), name = 'friends_section'),
+    path('friends/<str:action>/<int:user_id>/', FriendsActionView.as_view(), name = 'friends_actions')
 ]

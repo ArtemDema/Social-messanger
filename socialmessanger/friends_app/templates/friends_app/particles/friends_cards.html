@@ -3,27 +3,24 @@
         <h3>{{ user.first_name }}</h3>
 
         <h4>{{ user.email }}</h4>
+        
+        {% if section == "requests" %}
+            <div class="card-buttons">
+                <button data-url="{% url 'friends_actions' 'accept' user.id %}" class="friend-action-btn first-button">Підтвердити</button>
+                <button data-url="{% url 'friends_actions' 'delete' user.id %}" class="friend-action-btn second-button">Відхилити</button>
+            </div>
 
-        {% if section == 'friends' %}
+        {% elif section == "friends" %}
             <div class="card-buttons">
                 <button class="first-button">Повідомлення</button>
-                <button class="second-button">Видалити</button>
+                <button data-url="{% url 'friends_actions' 'delete' user.id %}" class="friend-action-btn second-button">Видалити</button>
             </div>
-        {% endif %}
-        
-        {% if section == 'recommendations' %}
-            <div class="card-buttons">
-                <button class="first-button">Додати</button>
-                <button class="second-button">Видалити</button>
-            </div>
-        {% endif %}
-        
-        {% if section == 'requests' %}
-            <div class="card-buttons">
-                <button class="first-button">Підтвердити</button>
-                <button class="second-button">Видалити</button>
-            </div>
-        {% endif %}
 
+        {% elif section == "recommendations" %}
+            <div class="card-buttons">
+                <button data-url="{% url 'friends_actions' 'add' user.id %}" class="friend-action-btn first-button">Дотати</button>
+                <button data-url="{% url 'friends_actions' 'ignore' user.id %}" class="friend-action-btn second-button">Видалити</button>
+            </div>
+        {% endif %}
     </div>
 {% endfor %}

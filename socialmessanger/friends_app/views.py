@@ -5,6 +5,8 @@ from .utils.friends import get_friends_by_section
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from home_app.forms import SetUsernameForm
+from .utils.friends_action import *
+from user_app.models import User
 
 class FriendsView(LoginRequiredMixin, TemplateView):
     template_name = 'friends_app/friends.html'
@@ -32,3 +34,22 @@ class FriendsSectionView(View):
              'section': section}
         )
         return JsonResponse({'html': html, "has_next": page.has_next()})
+    
+class FriendsActionView(LoginRequiredMixin, View):
+    def post(self, request, action, user_id):
+        other_user = User.objects.get(id = user_id)
+        user = request.user
+
+        if action == "add":
+            return JsonResponse(add_friend_request(user, other_user))
+        elif action == 'delete':
+            return JsonResponse(delete_friendship(user, other_user))
+        elif action == 'ignore':
+            return JsonResponse(ignore_friendship(user, other_user))
+        elif action == 'accept':
+            data = accept_friend_request(user, other_user)
+            data['friend_html'] = render_to_string(
+                'user_app/particles/friends/friend_cards.html',
+                {'users': [other_user], 'section': 'friends'}
+            )
+            return JsonResponse(data)

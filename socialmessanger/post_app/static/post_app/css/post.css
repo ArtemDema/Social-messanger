@@ -247,6 +247,16 @@ textarea{
     align-items: center;
     gap: clamp(0px, 0.2vw, 4px);
     flex-wrap: wrap;
+    width: 60%;
+}
+
+.post-list-links input {
+    height: clamp(0px, 4vh, 50px);
+    width: clamp(0px, 20vw, 400px);
+    border-radius: 10px;
+    border: 2px solid #CDCED2;
+    display: flex;
+    justify-content: left;
 }
 
 #id_images{

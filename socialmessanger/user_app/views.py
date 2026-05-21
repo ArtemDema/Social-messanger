@@ -11,13 +11,6 @@ from django.http import HttpRequest
 from django.shortcuts import redirect
 from home_app.forms import SetUsernameForm
 
-# Create your views here.
-def render_user(request):
-    return render(
-        request=request,
-        template_name='user_app/user.html'
-    )
-
 class SettingsView(TemplateView):
     template_name = 'user_app/settings.html'
 

@@ -17,3 +17,9 @@
 {% block scripts %}
     <script src="{% static 'home_app/js/home.js' %}"></script>
 {% endblock %}
+
+{% block modal %}
+    {% if not user.first_name %}
+        {% include "user_app/particles/username.html" %}
+    {% endif %}
+{% endblock %}
