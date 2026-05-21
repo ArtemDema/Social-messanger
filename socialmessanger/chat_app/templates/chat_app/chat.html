@@ -18,25 +18,31 @@
 {% endblock%}
 
 {% block content %}
-    <div id="indiv-chats">
-        <h1>Повідомлення</h1>
-        {% for chat_data in individual_chats %}
-            <div class="chat" data-id="{{ chat_data.chat_id }}" style="border: 2px solid black; padding: 12px; width: max-content; cursor: pointer; margin: 10px;">
-                <h3>{{ chat_data.other_user.email }}</h3>
-            </div>
-        {% endfor %}
-    </div> 
-
-    <div id="not-select">
-        <h1 style="text-align: center;">Почніть нове спілкування</h1>
-        <p style="text-align: center;">Оберіть контакт зі списку ліворуч <br> або створіть групу, щоб почати спілкування</p>
+    <div class="main-block-chat">
+        <h3>Почніть нове спілкування</h3>
+        <h4>Оберіть контакт із списку ліворуч</h4>
+        <h4>або створить групу, щоб поччати спілкування</h4>
     </div>
 
-    <div id="chat" style="display: none; margin: 100px;">
-        <div id="messages"></div>
-        <div id="control-elements">
-            <input type="text" id="msg-input">
-            <button id="send-msg">Send</button>
+    <div class="right-block-chat">
+        <div class="message-right-block-chat">
+            <div class="name-right-block-chat">
+                <div class="name-chat-div">
+                    <img src="{% static 'images/chats.png' %}" alt="">
+                    <h4>Повідомлення</h4>
+                </div>
+                <button type="button">Дивитись усі</button>
+            </div>
+        </div>
+
+        <div class="chats-right-block-chat">
+            <div class="name-right-block-chat">
+                <div class="name-chat-div">
+                    <img src="{% static 'images/chats.png' %}" alt="">
+                    <h4>Групові чати</h4>
+                </div>
+                <button type="button">Дивитись усі</button>
+            </div>
         </div>
     </div>
 {% endblock%}
