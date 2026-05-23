@@ -90,6 +90,7 @@ confirmForm.addEventListener("submit", async function(event){
         }
     })
     const data = await responce.json()
+    console.log(data)
     if (data.answer == true){
         registerFormDiv.classList.add('hidden-form')
         authFormDiv.classList.remove('hidden-form')

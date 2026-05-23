@@ -3,7 +3,7 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'home_app/css/home.css'%}">
-    <link rel="stylesheet" href="{% static 'home_app/css/post.css'%}">
+    <link rel="stylesheet" href="{% static 'post_app/css/post.css'%}">
 {% endblock %}
 
 {% block meta %}
@@ -105,10 +105,14 @@
 
 {% block scripts %}
     <script src="{% static 'home_app/js/home.js' %}"></script>
-    <script src="{% static 'home_app/js/post.js' %}"></script>
-    <script src="{% static 'home_app/js/load_post.js' %}"></script>
-    <script src="{% static 'home_app/js/tag.js' %}"></script>
+    <script src="{% static 'post_app/js/post.js' %}"></script>
+    <script src="{% static 'post_app/js/load_post.js' %}"></script>
+    <script src="{% static 'post_app/js/tag.js' %}"></script>
     <script>
         const MINUS_ICON = "{% static 'post_app/images/minus_link.png' %}"
+    </script>
+
+    <script>
+        const DELETE_BUTTON = "{% static 'post_app/images/delete_photo.png' %}"
     </script>
 {% endblock %}

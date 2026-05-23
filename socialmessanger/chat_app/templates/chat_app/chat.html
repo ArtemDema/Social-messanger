@@ -7,21 +7,41 @@
 
 {% block sidebar %}
     <button class="create-chat-btn">Створити груповий чат</button>
-    <div class="side-block-chat">
 
+    <div class="side-block-chat">
         <div class="name-chat-div">
             <img src="{% static 'images/friends.png' %}" alt="">
             <h3>Контакти</h3>
         </div>
 
+        <input type="text" placeholder="Пошук">
+
+        <div class="contact-div-users">
+            {% for key, section in friends.items %}
+                {% for user in section %}
+                <div class="user-friends-div">
+                    <h4>{{ user.first_name }}</h4>
+                </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock%}
 
 {% block content %}
     <div class="main-block-chat">
-        <h3>Почніть нове спілкування</h3>
-        <h4>Оберіть контакт із списку ліворуч</h4>
-        <h4>або створить групу, щоб поччати спілкування</h4>
+        <div class="not-select">
+            <h3>Почніть нове спілкування</h3>
+            <h4>Оберіть контакт із списку ліворуч <br> або створить групу, щоб почати спілкування</h4>
+        </div>
+
+        <div id="chat" style="display: none;">
+            <div id="messages"></div>
+            <div id="control-elements">
+                <input type="text" id="msg-input">
+                <button id="send-msg">Send</button>
+            </div>
+        </div>
     </div>
 
     <div class="right-block-chat">
@@ -33,6 +53,14 @@
                 </div>
                 <button type="button">Дивитись усі</button>
             </div>
+
+            <div class="chat-div">
+                {% for chat_data in individual_chats %}
+                    <div class="chat" data-id="{{ chat_data.chat_id }}">
+                        <h3>{{ chat_data.other_user.first_name }}</h3>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
 
         <div class="chats-right-block-chat">
@@ -43,11 +71,22 @@
                 </div>
                 <button type="button">Дивитись усі</button>
             </div>
+
+            <div class="chat-div">
+                {% for chat_data in group_chats %}
+                    <div class="chat" data-id="{{ chat_data.chat_id }}">
+                        <h3>{{ chat_data.chat_name }}</h3>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock%}
 
 {% block modal %}
+    {% include "chat_app/particles/createGroup.html" %}
+    {% include "chat_app/particles/settingsGroup.html" %}
+
     {% if not user.first_name %}
         {% include "user_app/particles/username.html" %}
     {% endif %}

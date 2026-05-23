@@ -156,6 +156,7 @@ modalForm.addEventListener("submit", async function(event){
     const data = await responce.json()
     if (data.answer == true){
         postModalWindow.style.display = 'none'
+        modalForm.reset();
     }
     else{
         modalError.innerHTML = ""

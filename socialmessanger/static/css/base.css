@@ -16,12 +16,20 @@ html {
 
 h1{
     font-family: 'GTWalsheimPro';
+    margin: 0;
+    padding: 0;
 }
+
 h2{
     font-family: 'GTWalsheimPro';
+    margin: 0;
+    padding: 0;
 }
+
 h3{
     font-family: 'GTWalsheimPro';
+    margin: 0;
+    padding: 0;
 }
 
 body{

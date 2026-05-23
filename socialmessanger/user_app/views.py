@@ -107,6 +107,12 @@ class ConfirmView(View):
                     "answer": True,
                 })
             
+            else:
+                return JsonResponse({
+                    "answer": False,
+                    "errors": {"__all__": [{"message": "Ви ввели неправильний код"}]}
+                })
+            
         return JsonResponse({
             "answer": False,
             "errors": form.errors.get_json_data()
