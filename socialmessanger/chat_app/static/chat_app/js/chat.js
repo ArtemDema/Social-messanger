@@ -1,4 +1,4 @@
-const chatBtns = document.querySelectorAll(".chat")
+const chatBtns = [...document.querySelectorAll(".chat")];
 const chat = document.querySelector("#chat")
 const notSelectContainer = document.querySelector(".not-select")
 let chatSocket;
@@ -21,10 +21,34 @@ const selectedUsersContainer = document.querySelector(".selected-users")
 
 const userCheckboxes = chatCreateDiv.querySelectorAll("input[type='checkbox']")
 
-chatBtns.forEach(btn => {
+const photosBtn = document.querySelectorAll(".photo")
+const imagesBtn = document.querySelector("#id_images")
+
+const chatName = document.querySelector(".chat-name") 
+
+photosBtn.forEach(btn => {
     btn.addEventListener('click', ()=>{
+        imagesBtn.click()
+    })
+})
+
+chatBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const others = chatBtns.filter(button => button !== btn);
+        others.forEach(otherBtn => {
+            otherBtn.classList.remove('selected-chat');
+        });
+
         notSelectContainer.style.display = "none"
         chat.style.display = "flex"
+        
+        chatName.innerHTML = ""
+        const chatNameH = document.createElement('h2')
+        chatNameH.textContent = btn.dataset.name
+        chatName.appendChild(chatNameH)
+
+        btn.classList.add('selected-chat')
+        
         if (chatSocket){
             chatSocket.close()
         }
@@ -33,8 +57,6 @@ chatBtns.forEach(btn => {
         chatSocket = new WebSocket(url)
         chatSocket.onmessage = (event)=>{
             const data = JSON.parse(event.data)
-            console.log(data);
-            
         }
     })
 })
@@ -71,9 +93,25 @@ nextChatButton.addEventListener("click", ()=>{
 
     selectedUsers.forEach(cb => {
         const userDiv = document.createElement("div")
-        userDiv.textContent = cb.parentElement.textContent.trim()
+        const userP = document.createElement("p")
+        userP.textContent = cb.parentElement.textContent.trim()
+        userDiv.appendChild(userP)
         userDiv.dataset.id = cb.dataset.id
+
+        const deleteUserBtn = document.createElement("button")
+        deleteUserBtn.type = 'button'
+
+        const photo_img = document.createElement('img')
+        photo_img.src = DELETE_USER
+        deleteUserBtn.appendChild(photo_img)
+
+        deleteUserBtn.addEventListener("click", ()=>{
+            userDiv.remove()
+            deleteUserBtn.remove()
+        })
+        
         selectedUsersContainer.appendChild(userDiv)
+        userDiv.appendChild(deleteUserBtn)
     })
     
     chatCreateDiv.style.display = "none"

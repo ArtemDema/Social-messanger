@@ -10,7 +10,7 @@
     height: clamp(0px, 90vh, 972px);
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: clamp(0px, 1vh, 20px);
 }
 
 .content{
@@ -61,7 +61,7 @@
     justify-content: top;
     align-items: center;
     flex-direction: column;
-    gap: 2vh;
+    gap: clamp(0px, 2vh, 40px);
     border-radius: 20px;
     padding: 20px;
 }
@@ -118,6 +118,7 @@ h4{
 .side-block-chat input{
     height: clamp(0px, 3.8vh, 42px);
     border-radius: 10px;
+    border: 1px solid #CDCED2;
 }
 
 .create-chat-btn{
@@ -151,7 +152,7 @@ h4{
 .right-block-chat{
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: clamp(0px, 1vh, 20px);
     height: 100%;
 }
 
@@ -164,7 +165,7 @@ h4{
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: clamp(0px, 1vh, 20px);
 }
 
 .chats-right-block-chat{
@@ -176,7 +177,7 @@ h4{
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: clamp(0px, 1vh, 20px);
 }
 
 .name-right-block-chat{
@@ -199,7 +200,7 @@ h4{
     flex-direction: row;
     justify-content: left;
     align-items: center;
-    gap: 0.4vw;
+    gap: clamp(0px, 0.4vh, 9px);
 }
 
 .first-button{
@@ -208,7 +209,7 @@ h4{
     font-family: 'GTWalsheimPro';
     display: flex;
     align-items: flex-start;
-    width: clamp(0px, 2.8vw, 55px);
+    width: clamp(0px, 3.5vw, 70px);
     height: clamp(0px, 4vh, 40px);
     display: flex;
     flex-direction: row;
@@ -249,7 +250,7 @@ h4{
     display: flex;
     flex-direction: row;
     justify-content: right;
-    gap: 1vw;
+    gap: clamp(0px, 1vw, 20px);
 }
 
 .friends-div{
@@ -260,7 +261,7 @@ h4{
     height: clamp(0px, 40vh, 432px);
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: clamp(0px, 1vh, 20px);
 }
 
 .user-item{
@@ -270,46 +271,54 @@ h4{
 }
 
 .group-modal{
-    width: clamp(0px, 25vw, 500px);
+    width: clamp(0px, 31vw, 500px);
     height: clamp(0px, 72vh, 777px);
 }
 
 .group-modal-settings{
-    width: clamp(0px, 25vw, 500px);
+    width: clamp(0px, 31vw, 500px);
     height: clamp(0px, 59vh, 635px);
 }
 
 .div-input input{
     width: 100%;
     height: clamp(0px, 3.8vh, 42px);
-    border-radius: 10px;
+    border: 0;
 }
 
 .div-input{
     width: 80%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px; 
+    border: 1px solid #CDCED2; 
+    align-items: center;
+    padding-left: 10px;
 }
 
 .group-modal-settings input{
-    width: 80%;
+    width: 100%;
     height: clamp(0px, 3.8vh, 42px);
     border-radius: 10px;
+    border: 1px solid #CDCED2;
 }
 
 .selected-users{
     height: clamp(0px, 18vh, 192px);
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: clamp(0px, 1vh, 20px);
+    width: 80%;
 }
 
 .contact-div-users{
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: clamp(0px, 1vh, 20px);
 }
 
 .user-friends-div{
-    height: clamp(0px, 4.2vh, 46px) ;
+    height: clamp(0px, 4.2vh, 46px);
 
 }
 
@@ -320,6 +329,95 @@ h4{
 
 .chat{
     height: clamp(0px, 5.7vh, 62px);
+}
+
+.selected-chat{
     background-color: #E9E5EE;
 }
 
+#id_images{
+    display: none;
+}
+
+p{
+    font-family: 'GTWalsheimPro';
+    padding: 0;
+    margin: 0;
+}
+
+.group-modal-settings form{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+
+}
+
+.selected-users button{
+    background-color: white;
+    border: 0;
+}
+
+.selected-users div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.div-input img{
+    width: clamp(0px, 1.5vw, 15px);
+    height: clamp(0px, 1.5vh, 15px);
+}
+
+#chat{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+#name{
+    height: 8%;
+    width: 100%;
+}
+
+#messages{
+    height: 84%;
+    width: 100%;
+}
+
+#control-elements input{
+    width: 70%;
+    height: clamp(0px, 3.8vh, 42px);
+    border-radius: 10px;
+    border: 1px solid #CDCED2;
+}
+
+#control-elements{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-menu{
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+}
+
+#name hr{
+    padding: 0;
+    margin: 0;
+    background-color: #CDCED2;
+    border: none;
+    height: 2px;
+}
+
+.group-add-photo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1vw;
+}

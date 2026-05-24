@@ -2,6 +2,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 from friends_app.utils.friends import *
+from .forms import *
 
 # Create your views here.
 class ChatView(LoginRequiredMixin, TemplateView):
@@ -33,8 +34,8 @@ class ChatView(LoginRequiredMixin, TemplateView):
             })
 
         context["group_chats"] = data
-
-
+        
         context["friends"] = {"users": get_friends_by_section(current_user = self.request.user, section = "friends")}
-
+        context["group_form"] = GroupForm()
+    
         return context

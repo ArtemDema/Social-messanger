@@ -11,7 +11,17 @@
 
         <h2>Нова група</h2>
 
-        <input type="text" placeholder="Введіть назву">
+        <form action="">
+            <p>Назва</p>
+            {{ group_form.name }}
+            
+            <div class="group-add-photo">
+                {{ group_form.images }}
+                <img src="{% static 'chat_app/images/add_photo.png' %}" alt="" class="photo">
+                <img src="{% static 'chat_app/images/select_photo.png' %}" alt="" class="photo">
+            </div>
+        </form>
+        
 
         <div class="selected-users"></div>
 

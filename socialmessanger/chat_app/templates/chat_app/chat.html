@@ -36,12 +36,23 @@
         </div>
 
         <div id="chat" style="display: none;">
+            <div id="name">
+                <div class="chat-name"></div>
+                <hr>
+            </div>
+            
             <div id="messages"></div>
             <div id="control-elements">
-                <input type="text" id="msg-input">
-                <button id="send-msg">Send</button>
+                <input type="text" id="msg-input" placeholder="Повідомлення">
+                <div class="chat-menu">
+                    <img src="{% static 'chat_app/images/emoji.png' %}" alt="">
+                    <img src="{% static 'chat_app/images/add_photo_chat.png' %}" alt="">
+                    <img src="{% static 'chat_app/images/send_message.png' %}" id = 'send-msg'>
+                </div>
+                
             </div>
         </div>
+        
     </div>
 
     <div class="right-block-chat">
@@ -56,7 +67,7 @@
 
             <div class="chat-div">
                 {% for chat_data in individual_chats %}
-                    <div class="chat" data-id="{{ chat_data.chat_id }}">
+                    <div class="chat" data-id="{{ chat_data.chat_id }}" data-name = "{{ chat_data.other_user.first_name }}">
                         <h3>{{ chat_data.other_user.first_name }}</h3>
                     </div>
                 {% endfor %}
@@ -74,7 +85,7 @@
 
             <div class="chat-div">
                 {% for chat_data in group_chats %}
-                    <div class="chat" data-id="{{ chat_data.chat_id }}">
+                    <div class="chat" data-id="{{ chat_data.chat_id }}"  data-name = "{{ chat_data.chat_name }}">
                         <h3>{{ chat_data.chat_name }}</h3>
                     </div>
                 {% endfor %}
@@ -94,4 +105,8 @@
 
 {% block scripts %}
     <script src="{% static 'chat_app/js/chat.js' %}"></script>
+
+    <script>
+        const DELETE_USER = "{% static 'chat_app/images/delete_user.png' %}"
+    </script>
 {% endblock %}
