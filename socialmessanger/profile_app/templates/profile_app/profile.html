@@ -14,9 +14,9 @@
     <div class="profile-block">
         <img src="{% static 'images/profile_image.png' %}" alt="" id="profile-image">
         
-        <h1 id="name">{{ user.first_name }}</h1>
+    <h1 id="name">{{ profile_user.first_name }}</h1>
 
-        <h3 id="username">{{ user.username }}</h3>
+    <h3 id="username">{{ profile_user.username }}</h3>
         
         <div class="info-profile">
             
@@ -41,52 +41,25 @@
             </div>
 
         </div>
-    </div>
-        
-    <div class="block request">
-        <div class = 'name-block'>
-            <div class="block-side-info">
-                <img src="{% static 'images/friends.png' %}" alt="">
-                <h2>Запити</h2>
-            </div>
 
-            <h3>Дивитись всі</h3>
-        </div>
-        <div class="example-request"></div>
-        <div class="example-request"></div>
-        <div class="example-request"></div>
-       
-    </div>
+        <div>
+            {% if friendship == "request" %}
+                <button data-url="{% url 'friends_actions' 'accept' profile_user.id %}" class="friend-action-btn first-button">Підтвердити</button>
+                <button data-url="{% url 'friends_actions' 'delete' profile_user.id %}" class="friend-action-btn second-button">Відхилити</button>
+            {% endif %}
 
-    <div  class="block friends">
-        <div class = 'name-block'>
-            <div class="block-side-info">
-                <img src="{% static 'images/chats.png' %}" alt="">
-                <h2>Друзі</h2>
-            </div>
-            
-            <h3>Дивитись всі</h3>
+            {% if friendship == "recommendation" %}
+                <button data-url="{% url 'friends_actions' 'add' profile_user.id %}" class="friend-action-btn first-button">Дотати</button>
+                <button data-url="{% url 'friends_actions' 'ignore' profile_user.id %}" class="friend-action-btn second-button">Видалити</button>
+            {% endif %}
         </div>
-        <div class="example-friends"></div>
-        <div class="example-friends"></div>
-        <div class="example-friends"></div>
     </div>
 {% endblock%}
 
 {% block content %}
-    <div class = 'post-div'>
-        <div class = 'post-div-text'>
-            <textarea id= "post-textarea" type="text" placeholder=""></textarea>
-        </div>
-
-        <div class = 'post-div-button'>
-                <button type="button" class="post-create-post">Перейти до оформлення</button>
-        </div> 
-    </div>
-
     <div id="post-list">
 
-        {% include "home_app/particles/post_list.html" %}
+        {% include "profile_app/particles/post_list.html" %}
 
         <div id="load-post-line" style="width: 100%; height: 1vh;"></div>
 
@@ -94,10 +67,6 @@
 {% endblock %}
 
 {% block modal %}
-    {% include "home_app/particles/createPost.html" %}
-
-    {% include "home_app/particles/createTag.html" %}
-
     {% if not user.first_name %}
         {% include "home_app/particles/username.html" %}
     {% endif %}
@@ -105,9 +74,7 @@
 
 {% block scripts %}
     <script src="{% static 'home_app/js/home.js' %}"></script>
-    <script src="{% static 'post_app/js/post.js' %}"></script>
-    <script src="{% static 'post_app/js/load_post.js' %}"></script>
-    <script src="{% static 'post_app/js/tag.js' %}"></script>
+    <script src="{% static 'profile_app/js/profile.js' %}"></script>
     <script>
         const MINUS_ICON = "{% static 'post_app/images/minus_link.png' %}"
     </script>

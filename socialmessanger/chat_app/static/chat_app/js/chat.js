@@ -26,6 +26,51 @@ const imagesBtn = document.querySelector("#id_images")
 
 const chatName = document.querySelector(".chat-name") 
 
+const friendDivs = document.querySelectorAll(".user-friends-div")
+const csrfToken = document.querySelector("meta[name='csrf_token']").content
+
+function openChat(chatId){
+    notSelectContainer.style.display = "none"
+    chat.style.display = "flex"
+    if (chatSocket){
+        chatSocket.close()
+    }
+    let url = `ws://${window.location.host}/chat/${chatId}`;
+    chatSocket = new WebSocket(url)
+    chatSocket.onmessage = (event)=>{
+        const data = JSON.parse(event.data)
+        console.log(data);
+        
+    }
+}
+
+friendDivs.forEach(div => {
+    div.addEventListener('click', async ()=>{
+        const response = await fetch('/chat/create/', {
+            method: "POST",
+            headers: {
+                'X-CSRFToken' : csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
+            }, 
+            body: JSON.stringify({
+                friend_id: div.dataset.id
+            })
+        })
+        const data = await response.json()
+        if (data.is_new){
+            const newChat = document.createElement('div')
+            newChat.classList.add('chat')
+            newChat.innerHTML = `<h3>${data.friend_email}</h3>`
+            newChat.dataset.id = data.chat_id
+            newChat.addEventListener('click', ()=>{
+                openChat(data.chat_id)
+            })
+            document.querySelector('.chat-div').append(newChat)
+        }
+        openChat(data.chat_id)
+    })
+})
+
 photosBtn.forEach(btn => {
     btn.addEventListener('click', ()=>{
         imagesBtn.click()
@@ -106,8 +151,17 @@ nextChatButton.addEventListener("click", ()=>{
         deleteUserBtn.appendChild(photo_img)
 
         deleteUserBtn.addEventListener("click", ()=>{
+            const checkbox = document.querySelector(
+                `input[type="checkbox"][data-id="${userDiv.dataset.id}"]`
+            );
+
+            if (checkbox) {
+                checkbox.checked = false;
+            }
+
             userDiv.remove()
             deleteUserBtn.remove()
+            
         })
         
         selectedUsersContainer.appendChild(userDiv)

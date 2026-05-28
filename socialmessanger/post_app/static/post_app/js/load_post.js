@@ -5,7 +5,7 @@ let page = 1
 const observer = new IntersectionObserver(async (entries)=>{
     if (entries[0].isIntersecting){
         page ++
-        const responce = await fetch(`/post/?page=${page}`,{
+        const responce = await fetch(`${window.location.pathname}?page=${page}`,{
             headers: {"X-Requested-With": "XMLHttpRequest"}
         })
 

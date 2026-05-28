@@ -147,4 +147,7 @@ button img{
 
 .select{
     background-color: #E9E5EE;
+    padding: 3px;
+    border-radius: 3px;
+    
 }

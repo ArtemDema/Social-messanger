@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'user_app',
     'post_app',
     'friends_app',
-    "chat_app"
+    "chat_app",
+    "profile_app"
 ]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

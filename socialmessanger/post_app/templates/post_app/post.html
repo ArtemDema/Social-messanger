@@ -14,9 +14,9 @@
     <div class="profile-block">
         <img src="{% static 'images/profile_image.png' %}" alt="" id="profile-image">
         
-        <h1 id="name">Lina Li</h1>
+        <h1 id="name">{{ user.first_name }}</h1>
 
-        <h3 id="username">@thelili</h3>
+        <h3 id="username">{{ user.username }}</h3>
         
         <div class="info-profile">
             

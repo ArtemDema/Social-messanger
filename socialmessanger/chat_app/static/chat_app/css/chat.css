@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'GTWalsheimPro-Light';
+    src: url('../fonts/GTWalsheimPro-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .sidebar{
     width: clamp(0px, 24.2vw, 460px);
     height: clamp(0px, 90vh, 972px);
@@ -99,10 +106,17 @@
     font-family: 'GTWalsheimPro';
 }
 
+.not-select{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vh;
+}
+
 h4{
     padding: 0;
     margin: 0;
-    font-family: 'GTWalsheimPro';
+    font-family: 'GTWalsheimPro-Light';
 }
 
 .side-block-chat{
@@ -160,12 +174,11 @@ h4{
     width: clamp(0px, 24.2vw, 460px);
     background-color: white;
     border-radius: 10px;
-    padding: 10px;
     height: 50%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: clamp(0px, 1vh, 20px);
+    gap: clamp(0px, 2vh, 40px);
 }
 
 .chats-right-block-chat{
@@ -177,13 +190,14 @@ h4{
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: clamp(0px, 1vh, 20px);
+    gap: clamp(0px, 2vh, 40px);
 }
 
 .name-right-block-chat{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 10px;
 }
 
 .right-block-chat button{
@@ -281,7 +295,7 @@ h4{
 }
 
 .div-input input{
-    width: 100%;
+    width: 94%;
     height: clamp(0px, 3.8vh, 42px);
     border: 0;
 }
@@ -314,21 +328,31 @@ h4{
 .contact-div-users{
     display: flex;
     flex-direction: column;
-    gap: clamp(0px, 1vh, 20px);
+    gap: clamp(0px, 2vh, 40px);
 }
 
 .user-friends-div{
     height: clamp(0px, 4.2vh, 46px);
-
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    align-items: center;
 }
 
 .chat-div{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .chat{
     height: clamp(0px, 5.7vh, 62px);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    padding-left: 20px;
+    align-items: center;
 }
 
 .selected-chat{
@@ -420,4 +444,20 @@ p{
     flex-direction: row;
     justify-content: center;
     gap: 1vw;
+}
+
+#not-selected-info{
+    text-align: center;
+}
+
+.chat h3{
+    font-family: "GTWalsheimPro-Light";
+}
+
+.profile-img{
+    width: 46px;
+    height: 46px;
+    background-color: #F9F6EE;
+    border-radius: 1234px;
+    border: 1px solid gray;
 }

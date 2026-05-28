@@ -48,8 +48,4 @@ class FriendsActionView(LoginRequiredMixin, View):
             return JsonResponse(ignore_friendship(user, other_user))
         elif action == 'accept':
             data = accept_friend_request(user, other_user)
-            data['friend_html'] = render_to_string(
-                'user_app/particles/friends/friend_cards.html',
-                {'users': [other_user], 'section': 'friends'}
-            )
             return JsonResponse(data)

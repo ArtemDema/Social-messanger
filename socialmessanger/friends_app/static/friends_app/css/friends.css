@@ -5,6 +5,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'GTWalsheimPro-Light';
+    src: url('../fonts/GTWalsheimPro-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 h2{
     padding: 0;
     margin: 0;
@@ -207,4 +214,16 @@ h4{
 #current-section{
     display: flex;
     flex-direction: column;
+}
+
+.profile-img{
+    width: 138px;
+    height: 138px;
+    background-color: #F9F6EE;
+    border-radius: 1234px;
+    border: 1px solid gray;
+}
+
+.card h4{
+    font-family: 'GTWalsheimPro-Light';
 }

@@ -1,8 +1,10 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 from friends_app.utils.friends import *
 from .forms import *
+import json
+from django.http import JsonResponse
 
 # Create your views here.
 class ChatView(LoginRequiredMixin, TemplateView):
@@ -39,3 +41,18 @@ class ChatView(LoginRequiredMixin, TemplateView):
         context["group_form"] = GroupForm()
     
         return context
+    
+class CreateChatView(LoginRequiredMixin, View): 
+    def post(self, request):
+        data = json.loads(request.body)
+        friend_id = data.get('friend_id')
+        friend = User.objects.filter(id = friend_id).first()
+
+        chat = Chat.objects.filter(is_group = False, users = friend).filter(users = request.user).first()
+        is_new_chat = False
+        if not chat: 
+            chat = Chat.objects.create(is_group = False )
+            chat.users.set([request.user, friend])
+            is_new_chat = True  
+        print(chat)
+        return JsonResponse({ "chat_id" : chat.id, "friend_email" : friend.email, 'is_new': is_new_chat})

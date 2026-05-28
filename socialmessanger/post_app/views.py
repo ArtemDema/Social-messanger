@@ -22,6 +22,9 @@ class HomeView(LoginRequiredMixin, ListView):
         context["home_form"] = SetUsernameForm()
         return context
     
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user)
+    
     def get(self, request, *args, **kwargs):
         if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             page_number = request.GET.get("page")
