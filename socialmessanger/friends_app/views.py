@@ -47,5 +47,4 @@ class FriendsActionView(LoginRequiredMixin, View):
         elif action == 'ignore':
             return JsonResponse(ignore_friendship(user, other_user))
         elif action == 'accept':
-            data = accept_friend_request(user, other_user)
-            return JsonResponse(data)
+            return JsonResponse(accept_friend_request(user, other_user))

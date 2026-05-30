@@ -4,6 +4,7 @@ from .models import *
 from friends_app.utils.friends import *
 from .forms import *
 import json
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 
 # Create your views here.
@@ -54,5 +55,31 @@ class CreateChatView(LoginRequiredMixin, View):
             chat = Chat.objects.create(is_group = False )
             chat.users.set([request.user, friend])
             is_new_chat = True  
-        print(chat)
-        return JsonResponse({ "chat_id" : chat.id, "friend_email" : friend.email, 'is_new': is_new_chat})
+        return JsonResponse({ "chat_id" : chat.id, "first_name" : friend.first_name, 'is_new': is_new_chat})
+    
+class GetMessagesView(View):
+    def get(self, request, chat_id, *args, **kwargs):
+        chat = Chat.objects.filter(id = chat_id, users = request.user).first()
+        if chat:
+            page_number = request.GET.get("page")
+            messages = chat.messages.order_by('-created_at')
+            paginator = Paginator(messages, 20)
+            message_list = paginator.get_page(page_number)
+            if int(page_number) > paginator.num_pages:
+                return JsonResponse({"success" : False})
+            else:
+                message_data_list = []
+                for message in message_list:
+                    is_author = "no"
+                    if message.sender == request.user:
+                        is_author = "yes"
+                    message_data_list.append({
+                        'sender': message.sender.first_name,
+                        'text': message.text,
+                        'datetime': message.created_at.isoformat()[11:16],
+                        "is_author": is_author
+                    })
+                return JsonResponse({
+                    "success" : True,
+                    "messages": message_data_list
+                })

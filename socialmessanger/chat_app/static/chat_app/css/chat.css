@@ -347,7 +347,7 @@ h4{
 
 .chat{
     height: clamp(0px, 5.7vh, 62px);
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     gap: 1vw;
@@ -406,9 +406,18 @@ p{
     width: 100%;
 }
 
+#message::-webkit-scrollbar {
+  display: none;
+}
+
 #messages{
     height: 84%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 
 #control-elements input{
@@ -460,4 +469,56 @@ p{
     background-color: #F9F6EE;
     border-radius: 1234px;
     border: 1px solid gray;
+}
+
+.message{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: clamp(0px, 24vw, 493px);
+    height: clamp(0px, 6vh, 126px);
+    gap: 1vh;
+}
+
+.user-message{
+    border-radius: 6px;
+    border: 2px solid #E9E5EE;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    gap: 0.6vh;
+    padding: 10px;
+}
+
+h5{
+    margin: 0;
+    padding: 0;
+    font-family: "GTWalsheimPro-Light";
+}
+
+h6{
+    margin: 0;
+    padding: 0;
+    font-family: "GTWalsheimPro-Light";
+}
+
+.date-time{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.own-message{
+    background-color: #CDCED2;
+    border: 2px;
+    width: 30%;
+    height: 60%;
+}
+
+.div-own-msg{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 100%;
 }
