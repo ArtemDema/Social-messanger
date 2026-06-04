@@ -410,8 +410,11 @@ p{
 }
 
 #name{
-    height: 4%;
+    height: 7%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vh;
 }
 
 #message::-webkit-scrollbar {
@@ -419,7 +422,7 @@ p{
 }
 
 #messages{
-    height: 87%;
+    height: 85.5%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -564,4 +567,44 @@ h6{
 
 #load-message-line{
     height: 1vh
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  
+  outline: 2px solid #543C52;
+  outline-offset: -2px; 
+  cursor: pointer;
+  
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 12px 12px;
+}
+
+input[type="checkbox"]:checked {
+  background-image: url("../images/check_mark.png");
+}
+
+#name-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#name-left-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1vw;
+}
+
+#message-files{
+    display: none;
 }

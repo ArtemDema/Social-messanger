@@ -31,11 +31,22 @@ const csrfToken = document.querySelector("meta[name='csrf_token']").content
 
 const currentUserId = document.getElementById('current-user').dataset.id;
 
+const msgImageInput = document.querySelector("#message-files")
+const groupName = document.querySelector("#id_name")
+const createGroup = document.querySelector(".create-chat-modal-btn")
+
 const messages = document.querySelector('#messages')
 const loadLine = document.querySelector("#load-message-line")
 let pageNumber = 1
 let observer = null
 let chatId;
+
+const messageBtn = document.querySelector('#message-files')
+const sendImg = document.querySelector('#send-image')
+
+sendImg.addEventListener('click', ()=>{
+    messageBtn.click()
+})
 
 async function loadMessages(){
     const response = await fetch(
@@ -46,7 +57,7 @@ async function loadMessages(){
     
     if (data.success){
         data.messages.forEach((message)=>{
-            createMessage(message.sender, message.text, message.date, message.time, message.is_author, false)
+            createMessage(message.sender, message.text, message.date, message.time, message.is_author, message.images, false)
         })
         createDateMessage()
     }else if (observer != null){
@@ -54,7 +65,7 @@ async function loadMessages(){
     }
 }
 
-function createMessage(sender, text, date, time, is_author, isNew = true){
+function createMessage(sender, text, date, time, is_author, images, isNew = true){
     const newMessage = document.createElement('div')
     newMessage.classList.add('message')
     if (is_author){
@@ -75,6 +86,14 @@ function createMessage(sender, text, date, time, is_author, isNew = true){
             <h6 class="date-time">${time}</h6>
         </div>
     `
+    if (images){
+        images.forEach(imageUrl =>{
+            const newImage = document.createElement("img") 
+            newImage.src = imageUrl
+            newMessage.append(newImage)
+        })
+    }
+
     }
     if(isNew){
         messages.appendChild(newMessage)
@@ -128,7 +147,7 @@ function openChat(id){
 
         if (data.message){
             const isAuthor = data.message.sender_id == currentUserId;
-            createMessage(data.message.sender, data.message.text, data.message.date, data.message.time, isAuthor);
+            createMessage(data.message.sender, data.message.text, data.message.date, data.message.time, isAuthor,  data.message.images);
             messages.scrollTop = messages.scrollHeight
             createDateMessage()
         }
@@ -198,13 +217,34 @@ chatBtns.forEach(btn => {
     })
 })
 
-sendMsg.addEventListener("click", ()=>{
-    chatSocket.send(
-        JSON.stringify({
-            "msg": msgInput.value
+sendMsg.addEventListener("click", async ()=>{
+    if (msgImageInput.files.length > 0){
+        const formData = new FormData()
+        formData.append("text", msgInput.value)
+        formData.append("chat_id", chatId )
+
+        const files = Array.from(msgImageInput.files)
+        files.forEach(file =>{
+            formData.append("image", file) 
         })
-    )
+
+        const response = await fetch('/chat/create/message/', {
+            method: "POST",
+            headers: {
+                'X-CSRFToken' : csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
+        })
+    }else{
+        chatSocket.send(
+            JSON.stringify({
+                "msg": msgInput.value
+            })
+        )
+    }
     msgInput.value = ''
+    msgImageInput.value = ''
 })
 
 
@@ -262,6 +302,46 @@ nextChatButton.addEventListener("click", ()=>{
     
     chatCreateDiv.style.display = "none"
     chatSettingsDiv.style.display = "flex"
+})
+
+createGroup.addEventListener('click', async()=> {
+    const selectedUsers = [...userCheckboxes].filter(cb => cb.checked)
+    
+    const data = {
+        'name': groupName.value,
+        'friends': []
+    }
+    
+    selectedUsers.forEach(selectedUser => {
+        data.friends.push(selectedUser.dataset.id)
+    })
+
+    const response = await fetch(
+        '/chat/create/group/',
+        {
+            headers: {
+                'X-CSRFToken' : csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            method: 'POST',
+            body: JSON.stringify(data)
+        }
+    )
+    const responseData = await response.json()
+    chatCreateDiv.style.display = 'none'
+    chatSettingsDiv.style.display = 'none'
+
+    const newChat = document.createElement("div")
+    newChat.dataset.id = responseData.chat_id
+    newChat.textContent = responseData.name
+    newChat.classList.add("chat-user-button")
+    newChat.classList.add("chat")
+    
+    newChat.addEventListener("click", ()=>{
+        openChat(responseData.chat_id)
+    })
+
+    groupChats.appendChild(newChat)
 })
 
 backChatButton.addEventListener("click", ()=>{

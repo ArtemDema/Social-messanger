@@ -6,6 +6,8 @@ from .forms import *
 import json
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 # Create your views here.
 class ChatView(LoginRequiredMixin, TemplateView):
@@ -60,7 +62,7 @@ class CreateChatView(LoginRequiredMixin, View):
                              'is_new': is_new_chat, 
                              "is_online" : friend.is_online})
     
-class GetMessagesView(View):
+class GetMessagesView(LoginRequiredMixin, View):
     def get(self, request, chat_id, *args, **kwargs):
         chat = Chat.objects.filter(id = chat_id, users = request.user).first()
         if chat:
@@ -73,6 +75,10 @@ class GetMessagesView(View):
             else:
                 message_data_list = []
                 for message in message_list:
+                    list_url_image = []
+                    for image in message.images.all():
+                        list_url_image.append(image.image.url)
+                    
                     is_author = False
                     if message.sender == request.user:
                         is_author = True
@@ -81,9 +87,71 @@ class GetMessagesView(View):
                         'text': message.text,
                         'date': str(message.created_at.date()),
                         'time': str(message.created_at.timetuple().tm_hour) + ":" + str(message.created_at.timetuple().tm_min),
+                        'images': list_url_image,
                         "is_author": is_author
                     })
                 return JsonResponse({
                     "success" : True,
                     "messages": message_data_list
                 })
+            
+class CreateGroupView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        data = json.loads(request.body)
+        
+        new_chat = Chat.objects.create(
+            is_group = True, 
+            admin = request.user, 
+            name = data.get('name'), 
+        )
+        new_chat.users.add(request.user)
+        
+        user_friends = get_friends_by_section(current_user= request.user, section= 'friends')
+        for user_id in data.get('friends'):
+            user = User.objects.filter(id = user_id).first()
+            if user in user_friends:
+                new_chat.users.add(user)
+                
+        return JsonResponse({
+            'success': True,
+            'name': new_chat.name,
+            'chat_id':new_chat.id
+        })
+        
+class CreateMessageView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        print(request.POST, request.FILES)
+        chat_id = request.POST.get("chat_id")
+        chat = Chat.objects.filter(id = chat_id, users = request.user).first()
+        if chat:
+            new_message = Message.objects.create(
+                text = request.POST.get("text"), 
+                chat_id=chat.id, 
+                sender=request.user
+            )
+            list_url_image = []
+            for image in request.FILES.getlist('image'):
+                new_image = MessageImage.objects.create(
+                    image = image,
+                    message = new_message 
+                )
+                list_url_image.append(new_image.image.url)
+            
+            channel_layer = get_channel_layer()
+            
+            async_to_sync(channel_layer.group_send)(
+                f"chat_{chat.id}", 
+                {
+                    "type": "send_message",
+                    "message": {
+                        'sender': new_message.sender.email,
+                        'text': new_message.text,
+                        'date': str(new_message.created_at.date()),
+                        'time': str(new_message.created_at.timetuple().tm_hour) + ":" + str(new_message.created_at.timetuple().tm_min),
+                        'images': list_url_image
+                    },
+                }
+            )
+            
+            return JsonResponse({"success": True})
+        return JsonResponse({"success": False})

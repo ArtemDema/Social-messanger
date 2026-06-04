@@ -54,6 +54,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'text': new_message.text,
             'date': str(new_message.created_at.date()),
             'time': str(new_message.created_at.timetuple().tm_hour) + ":" + str(new_message.created_at.timetuple().tm_min),
+            'images': []
         }
         
     async def send_message(self, data):
