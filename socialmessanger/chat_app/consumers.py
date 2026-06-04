@@ -17,7 +17,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         else:
             await self.close()
             
-    async def disconnect(self):
+    async def disconnect(self, code):
         await self.channel_layer.group_discard(
             self.room_group_name, 
             self.channel_name
@@ -49,9 +49,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         user = self.scope.get("user")
         new_message = Message.objects.create(text = text, chat_id=self.chat_id, sender=user)
         return {
-            'sender': new_message.sender.email,
+            'sender_id': user.id,
+            'sender': new_message.sender.first_name,
             'text': new_message.text,
-            'datetime': new_message.created_at.isoformat(),
+            'date': str(new_message.created_at.date()),
+            'time': str(new_message.created_at.timetuple().tm_hour) + ":" + str(new_message.created_at.timetuple().tm_min),
         }
         
     async def send_message(self, data):

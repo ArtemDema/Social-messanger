@@ -41,6 +41,7 @@
         </div>
 
         <div id="chat" style="display: none;">
+            <div id="current-user" data-id="{{ request.user.id }}"></div>
             <div id="name">
                 <div class="chat-name"></div>
                 <hr>
@@ -75,8 +76,18 @@
             <div class="chat-div">
                 {% for chat_data in individual_chats %}
                     <div class="chat" data-id="{{ chat_data.chat_id }}" data-name = "{{ chat_data.other_user.first_name }}">
-                        <div class="profile-img"></div>
-                        <h3>{{ chat_data.other_user.first_name }}</h3>
+                        <div class="chat-div-user">
+                            
+                            <div class="profile-img">
+                                {% if chat_data.other_user.is_online %}
+                                    <img src="{% static 'chat_app/images/online.png' %}" alt="" class="status">
+                                {% else %}
+                                    <img src="{% static 'chat_app/images/offline.png' %}" alt="" class="status">
+                                {% endif %}
+                            </div>
+                            <h3>{{ chat_data.other_user.first_name }}</h3>
+
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -94,8 +105,10 @@
             <div class="chat-div">
                 {% for chat_data in group_chats %}
                     <div class="chat" data-id="{{ chat_data.chat_id }}"  data-name = "{{ chat_data.chat_name }}">
-                        <div class="profile-img"></div>
-                        <h3>{{ chat_data.chat_name }}</h3>
+                        <div class="chat-div-user">
+                            <div class="profile-img"></div>
+                            <h3>{{ chat_data.chat_name }}</h3>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -117,5 +130,13 @@
 
     <script>
         const DELETE_USER = "{% static 'chat_app/images/delete_user.png' %}"
+    </script>
+
+    <script>
+        const ONLINE_IMAGE = "{% static 'chat_app/images/online.png' %}"
+    </script>
+    
+    <script>
+        const OFFLINE_IMAGE = "{% static 'chat_app/images/offline.png' %}"
     </script>
 {% endblock %}

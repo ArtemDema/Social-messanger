@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.cache import cache
 
 # Create your models here.
 class User(AbstractUser):
@@ -9,6 +10,12 @@ class User(AbstractUser):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+
+    @property
+    def is_online(self):
+        if self.is_authenticated:
+            return cache.get(f"online_{self.id}") is not None
+        return False
 
 
 class Friendship(models.Model):

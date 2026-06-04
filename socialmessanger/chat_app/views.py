@@ -55,7 +55,10 @@ class CreateChatView(LoginRequiredMixin, View):
             chat = Chat.objects.create(is_group = False )
             chat.users.set([request.user, friend])
             is_new_chat = True  
-        return JsonResponse({ "chat_id" : chat.id, "first_name" : friend.first_name, 'is_new': is_new_chat})
+        return JsonResponse({ "chat_id" : chat.id, 
+                             "first_name" : friend.first_name, 
+                             'is_new': is_new_chat, 
+                             "is_online" : friend.is_online})
     
 class GetMessagesView(View):
     def get(self, request, chat_id, *args, **kwargs):
@@ -70,13 +73,14 @@ class GetMessagesView(View):
             else:
                 message_data_list = []
                 for message in message_list:
-                    is_author = "no"
+                    is_author = False
                     if message.sender == request.user:
-                        is_author = "yes"
+                        is_author = True
                     message_data_list.append({
                         'sender': message.sender.first_name,
                         'text': message.text,
-                        'datetime': message.created_at.isoformat()[11:16],
+                        'date': str(message.created_at.date()),
+                        'time': str(message.created_at.timetuple().tm_hour) + ":" + str(message.created_at.timetuple().tm_min),
                         "is_author": is_author
                     })
                 return JsonResponse({

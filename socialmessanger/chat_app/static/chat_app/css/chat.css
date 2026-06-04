@@ -127,6 +127,8 @@ h4{
     padding: 10px;
     height: 100%;
     gap: 1.5vh;
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 
 .side-block-chat input{
@@ -178,19 +180,16 @@ h4{
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: clamp(0px, 2vh, 40px);
 }
 
 .chats-right-block-chat{
     width: clamp(0px, 24.2vw, 460px);
     background-color: white;
     border-radius: 10px;
-    padding: 10px;
     height: 50%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: clamp(0px, 2vh, 40px);
 }
 
 .name-right-block-chat{
@@ -347,11 +346,20 @@ h4{
 
 .chat{
     height: clamp(0px, 5.7vh, 62px);
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     gap: 1vw;
-    padding-left: 20px;
+    justify-content: right;
+}
+
+.chat-div-user{
+    height: 100%;
+    width: 94%;
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    justify-content: left;
     align-items: center;
 }
 
@@ -402,7 +410,7 @@ p{
 }
 
 #name{
-    height: 8%;
+    height: 4%;
     width: 100%;
 }
 
@@ -411,11 +419,11 @@ p{
 }
 
 #messages{
-    height: 84%;
+    height: 87%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 4vh;
+    gap: clamp(0px, 2.5vh, 40px);
     overflow-y: auto;
     scrollbar-width: none;
 }
@@ -469,6 +477,15 @@ p{
     background-color: #F9F6EE;
     border-radius: 1234px;
     border: 1px solid gray;
+    position: relative;
+}
+
+.status{
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    top: 30px;
+    left: 28px;
 }
 
 .message{
@@ -476,7 +493,7 @@ p{
     flex-direction: row;
     align-items: center;
     width: clamp(0px, 24vw, 493px);
-    height: clamp(0px, 6vh, 126px);
+    height: auto;
     gap: 1vh;
 }
 
@@ -486,7 +503,7 @@ p{
     display: flex;
     flex-direction: column;
     width: 70%;
-    height: 100%;
+    height: auto;
     gap: 0.6vh;
     padding: 10px;
 }
@@ -513,7 +530,6 @@ h6{
     background-color: #CDCED2;
     border: 2px;
     width: 30%;
-    height: 60%;
 }
 
 .div-own-msg{
@@ -521,4 +537,31 @@ h6{
     flex-direction: row;
     justify-content: right;
     width: 100%;
+}
+
+.text{
+    overflow-wrap: break-word;
+}
+
+.date-title-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.date-title-for-center{
+    width: 17%;
+    height: 120%;
+    background-color: #E9E5EE;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#load-message-line{
+    height: 1vh
 }

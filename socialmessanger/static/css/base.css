@@ -74,18 +74,13 @@ header{
 }
 
 .header-div{
-    width: clamp(0px, 88.5vw, 1700px);
+    width: clamp(0px, 89vw, 1720px);
     height: clamp(0px, 6vh, 57px);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     top: 0;
-}
-
-#logo{
-    height: clamp(0px, 3vw, 18px);
-    width: clamp(0px, 14vw, 140px);
 }
 
 header nav{
@@ -131,10 +126,6 @@ header div{
 
 button img{
     width: clamp(0px, 0.8vw, 13px);
-}
-
-.redirect-link img{
-    width: clamp(0px, 1vw, 15px);
 }
 
 .select span{
