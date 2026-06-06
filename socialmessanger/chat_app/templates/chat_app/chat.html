@@ -7,122 +7,22 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'chat_app/css/chat.css'%}">
+    <link rel="stylesheet" href="{% static 'chat_app/css/modal.css'%}">
+    <link rel="stylesheet" href="{% static 'chat_app/css/sidebar.css'%}">
+    <link rel="stylesheet" href="{% static 'chat_app/css/mainBlock.css'%}">
+    <link rel="stylesheet" href="{% static 'chat_app/css/rightBlock.css'%}">
+
+    <link rel="stylesheet" href="{% static 'home_app/css/username.css'%}">
 {% endblock %} 
 
 {% block sidebar %}
-    <button class="create-chat-btn">Створити груповий чат</button>
-
-    <div class="side-block-chat">
-        <div class="name-chat-div">
-            <img src="{% static 'images/friends.png' %}" alt="">
-            <h3>Контакти</h3>
-        </div>
-
-        <input type="text" placeholder="Пошук">
-
-        <div class="contact-div-users">
-            {% for key, section in friends.items %}
-                {% for user in section %}
-                <div class="user-friends-div" data-id="{{ user.id }}">
-                    <div class="profile-img"></div>
-                    <h4>{{ user.first_name }}</h4>
-                </div>
-                {% endfor %}
-            {% endfor %}
-        </div>
-    </div>
+    {% include "chat_app/particles/sidebar.html" %}
 {% endblock%}
 
 {% block content %}
-    <div class="main-block-chat">
-        <div class="not-select">
-            <h3>Почніть нове спілкування</h3>
-            <h4 id="not-selected-info">Оберіть контакт із списку ліворуч <br> або створить групу, щоб почати спілкування</h4>
-        </div>
-
-        <div id="chat" style="display: none;">
-            <div id="current-user" data-id="{{ request.user.id }}"></div>
-            <div id="name">
-                <div id="name-div">
-                    <div id="name-left-div">
-                        <img src="{% static 'chat_app/images/close_chat.png' %}" alt="">
-                        <div class="profile-img"></div>
-                        <div class="chat-name"></div>
-                    </div>
-
-                    <img src="{% static 'chat_app/images/settings_chat.png' %}" alt="">
-                </div>
-                <hr>
-            </div>
-            
-            <div id="messages">
-                <div id="load-message-line"></div>
-            </div>
-            <div id="control-elements">
-                <input type="text" id="msg-input" placeholder="Повідомлення">
-                <div class="chat-menu">
-                    <img src="{% static 'chat_app/images/emoji.png' %}" alt="">
-                    <img src="{% static 'chat_app/images/add_photo_chat.png' %}" alt="" id="send-image">
-                    <input type="file" id="message-files" accept="image/*" multiple>
-                    <img src="{% static 'chat_app/images/send_message.png' %}" id = 'send-msg'>
-                </div>
-                
-            </div>
-        </div>
-        
-    </div>
-
-    <div class="right-block-chat">
-        <div class="message-right-block-chat">
-            <div class="name-right-block-chat">
-                <div class="name-chat-div">
-                    <img src="{% static 'images/chats.png' %}" alt="">
-                    <h4>Повідомлення</h4>
-                </div>
-                <button type="button">Дивитись усі</button>
-            </div>
-
-            <div class="chat-div">
-                {% for chat_data in individual_chats %}
-                    <div class="chat" data-id="{{ chat_data.chat_id }}" data-name = "{{ chat_data.other_user.first_name }}">
-                        <div class="chat-div-user">
-                            
-                            <div class="profile-img">
-                                {% if chat_data.other_user.is_online %}
-                                    <img src="{% static 'chat_app/images/online.png' %}" alt="" class="status">
-                                {% else %}
-                                    <img src="{% static 'chat_app/images/offline.png' %}" alt="" class="status">
-                                {% endif %}
-                            </div>
-                            <h3>{{ chat_data.other_user.first_name }}</h3>
-
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div class="chats-right-block-chat">
-            <div class="name-right-block-chat">
-                <div class="name-chat-div">
-                    <img src="{% static 'images/chats.png' %}" alt="">
-                    <h4>Групові чати</h4>
-                </div>
-                <button type="button">Дивитись усі</button>
-            </div>
-
-            <div class="chat-div">
-                {% for chat_data in group_chats %}
-                    <div class="chat" data-id="{{ chat_data.chat_id }}"  data-name = "{{ chat_data.chat_name }}">
-                        <div class="chat-div-user">
-                            <div class="profile-img"></div>
-                            <h3>{{ chat_data.chat_name }}</h3>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+    {% include "chat_app/particles/mainBlock.html" %}
+    
+    {% include "chat_app/particles/rightBlock.html" %}
 {% endblock%}
 
 {% block modal %}
@@ -130,12 +30,13 @@
     {% include "chat_app/particles/settingsGroup.html" %}
 
     {% if not user.first_name %}
-        {% include "user_app/particles/username.html" %}
+        {% include "home_app/particles/username.html" %}
     {% endif %}
 {% endblock %}
 
 {% block scripts %}
     <script src="{% static 'chat_app/js/chat.js' %}"></script>
+    <script src="{% static 'chat_app/js/modal.js' %}"></script>
 
     <script>
         const DELETE_USER = "{% static 'chat_app/images/delete_user.png' %}"

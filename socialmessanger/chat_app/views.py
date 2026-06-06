@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+from django.utils import timezone
 
 # Create your views here.
 class ChatView(LoginRequiredMixin, TemplateView):
@@ -20,9 +21,11 @@ class ChatView(LoginRequiredMixin, TemplateView):
         
         for chat in chats:
             other_user = chat.users.exclude(id = self.request.user.id).first()
+            last_message = chat.messages.order_by('-created_at').first()
             data.append({
                 "chat_id": chat.id,
-                "other_user":  other_user
+                "other_user":  other_user,
+                "last_message": last_message
             })
 
         context["individual_chats"] = data
@@ -32,10 +35,19 @@ class ChatView(LoginRequiredMixin, TemplateView):
         data = []
         
         for chat in chats:
-            other_user = chat.users.exclude(id = self.request.user.id).first()
+            other_user = chat.users.exclude(id = self.request.user.id)
+            last_message = chat.messages.order_by('-created_at').first()
+
+            count_online = 1
+            for user in other_user:
+                if user.is_online:
+                    count_online += 1
+                    
             data.append({
                 "chat_id": chat.id,
-                "chat_name": chat.name
+                "chat_name": chat.name,
+                "last_message": last_message,
+                "count_online": count_online
             })
 
         context["group_chats"] = data
@@ -75,6 +87,7 @@ class GetMessagesView(LoginRequiredMixin, View):
             else:
                 message_data_list = []
                 for message in message_list:
+                    local_time = local_time = timezone.localtime(message.created_at)
                     list_url_image = []
                     for image in message.images.all():
                         list_url_image.append(image.image.url)
@@ -85,8 +98,8 @@ class GetMessagesView(LoginRequiredMixin, View):
                     message_data_list.append({
                         'sender': message.sender.first_name,
                         'text': message.text,
-                        'date': str(message.created_at.date()),
-                        'time': str(message.created_at.timetuple().tm_hour) + ":" + str(message.created_at.timetuple().tm_min),
+                        'date': str(local_time.strftime("%Y-%m-%d")),
+                        'time': str(local_time.strftime("%H:%M")),
                         'images': list_url_image,
                         "is_author": is_author
                     })

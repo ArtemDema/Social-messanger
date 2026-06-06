@@ -36,17 +36,14 @@ postImageButton.addEventListener('change', function () {
 
 
 function renderPreviews() {
-
     previewContainer.innerHTML = ""
 
     selectedFiles.forEach((file, index) => {
-
         if (!file.type.startsWith("image/")) return
 
         const reader = new FileReader()
 
         reader.onload = function (event) {
-
             const wrapper = document.createElement('div')
             wrapper.classList.add('preview-wrapper')
 
@@ -76,17 +73,14 @@ function renderPreviews() {
 
 
 function removeFile(index) {
-
     selectedFiles.splice(index, 1)
 
     const dataTransfer = new DataTransfer()
-
     selectedFiles.forEach(file => {
         dataTransfer.items.add(file)
     })
 
     postImageButton.files = dataTransfer.files
-
     renderPreviews()
 }
 

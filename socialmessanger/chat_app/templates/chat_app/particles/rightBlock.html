@@ -1,0 +1,59 @@
+{% load static %}
+
+<div class="right-block-chat">
+    <div class="message-right-block-chat">
+        <div class="name-right-block-chat">
+            <div class="name-chat-div">
+                <img src="{% static 'images/chats.png' %}" alt="">
+                <h4>Повідомлення</h4>
+            </div>
+            <button type="button">Дивитись усі</button>
+        </div>
+
+        <div class="chat-div">
+            {% for chat_data in individual_chats %}
+                <div class="chat" data-id="{{ chat_data.chat_id }}" data-name = "{{ chat_data.other_user.first_name }}">
+                    <div class="chat-div-user">
+                        
+                        <div class="profile-img">
+                            {% if chat_data.other_user.is_online %}
+                                <img src="{% static 'chat_app/images/online.png' %}" alt="" class="status">
+                            {% else %}
+                                <img src="{% static 'chat_app/images/offline.png' %}" alt="" class="status">
+                            {% endif %}
+                        </div>
+                        <div class="text-chat">
+                            <h3>{{ chat_data.other_user.first_name }}</h3>
+                            <h5>{{ chat_data.last_message.text }}</h5>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="chats-right-block-chat">
+        <div class="name-right-block-chat">
+            <div class="name-chat-div">
+                <img src="{% static 'images/chats.png' %}" alt="">
+                <h4>Групові чати</h4>
+            </div>
+            <button type="button">Дивитись усі</button>
+        </div>
+
+        <div class="chat-div-group">
+            {% for chat_data in group_chats %}
+                <div class="chat" data-id="{{ chat_data.chat_id }}"  data-name = "{{ chat_data.chat_name }}">
+                    <div class="chat-div-user">
+                        <div class="profile-img"></div>
+                        <div class="text-chat">
+                            <h3>{{ chat_data.chat_name }}</h3>
+                            <h5>{{ chat_data.last_message.text }}</h5>
+                            <h5>{{ chat_data.count_online }} онлайн</h5>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

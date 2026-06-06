@@ -1,0 +1,46 @@
+.side-block-chat{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    height: 100%;
+    gap: 1.5vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.side-block-chat input{
+    height: clamp(0px, 3.8vh, 42px);
+    border-radius: 10px;
+    border: 1px solid #CDCED2;
+}
+
+.create-chat-btn{
+    width: 100%;
+    display: flex;
+    flex: row;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(0px, 0.2vw, 4px);
+    height: clamp(0px, 4vh, 35px);
+    border-radius: 1234px;
+    background-color: #543C52;
+    color: white;
+    border: 0px;
+    font-family: 'GTWalsheimPro';
+}
+
+.contact-div-users{
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0px, 2vh, 40px);
+}
+
+.user-friends-div{
+    height: clamp(0px, 4.2vh, 46px);
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    align-items: center;
+}

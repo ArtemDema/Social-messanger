@@ -3,6 +3,8 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'home_app/css/home.css'%}">
+    <link rel="stylesheet" href="{% static 'home_app/css/username.css'%}">
+    <link rel="stylesheet" href="{% static 'home_app/css/post.css'%}">
     <link rel="stylesheet" href="{% static 'post_app/css/post.css'%}">
 {% endblock %}
 
@@ -11,66 +13,9 @@
 {% endblock %}
 
 {% block sidebar %}
-    <div class="profile-block">
-        <img src="{% static 'images/profile_image.png' %}" alt="" id="profile-image">
-        
-        <h1 id="name">{{ user.first_name }}</h1>
+    {% include "home_app/particles/profileBlock.html" %}
 
-        <h3 id="username">{{ user.username }}</h3>
-        
-        <div class="info-profile">
-            
-            <div class="info">
-                <h1 class="count">566</h1>
-                
-                <h3 class="description">Дописи</h3>
-            </div>
-
-            <div class="vertical-line"></div>
-
-            <div class="info">
-                <h1 class="count">12.1К</h1>
-                <h3 class="description">Читачі</h3>
-            </div>
-
-            <div class="vertical-line"></div>
-            
-            <div class="info">
-                <h1 class="count">222</h1>
-                <h3 class="description">Друзі</h3>
-            </div>
-
-        </div>
-    </div>
-        
-    <div class="block request">
-        <div class = 'name-block'>
-            <div class="block-side-info">
-                <img src="{% static 'images/friends.png' %}" alt="">
-                <h2>Запити</h2>
-            </div>
-
-            <h3>Дивитись всі</h3>
-        </div>
-        <div class="example-request"></div>
-        <div class="example-request"></div>
-        <div class="example-request"></div>
-       
-    </div>
-
-    <div  class="block friends">
-        <div class = 'name-block'>
-            <div class="block-side-info">
-                <img src="{% static 'images/chats.png' %}" alt="">
-                <h2>Друзі</h2>
-            </div>
-            
-            <h3>Дивитись всі</h3>
-        </div>
-        <div class="example-friends"></div>
-        <div class="example-friends"></div>
-        <div class="example-friends"></div>
-    </div>
+    {% include "home_app/particles/block.html" %}
 {% endblock%}
 
 {% block content %}

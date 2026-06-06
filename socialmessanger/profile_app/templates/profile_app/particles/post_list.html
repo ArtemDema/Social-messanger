@@ -13,12 +13,6 @@
             <h4>{{ post.topic }}</h4>
             <p>{{ post.content }}</p>
 
-            <!-- <ul>
-                {% for tag in post.tags.all %}
-                    <li>{{ tag.name }}</li>
-                {% endfor %} 
-            </ul> -->
-
             <div class="links-post">
                 {% for link in post.postlink_set.all %}
                     <a href = {{link.url}} >{{link.url}}</a>

@@ -1,0 +1,103 @@
+.right-block-chat{
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0px, 1vh, 20px);
+    height: 100%;
+}
+
+.message-right-block-chat{
+    width: clamp(0px, 24.2vw, 460px);
+    background-color: white;
+    border-radius: 10px;
+    height: 50%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chats-right-block-chat{
+    width: clamp(0px, 24.2vw, 460px);
+    background-color: white;
+    border-radius: 10px;
+    height: 50%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.name-right-block-chat{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.right-block-chat button{
+    font-size: 1rem;
+    background-color: white;
+    border: none;
+    font-family: 'GTWalsheimPro';
+    display: flex;
+    align-items: flex-start;
+}
+
+.name-chat-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: clamp(0px, 0.4vh, 9px);
+}
+
+.chat-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0px, 1.1vh, 12px);
+}
+
+.chat{
+    height: clamp(0px, 5.7vh, 62px);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    justify-content: right;
+}
+
+.chat-div-user{
+    height: 100%;
+    width: 94%;
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    justify-content: left;
+    align-items: center;
+}
+
+.selected-chat{
+    background-color: #E9E5EE;
+}
+
+.chat h3{
+    font-family: "GTWalsheimPro-Light";
+}
+
+.status{
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    top: 30px;
+    left: 28px;
+}
+
+.text-chat{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vh;
+}
+
+.text-chat h5{
+    color: gray;
+}

@@ -6,21 +6,6 @@ let chatSocket;
 const sendMsg = document.querySelector("#send-msg")
 const msgInput = document.querySelector("#msg-input")
 
-const chatButton = document.querySelector(".create-chat-btn")
-
-const chatCreateDiv = document.querySelector(".create-group-modal")
-const chatSettingsDiv = document.querySelector(".settings-group-modal")
-
-const listCloseChat = document.querySelectorAll(".close-create-chat-modal")
-const listCloseChatSettings = document.querySelector(".close-settings-chat-modal")
-
-const nextChatButton = document.querySelector(".next-create-chat-modal")
-const backChatButton = document.querySelector(".back-create-chat-modal")
-
-const selectedUsersContainer = document.querySelector(".selected-users")
-
-const userCheckboxes = chatCreateDiv.querySelectorAll("input[type='checkbox']")
-
 const photosBtn = document.querySelectorAll(".photo")
 const imagesBtn = document.querySelector("#id_images")
 
@@ -44,11 +29,27 @@ let chatId;
 const messageBtn = document.querySelector('#message-files')
 const sendImg = document.querySelector('#send-image')
 
+const groupChats = document.querySelector('.chat-div-group')
+
+const backChat = document.querySelector("#back-from-chat")
+
+backChat.addEventListener('click', ()=>{
+    chatDiv.style.display = "none"
+    notSelectContainer.style.display = "flex"
+    if (chatSocket) chatSocket.close();
+
+    chatBtns.forEach(otherBtn => {
+        otherBtn.classList.remove('selected-chat');
+    });
+})
+
 sendImg.addEventListener('click', ()=>{
     messageBtn.click()
 })
 
 async function loadMessages(){
+    const oldHeight = messages.scrollHeight
+    
     const response = await fetch(
         `/chat/${chatId}/getMessages/?page=${pageNumber}`,
         {headers: {'X-Requested-With': 'XMLHttpRequest'}}
@@ -60,6 +61,12 @@ async function loadMessages(){
             createMessage(message.sender, message.text, message.date, message.time, message.is_author, message.images, false)
         })
         createDateMessage()
+
+        if(pageNumber > 1){
+            const newHeight = messages.scrollHeight
+            messages.scrollTop += (newHeight - oldHeight)
+        }
+
     }else if (observer != null){
         observer.disconnect()
     }
@@ -103,14 +110,20 @@ function createMessage(sender, text, date, time, is_author, images, isNew = true
     }
 }
 
-
 function openChat(id){
+    if (observer != null) {
+        observer.disconnect();
+        observer = null;
+    }
+
     let chatById = null
     chatBtns.forEach(tab => {
-        if (tab.dataset.id === id) {
+        
+        if (tab.dataset.id == id) {
             chatById = tab
         }
     });
+    
     const others = chatBtns.filter(button => button !== chatById);
     others.forEach(otherBtn => {
         otherBtn.classList.remove('selected-chat');
@@ -153,6 +166,78 @@ function openChat(id){
         }
     }
 }
+
+async function startObserveMessage() {
+    if (observer) {
+        observer.disconnect()
+    }
+
+    observer = new IntersectionObserver(async (entries) => {
+        if (entries[0].isIntersecting){
+            pageNumber += 1
+            await loadMessages()
+        }
+    }, {rootMargin: "10px"})
+    observer.observe(loadLine)
+}
+
+function createDateMessage(){
+    const messageDates = document.querySelectorAll('.message-date')
+    messageDates.forEach(date => {
+        date.remove()
+    })
+
+    const messageList = document.querySelectorAll('.user-message')
+    let previousMessageDate = null
+    messageList.forEach(message => {
+        if(previousMessageDate != message.dataset.date){
+            const dateTitleDiv = document.createElement('div')
+            dateTitleDiv.classList.add("date-title-div")
+
+            const dateTitleDivForCenter = document.createElement('div')
+            dateTitleDivForCenter.classList.add("date-title-for-center")
+            dateTitleDiv.appendChild(dateTitleDivForCenter)
+
+            const dateTitle = document.createElement('h4')
+            dateTitle.classList.add('message-date')
+            dateTitle.textContent = message.dataset.date
+            dateTitleDivForCenter.appendChild(dateTitle)
+
+            messages.insertBefore(dateTitleDiv, message.parentElement)
+        }
+        previousMessageDate = message.dataset.date
+    })
+}
+
+sendMsg.addEventListener("click", async ()=>{
+    if (msgImageInput.files.length > 0){
+        const formData = new FormData()
+        formData.append("text", msgInput.value)
+        formData.append("chat_id", chatId )
+
+        const files = Array.from(msgImageInput.files)
+        files.forEach(file =>{
+            formData.append("image", file) 
+        })
+
+        const response = await fetch('/chat/create/message/', {
+            method: "POST",
+            headers: {
+                'X-CSRFToken' : csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
+        })
+    }else{
+        chatSocket.send(
+            JSON.stringify({
+                "msg": msgInput.value
+            })
+        )
+    }
+    msgInput.value = ''
+    msgImageInput.value = ''
+})
 
 friendDivs.forEach(div => {
     div.addEventListener('click', async ()=>{
@@ -216,173 +301,3 @@ chatBtns.forEach(btn => {
         }
     })
 })
-
-sendMsg.addEventListener("click", async ()=>{
-    if (msgImageInput.files.length > 0){
-        const formData = new FormData()
-        formData.append("text", msgInput.value)
-        formData.append("chat_id", chatId )
-
-        const files = Array.from(msgImageInput.files)
-        files.forEach(file =>{
-            formData.append("image", file) 
-        })
-
-        const response = await fetch('/chat/create/message/', {
-            method: "POST",
-            headers: {
-                'X-CSRFToken' : csrfToken,
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: formData
-        })
-    }else{
-        chatSocket.send(
-            JSON.stringify({
-                "msg": msgInput.value
-            })
-        )
-    }
-    msgInput.value = ''
-    msgImageInput.value = ''
-})
-
-
-chatButton.addEventListener("click", ()=>{
-    chatCreateDiv.style.display = "flex"
-})
-
-listCloseChat.forEach(button => {
-    button.addEventListener("click", ()=>{
-        chatCreateDiv.style.display = "none"
-    })
-});
-
-listCloseChatSettings.addEventListener("click", ()=>{
-    chatSettingsDiv.style.display = "none"
-})
-
-nextChatButton.addEventListener("click", ()=>{
-    selectedUsersContainer.innerHTML = ""
-
-    const selectedUsers = [...userCheckboxes]
-        .filter(cb => cb.checked)
-
-    selectedUsers.forEach(cb => {
-        const userDiv = document.createElement("div")
-        const userP = document.createElement("p")
-        userP.textContent = cb.parentElement.textContent.trim()
-        userDiv.appendChild(userP)
-        userDiv.dataset.id = cb.dataset.id
-
-        const deleteUserBtn = document.createElement("button")
-        deleteUserBtn.type = 'button'
-
-        const photo_img = document.createElement('img')
-        photo_img.src = DELETE_USER
-        deleteUserBtn.appendChild(photo_img)
-
-        deleteUserBtn.addEventListener("click", ()=>{
-            const checkbox = document.querySelector(
-                `input[type="checkbox"][data-id="${userDiv.dataset.id}"]`
-            );
-
-            if (checkbox) {
-                checkbox.checked = false;
-            }
-
-            userDiv.remove()
-            deleteUserBtn.remove()
-            
-        })
-        
-        selectedUsersContainer.appendChild(userDiv)
-        userDiv.appendChild(deleteUserBtn)
-    })
-    
-    chatCreateDiv.style.display = "none"
-    chatSettingsDiv.style.display = "flex"
-})
-
-createGroup.addEventListener('click', async()=> {
-    const selectedUsers = [...userCheckboxes].filter(cb => cb.checked)
-    
-    const data = {
-        'name': groupName.value,
-        'friends': []
-    }
-    
-    selectedUsers.forEach(selectedUser => {
-        data.friends.push(selectedUser.dataset.id)
-    })
-
-    const response = await fetch(
-        '/chat/create/group/',
-        {
-            headers: {
-                'X-CSRFToken' : csrfToken,
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            method: 'POST',
-            body: JSON.stringify(data)
-        }
-    )
-    const responseData = await response.json()
-    chatCreateDiv.style.display = 'none'
-    chatSettingsDiv.style.display = 'none'
-
-    const newChat = document.createElement("div")
-    newChat.dataset.id = responseData.chat_id
-    newChat.textContent = responseData.name
-    newChat.classList.add("chat-user-button")
-    newChat.classList.add("chat")
-    
-    newChat.addEventListener("click", ()=>{
-        openChat(responseData.chat_id)
-    })
-
-    groupChats.appendChild(newChat)
-})
-
-backChatButton.addEventListener("click", ()=>{
-    chatCreateDiv.style.display = "flex"
-    chatSettingsDiv.style.display = "none"
-})
-
-async function startObserveMessage(chat){
-    observer = new IntersectionObserver(async (entries) => {
-        if (entries[0].isIntersecting){
-            pageNumber += 1
-            await loadMessages()
-        }
-    }, {rootMargin: "10px"})
-    observer.observe(loadLine)
-}
-
-function createDateMessage(){
-    const messageDates = document.querySelectorAll('.message-date')
-    messageDates.forEach(date => {
-        date.remove()
-    })
-
-    const messageList = document.querySelectorAll('.user-message')
-    let previousMessageDate = null
-    messageList.forEach(message => {
-        if(previousMessageDate != message.dataset.date){
-            const dateTitleDiv = document.createElement('div')
-            dateTitleDiv.classList.add("date-title-div")
-
-            const dateTitleDivForCenter = document.createElement('div')
-            dateTitleDivForCenter.classList.add("date-title-for-center")
-            dateTitleDiv.appendChild(dateTitleDivForCenter)
-
-            const dateTitle = document.createElement('h4')
-            dateTitle.classList.add('message-date')
-            dateTitle.textContent = message.dataset.date
-            dateTitleDivForCenter.appendChild(dateTitle)
-
-            messages.insertBefore(dateTitleDiv, message.parentElement)
-        }
-        previousMessageDate = message.dataset.date
-    })
-}

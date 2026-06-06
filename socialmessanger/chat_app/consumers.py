@@ -1,5 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
+from django.utils import timezone
 import json
 from .models import *
 
@@ -48,12 +49,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
     def save_message(self, text):
         user = self.scope.get("user")
         new_message = Message.objects.create(text = text, chat_id=self.chat_id, sender=user)
+        local_time = timezone.localtime(new_message.created_at)
         return {
             'sender_id': user.id,
             'sender': new_message.sender.first_name,
             'text': new_message.text,
-            'date': str(new_message.created_at.date()),
-            'time': str(new_message.created_at.timetuple().tm_hour) + ":" + str(new_message.created_at.timetuple().tm_min),
+            'date': str(local_time.strftime("%Y-%m-%d")),
+            'time': str(local_time.strftime("%H:%M")),
             'images': []
         }
         
