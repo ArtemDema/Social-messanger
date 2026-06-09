@@ -35,9 +35,13 @@ nextChatButton.addEventListener("click", ()=>{
 
     selectedUsers.forEach(cb => {
         const userDiv = document.createElement("div")
-        const userP = document.createElement("p")
-        userP.textContent = cb.parentElement.textContent.trim()
-        userDiv.appendChild(userP)
+        const userDivAvatar = `
+            <div class="user-item-div">
+                <div class="profile-img"></div>
+                <h4>${ cb.parentElement.textContent.trim() }</h4>
+            </div>            
+        `
+        userDiv.innerHTML += userDivAvatar
         userDiv.dataset.id = cb.dataset.id
 
         const deleteUserBtn = document.createElement("button")

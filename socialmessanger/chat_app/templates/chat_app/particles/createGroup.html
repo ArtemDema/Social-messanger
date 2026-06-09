@@ -25,7 +25,11 @@
                 {% for key, section in friends.items %}
                     {% for user in section %}
                         <label class="user-item">
-                            <h4>{{ user.first_name }}</h4>
+                            <div class="user-item-div">
+                                <div class="profile-img"></div>
+                                <h4>{{ user.first_name }}</h4>
+                            </div>
+                            
                             <input data-id="{{ user.id }}" type="checkbox">
                         </label>
                     {% endfor %}

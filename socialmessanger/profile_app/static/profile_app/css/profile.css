@@ -33,3 +33,12 @@
 .profile-block{
     padding: 10px;
 }
+
+.online-marker{
+    width: 20%;
+    height: 20%;
+    top: 110px;
+    left: 90px;
+    position: relative;
+}
+

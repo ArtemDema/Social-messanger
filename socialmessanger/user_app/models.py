@@ -11,12 +11,6 @@ class User(AbstractUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
-    @property
-    def is_online(self):
-        if self.is_authenticated:
-            return cache.get(f"online_{self.id}") is not None
-        return False
-
 
 class Friendship(models.Model):
     from_user = models.ForeignKey(User, on_delete= models.CASCADE, related_name= "send_friendship")

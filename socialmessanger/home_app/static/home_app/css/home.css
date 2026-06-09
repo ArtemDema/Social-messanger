@@ -19,6 +19,8 @@ body.modal-open {
     overflow: hidden;
     box-sizing: border-box;
     background-color: white;
+    gap: 1vh;
+    padding: 10px;
 }
 
 .block{
@@ -120,4 +122,12 @@ body.modal-open {
     flex-direction: row;
     align-items: center;
     gap: clamp(0px, 0.6vw, 10px);
+}
+
+.online-marker{
+    width: 20%;
+    height: 20%;
+    top: 100px;
+    left: 90px;
+    position: relative;
 }

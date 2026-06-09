@@ -104,9 +104,11 @@
 
 .div-own-msg{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: right;
+    align-items: end;
     width: 100%;
+
 }
 
 .text{
@@ -152,4 +154,10 @@
 
 #message-files{
     display: none;
+}
+
+.chat-image{
+    width: clamp(0px, 15vw, 300px);
+    height: clamp(0px, 27.5vh, 300px);
+    border-radius: 16px;
 }

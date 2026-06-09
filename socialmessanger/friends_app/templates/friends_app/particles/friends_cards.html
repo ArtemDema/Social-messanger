@@ -1,6 +1,8 @@
 {% for user in users %}
     <div class="card">
-        <div class="profile-img"></div>
+        <div class="profile-img">
+            <div class='online-marker' data-id ='{{ user.id }}'></div>
+        </div>
         
         <h3>{{ user.first_name }}</h3>
 

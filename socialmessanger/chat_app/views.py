@@ -37,17 +37,11 @@ class ChatView(LoginRequiredMixin, TemplateView):
         for chat in chats:
             other_user = chat.users.exclude(id = self.request.user.id)
             last_message = chat.messages.order_by('-created_at').first()
-
-            count_online = 1
-            for user in other_user:
-                if user.is_online:
-                    count_online += 1
                     
             data.append({
                 "chat_id": chat.id,
                 "chat_name": chat.name,
                 "last_message": last_message,
-                "count_online": count_online
             })
 
         context["group_chats"] = data

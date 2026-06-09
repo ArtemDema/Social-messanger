@@ -92,16 +92,18 @@ function createMessage(sender, text, date, time, is_author, images, isNew = true
             <h4 class="text">${text}</h4>
             <h6 class="date-time">${time}</h6>
         </div>
-    `
-    if (images){
+        `
+    }
+
+    if (images.length != 0){
         images.forEach(imageUrl =>{
-            const newImage = document.createElement("img") 
+            const newImage = document.createElement("img")
+            newImage.classList.add('chat-image')
             newImage.src = imageUrl
             newMessage.append(newImage)
         })
     }
 
-    }
     if(isNew){
         messages.appendChild(newMessage)
     }

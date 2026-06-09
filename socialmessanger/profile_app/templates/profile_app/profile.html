@@ -14,7 +14,9 @@
 
 {% block sidebar %}
     <div class="profile-block">
-        <img src="{% static 'images/profile_image.png' %}" alt="" id="profile-image">
+        <div class="profile-img">
+            <div class='online-marker' data-id ='{{ profile_user.id }}'></div>
+        </div>
         
     <h1 id="name">{{ profile_user.first_name }}</h1>
 

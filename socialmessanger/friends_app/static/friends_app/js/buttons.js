@@ -38,6 +38,7 @@ async function loadSection(section, page) {
     }
     currentSectionList.insertAdjacentHTML('beforeend', data.html)
     isLoading = false
+    presenceSocket.send("get_online")
 }
 
 async function openSection(section){

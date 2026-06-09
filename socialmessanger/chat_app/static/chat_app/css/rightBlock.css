@@ -84,14 +84,6 @@
     font-family: "GTWalsheimPro-Light";
 }
 
-.status{
-    width: 40%;
-    height: 40%;
-    position: absolute;
-    top: 30px;
-    left: 28px;
-}
-
 .text-chat{
     display: flex;
     flex-direction: column;
