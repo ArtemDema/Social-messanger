@@ -147,14 +147,15 @@ class CreateMessageView(LoginRequiredMixin, View):
             channel_layer = get_channel_layer()
             
             async_to_sync(channel_layer.group_send)(
-                f"chat_{chat.id}", 
+                f"chat_{chat.id}",
                 {
                     "type": "send_message",
                     "message": {
-                        'sender': new_message.sender.email,
+                        'sender_id': request.user.id,
+                        'sender': request.user.first_name,
                         'text': new_message.text,
                         'date': str(new_message.created_at.date()),
-                        'time': str(new_message.created_at.timetuple().tm_hour) + ":" + str(new_message.created_at.timetuple().tm_min),
+                        'time': new_message.created_at.strftime("%H:%M"),
                         'images': list_url_image
                     },
                 }
