@@ -29,6 +29,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text = data.get("msg")
         if text.strip():
             message = await self.save_message(text)
+            for member_id in message['members_id']:
+                await self.channel_layer.group_send(
+                    f"user_{member_id}",
+                    {
+                        'type': 'send_message',
+                        'chat_id': self.chat_id,
+                    }
+                )
             await self.channel_layer.group_send(
                 self.room_group_name, 
                 {
@@ -49,6 +57,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
     def save_message(self, text):
         user = self.scope.get("user")
         new_message = Message.objects.create(text = text, chat_id=self.chat_id, sender=user)
+        members_id = []
+        for user in new_message.chat.users.all():
+            members_id.append(user.id)
+
         local_time = timezone.localtime(new_message.created_at)
         return {
             'sender_id': user.id,
@@ -56,8 +68,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'text': new_message.text,
             'date': str(local_time.strftime("%Y-%m-%d")),
             'time': str(local_time.strftime("%H:%M")),
-            'images': []
+            'images': [],
+            "id": new_message.id,
+            'members_id': members_id
         }
+    
+    @database_sync_to_async   
+    def read_message(self, message_id):
+        user = self.scope.get("user")
+        message = Message.objects.filter(id= message_id).first()
+        if user != message.sender:
+            message.readers.add(user)
         
     async def send_message(self, data):
+        await self.read_message(message_id= data["message"]["id"])
         await self.send(text_data= json.dumps(data))

@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from django.utils import timezone
+from user_app.consumers import online_users
 
 # Create your views here.
 class ChatView(LoginRequiredMixin, TemplateView):
@@ -22,10 +23,17 @@ class ChatView(LoginRequiredMixin, TemplateView):
         for chat in chats:
             other_user = chat.users.exclude(id = self.request.user.id).first()
             last_message = chat.messages.order_by('-created_at').first()
+
+            if last_message == None:
+                last_message_date = ""
+            else:
+                local_time = timezone.localtime(last_message.created_at)
+                last_message_date = str(local_time.strftime("%d.%m.%Y"))
             data.append({
                 "chat_id": chat.id,
                 "other_user":  other_user,
-                "last_message": last_message
+                "last_message": last_message,
+                'last_message_date': last_message_date
             })
 
         context["individual_chats"] = data
@@ -37,11 +45,17 @@ class ChatView(LoginRequiredMixin, TemplateView):
         for chat in chats:
             other_user = chat.users.exclude(id = self.request.user.id)
             last_message = chat.messages.order_by('-created_at').first()
-                    
+            
+            if last_message == None:
+                last_message_date = ""
+            else:
+                local_time = timezone.localtime(last_message.created_at)
+                last_message_date = str(local_time.strftime("%d.%m.%Y"))
             data.append({
                 "chat_id": chat.id,
                 "chat_name": chat.name,
                 "last_message": last_message,
+                'last_message_date': last_message_date
             })
 
         context["group_chats"] = data
@@ -50,6 +64,7 @@ class ChatView(LoginRequiredMixin, TemplateView):
         context["group_form"] = GroupForm()
     
         return context
+    
     
 class CreateChatView(LoginRequiredMixin, View): 
     def post(self, request):
@@ -65,8 +80,8 @@ class CreateChatView(LoginRequiredMixin, View):
             is_new_chat = True  
         return JsonResponse({ "chat_id" : chat.id, 
                              "first_name" : friend.first_name, 
-                             'is_new': is_new_chat, 
-                             "is_online" : friend.is_online})
+                             'is_new': is_new_chat})
+    
     
 class GetMessagesView(LoginRequiredMixin, View):
     def get(self, request, chat_id, *args, **kwargs):
@@ -81,7 +96,9 @@ class GetMessagesView(LoginRequiredMixin, View):
             else:
                 message_data_list = []
                 for message in message_list:
-                    local_time = local_time = timezone.localtime(message.created_at)
+                    local_time = timezone.localtime(message.created_at)
+                    if message.sender != request.user: 
+                        message.readers.add(request.user)
                     list_url_image = []
                     for image in message.images.all():
                         list_url_image.append(image.image.url)
@@ -101,6 +118,7 @@ class GetMessagesView(LoginRequiredMixin, View):
                     "success" : True,
                     "messages": message_data_list
                 })
+            
             
 class CreateGroupView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
@@ -124,6 +142,7 @@ class CreateGroupView(LoginRequiredMixin, View):
             'name': new_chat.name,
             'chat_id':new_chat.id
         })
+    
         
 class CreateMessageView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
@@ -162,4 +181,22 @@ class CreateMessageView(LoginRequiredMixin, View):
             )
             
             return JsonResponse({"success": True})
+        return JsonResponse({"success": False})
+
+class GetGroupUsers(LoginRequiredMixin, View):
+    def get(self, request, id):
+        chat = Chat.objects.filter(id = id, users = request.user).first()
+        if chat != None and chat.is_group:
+            users_id = []
+            online_users_id = []
+            for user in chat.users.all():
+                users_id.append(user.id)
+                if user.id in online_users:
+                    online_users_id.append(user.id)
+            return JsonResponse({
+                "success": True,
+                'name': chat.name,
+                'users_id': users_id,
+                'online_users_id': online_users_id,
+            })
         return JsonResponse({"success": False})

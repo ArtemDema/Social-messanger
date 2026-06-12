@@ -1,16 +1,3 @@
-.tag-modal-info{
-    width: clamp(0px, 25vw, 500px) !important;
-    height: clamp(0px, 35vh, 400px) !important;
-    background-color: white;
-    display: flex;
-    justify-content:flex-start;
-    align-items: top;
-    flex-direction: column;
-    gap: 2vh;
-    -radius: 20px;
-    padding: clamp(0px, 1.5vh, 25px);
-}
-
 .tag-modal-window {
     height: 100vh;
     width: 100vw;
@@ -32,7 +19,7 @@
     align-items: top;
     flex-direction: column;
     gap: 2vh;
-    -radius: 20px;
+    border-radius: 20px;
     padding: clamp(0px, 1.5vh, 25px);
 }
 

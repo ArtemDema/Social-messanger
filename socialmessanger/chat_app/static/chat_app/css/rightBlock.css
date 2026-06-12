@@ -33,15 +33,6 @@
     padding: 10px;
 }
 
-.right-block-chat button{
-    font-size: 1rem;
-    background-color: white;
-    border: none;
-    font-family: 'GTWalsheimPro';
-    display: flex;
-    align-items: flex-start;
-}
-
 .name-chat-div{
     display: flex;
     flex-direction: row;
@@ -84,12 +75,17 @@
     font-family: "GTWalsheimPro-Light";
 }
 
-.text-chat{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5vh;
-}
-
 .text-chat h5{
     color: gray;
+}
+
+.chat-last-message-info{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.text-chat{
+    width: 80%;
 }

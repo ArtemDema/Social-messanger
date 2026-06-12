@@ -165,3 +165,11 @@ button img{
     border-radius: 1234px;
     border: 1px solid gray;
 }
+
+.unread{
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: red;
+}

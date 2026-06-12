@@ -5,6 +5,7 @@ let chatSocket;
 
 const sendMsg = document.querySelector("#send-msg")
 const msgInput = document.querySelector("#msg-input")
+const groupHeader = document.querySelector("#name-div")
 
 const photosBtn = document.querySelectorAll(".photo")
 const imagesBtn = document.querySelector("#id_images")
@@ -17,8 +18,6 @@ const csrfToken = document.querySelector("meta[name='csrf_token']").content
 const currentUserId = document.getElementById('current-user').dataset.id;
 
 const msgImageInput = document.querySelector("#message-files")
-const groupName = document.querySelector("#id_name")
-const createGroup = document.querySelector(".create-chat-modal-btn")
 
 const messages = document.querySelector('#messages')
 const loadLine = document.querySelector("#load-message-line")
@@ -26,7 +25,9 @@ let pageNumber = 1
 let observer = null
 let chatId;
 
-const messageBtn = document.querySelector('#message-files')
+let listOnlineGroupUsers = null
+let listGroupUsers = null
+
 const sendImg = document.querySelector('#send-image')
 
 const groupChats = document.querySelector('.chat-div-group')
@@ -44,8 +45,39 @@ backChat.addEventListener('click', ()=>{
 })
 
 sendImg.addEventListener('click', ()=>{
-    messageBtn.click()
+    msgImageInput.click()
 })
+
+function updateGroupUsers(id, status){
+    if (listGroupUsers != null){
+        if (listGroupUsers.includes(id)){
+            if (status == false && listOnlineGroupUsers.includes(id)){
+                listOnlineGroupUsers.splice(listOnlineGroupUsers.indexOf(id), 1)
+            }
+            else if (!listOnlineGroupUsers.includes(id)){
+                listOnlineGroupUsers.push(id)
+            }
+            groupHeader.querySelector("p").textContent = `${listGroupUsers.length} учасники, ${listOnlineGroupUsers.length} в мережі`
+        } 
+    }
+}
+
+async function getGroupUsers(id){ 
+    listOnlineGroupUsers = null
+    listGroupUsers = null
+
+    const response = await fetch(`/chat/${id}/getGroupUsers/`)
+    const data = await response.json()
+    if (data.success){
+        listGroupUsers = data.users_id
+        listOnlineGroupUsers = data.online_users_id
+
+        document.querySelector(".chat-name").innerHTML += `
+            <p>${data.users_id.length} учасники, ${data.online_users_id.length} в мережі</p>
+        `
+
+    }
+}
 
 async function loadMessages(){
     const oldHeight = messages.scrollHeight
@@ -76,6 +108,9 @@ function createMessage(sender, text, date, time, is_author, images, isNew = true
     const newMessage = document.createElement('div')
     newMessage.classList.add('message')
     if (is_author){
+        if (text.length == 0){
+            text = "фото без підпису"
+        }
         newMessage.classList.add('div-own-msg')
         newMessage.innerHTML = `
         <div class="user-message own-message" data-date="${date}">
@@ -152,6 +187,7 @@ function openChat(id){
 
     chatById.classList.add('selected-chat')
     
+    getGroupUsers(id)
     if (chatSocket){
         chatSocket.close()
     }
@@ -184,7 +220,7 @@ async function startObserveMessage() {
 }
 
 function createDateMessage(){
-    const messageDates = document.querySelectorAll('.message-date')
+    const messageDates = document.querySelectorAll('.date-title-div')
     messageDates.forEach(date => {
         date.remove()
     })
@@ -260,14 +296,9 @@ friendDivs.forEach(div => {
 
             newChat.classList.add('chat')
             newChatDiv.classList.add('chat-div-user')
-            
-            let userStatus = OFFLINE_IMAGE
-            if (data.is_online == true){
-                userStatus = ONLINE_IMAGE
-            }
 
             newChatDiv.innerHTML = `<div class="profile-img">
-                                        <img src="${userStatus}" alt="" class="status">
+                                        <div class="online-marker data-id=${div.dataset.id}"></div>
                                     </div>`
             newChatDiv.innerHTML += `<h3>${data.first_name}</h3>`
 

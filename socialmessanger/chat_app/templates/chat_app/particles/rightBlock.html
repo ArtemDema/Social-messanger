@@ -7,7 +7,6 @@
                 <img src="{% static 'images/chats.png' %}" alt="">
                 <h4>Повідомлення</h4>
             </div>
-            <button type="button">Дивитись усі</button>
         </div>
 
         <div class="chat-div">
@@ -22,7 +21,10 @@
                         </div>
                         <div class="text-chat">
                             <h3>{{ chat_data.other_user.first_name }}</h3>
-                            <h5>{{ chat_data.last_message.text }}</h5>
+                            <div class="chat-last-message-info">
+                                <h5>{{ chat_data.last_message.text }}</h5>
+                                <h5>{{ chat_data.last_message_date }}</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -36,7 +38,6 @@
                 <img src="{% static 'images/chats.png' %}" alt="">
                 <h4>Групові чати</h4>
             </div>
-            <button type="button">Дивитись усі</button>
         </div>
 
         <div class="chat-div-group">
@@ -46,7 +47,10 @@
                         <div class="profile-img"></div>
                         <div class="text-chat">
                             <h3>{{ chat_data.chat_name }}</h3>
-                            <h5>{{ chat_data.last_message.text }}</h5>
+                            <div class="chat-last-message-info">
+                                <h5>{{ chat_data.last_message.text }}</h5>
+                                <h5>{{ chat_data.last_message_date }}</h5>
+                            </div>
                         </div>
                     </div>
                 </div>

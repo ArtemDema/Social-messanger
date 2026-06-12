@@ -27,13 +27,13 @@
 }
 
 .group-modal{
-    width: clamp(0px, 31vw, 500px) !important; 
+    width: clamp(0px, 34vw, 500px) !important; 
     height: clamp(0px, 72vh, 777px) !important;
 }
 
 .group-modal-settings{
-    width: clamp(0px, 31vw, 500px);
-    height: clamp(0px, 59vh, 635px);
+    width: clamp(0px, 34vw, 490px) !important;
+    height: clamp(0px, 66vh, 635px) !important;
 }
 
 .div-input input{
@@ -60,7 +60,7 @@
 }
 
 .selected-users{
-    height: clamp(0px, 18vh, 192px);
+    height: clamp(0px, 28vh, 280px);
     display: flex;
     flex-direction: column;
     gap: clamp(0px, 1vh, 20px);
@@ -144,4 +144,8 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:checked {
   background-image: url("../images/check_mark.png");
+}
+
+.create-chat-modal-btn {
+    width: clamp(0px, 8vw, 134px);
 }
