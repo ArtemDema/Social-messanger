@@ -1,0 +1,42 @@
+{% load static %}
+
+<div class="add-to-group-modal modal-window" style="display: none;">
+    <div class="modal-info add-users-modal">
+
+        <div class="close-div-button">
+            <button class="close-create-chat-modal">
+                <img src="{% static 'post_app/images/modal-exit.png' %}" alt="">
+            </button>
+        </div>
+
+        <h2>Додати користувачів</h2>
+        
+        <div class="div-input">
+            <img src="{% static 'chat_app/images/search.png' %}" alt="">
+
+            <input type="text" placeholder="Пошук">
+        </div>
+        
+        <div class="friends-div">
+            <div class="friend-list">
+                {% for key, section in friends.items %}
+                    {% for user in section %}
+                        <label class="user-item">
+                            <div class="user-item-div">
+                                <div class="profile-img"></div>
+                                <h4>{{ user.first_name }}</h4>
+                            </div>
+                            
+                            <input data-id="{{ user.id }}" type="checkbox">
+                        </label>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="chat-function-buttons">
+            <button type="button" class="close-create-chat-modal second-button">Скасувати</button>
+            <button type="button" class="add-users-to-group-btn first-button">Додати</button>
+        </div>
+    </div>
+</div>

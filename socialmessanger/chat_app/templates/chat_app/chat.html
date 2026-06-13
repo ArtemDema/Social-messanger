@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'chat_app/css/sidebar.css'%}">
     <link rel="stylesheet" href="{% static 'chat_app/css/mainBlock.css'%}">
     <link rel="stylesheet" href="{% static 'chat_app/css/rightBlock.css'%}">
+    <link rel="stylesheet" href="{% static 'chat_app/css/chatSettings.css'%}">
 
     <link rel="stylesheet" href="{% static 'home_app/css/username.css'%}">
 {% endblock %} 
@@ -28,6 +29,8 @@
 {% block modal %}
     {% include "chat_app/particles/createGroup.html" %}
     {% include "chat_app/particles/settingsGroup.html" %}
+    {% include "chat_app/particles/chatModalSettings.html" %}
+    {% include "chat_app/particles/addToGroup.html" %}
 
     {% if not user.first_name %}
         {% include "home_app/particles/username.html" %}
@@ -37,6 +40,7 @@
 {% block scripts %}
     <script src="{% static 'chat_app/js/chat.js' %}"></script>
     <script src="{% static 'chat_app/js/modal.js' %}"></script>
+    <script src="{% static 'chat_app/js/chatSettings.js' %}"></script>
 
     <script>
         const DELETE_USER = "{% static 'chat_app/images/delete_user.png' %}"

@@ -7,5 +7,6 @@ urlpatterns = [
     path('<int:chat_id>/getMessages/', GetMessagesView.as_view(), name = "get_messages"),
     path('create/group/', CreateGroupView.as_view(), name = 'create_group'),
     path('create/message/', CreateMessageView.as_view(), name = 'create_mesage'),
-    path('<int:id>/getGroupUsers/', GetGroupUsers.as_view(), name="getGroupUsers")
+    path('<int:id>/getGroupUsers/', GetGroupUsers.as_view(), name="getGroupUsers"),
+    path('editGroup/', EditGroup.as_view(), name="editGroup")
 ]

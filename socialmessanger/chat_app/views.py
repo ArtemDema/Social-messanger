@@ -67,7 +67,7 @@ class ChatView(LoginRequiredMixin, TemplateView):
     
     
 class CreateChatView(LoginRequiredMixin, View): 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         data = json.loads(request.body)
         friend_id = data.get('friend_id')
         friend = User.objects.filter(id = friend_id).first()
@@ -146,7 +146,6 @@ class CreateGroupView(LoginRequiredMixin, View):
         
 class CreateMessageView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
-        print(request.POST, request.FILES)
         chat_id = request.POST.get("chat_id")
         chat = Chat.objects.filter(id = chat_id, users = request.user).first()
         if chat:
@@ -188,9 +187,11 @@ class GetGroupUsers(LoginRequiredMixin, View):
         chat = Chat.objects.filter(id = id, users = request.user).first()
         if chat != None and chat.is_group:
             users_id = []
+            users_name = []
             online_users_id = []
             for user in chat.users.all():
                 users_id.append(user.id)
+                users_name.append(user.first_name)
                 if user.id in online_users:
                     online_users_id.append(user.id)
             return JsonResponse({
@@ -198,5 +199,29 @@ class GetGroupUsers(LoginRequiredMixin, View):
                 'name': chat.name,
                 'users_id': users_id,
                 'online_users_id': online_users_id,
+                "users_name": users_name,
             })
+        return JsonResponse({"success": False})
+
+
+class EditGroup(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        id_members = request.POST.get("id_members")
+        list_new_members = []
+        for member in id_members.split(","):
+            list_new_members += User.objects.filter(id = int(member))
+        
+        print(list_new_members)
+        id_group = request.POST.get("id_group")
+        name_group = request.POST.get("group_name")
+        chat = Chat.objects.filter(id = id_group).first()
+        if chat:
+            chat.name = name_group
+            chat.users.clear()
+            for new_member in list_new_members:
+                chat.users.add(new_member)
+            chat.save()
+
+            return JsonResponse({"success": True})
+        
         return JsonResponse({"success": False})
