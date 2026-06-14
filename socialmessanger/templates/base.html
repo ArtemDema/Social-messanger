@@ -1,0 +1,91 @@
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        {% block meta %}
+        {% endblock %}
+        
+        <link rel="stylesheet" href="{% static 'css/base.css'%}">
+
+        {% block links %}
+        {% endblock %}
+        
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+    </head>
+
+<body>
+    <header>
+        <div class="header-div">
+
+            <a href="{% url 'home_page' %}">
+                <img src="{% static 'images/logo.png' %}" alt="" id = 'logo'>
+            </a>
+
+            <nav>
+                <a href="{% url 'home_page' %}" class="redirect-link home-link">
+                    <img src="{% static 'images/home.png' %}" alt="">
+                    <span>Головна</span>
+                </a>
+
+                <a href="{% url 'post_page' %}" class="redirect-link posts-link">
+                    <img src="{% static 'images/posts.png' %}" alt="">
+                    <span>Мої публікації</span>
+                </a>
+
+                <a href="{% url 'friends_page' %}"  class="redirect-link friends-link">
+                    <img src="{% static 'images/friends.png' %}" alt="">
+                    <span>Друзі</span>
+                </a>
+
+                <a href="{% url 'chat_page' %}" class="redirect-link">
+                    <img src="{% static 'images/chats.png' %}" alt="">
+                    <span>Чати</span>
+                </a>
+
+                <a href="{% url 'settings_page' %}" class="redirect-link settings-link">
+                    <img src="{% static 'images/settings.png' %}" alt="">
+                    <span>Налаштування</span>
+                </a>
+                
+                <a href="{% url 'logout_page' %}">
+                    <button class="exit">
+                        <img src="{% static 'images/exit.png' %}" alt="">
+                        Вихід
+                    </button>
+                </a>
+
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="page">
+        <div class="sidebar">
+            {% block sidebar %}
+            {% endblock %}
+        </div>
+
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    {% block modal %}
+    {% endblock %}
+    
+    <script src="{% static 'js/base.js' %}"></script>
+    {% if user.is_authenticated %}
+        <script src = '{% static "js/presence.js"%}'></script>
+    {% endif %}
+
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

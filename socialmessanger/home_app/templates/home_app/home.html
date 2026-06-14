@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'home_app/css/home.css'%}">
+    <link rel="stylesheet" href="{% static 'home_app/css/username.css'%}">
+    <link rel="stylesheet" href="{% static 'home_app/css/post.css'%}">
+    <link rel="stylesheet" href="{% static 'post_app/css/post.css'%}">
+{% endblock %}
+
+{% block meta %}
+    <meta name="csrf_token" content = '{{ csrf_token }}'>
+{% endblock %}
+
+{% block sidebar %}
+    {% include "home_app/particles/profileBlock.html" %}
+
+    {% include "home_app/particles/block.html" %}
+{% endblock%}
+
+{% block content %}
+    <div class = 'post-div'>
+        <div class = 'post-div-text'>
+            <textarea id= "post-textarea" type="text" placeholder=""></textarea>
+        </div>
+
+        <div class = 'post-div-button'>
+                <button type="button" class="post-create-post">Перейти до оформлення</button>
+        </div> 
+    </div>
+
+    <div id="post-list">
+
+        {% include "home_app/particles/post_list.html" %}
+
+        <div id="load-post-line" style="width: 100%; height: 1vh;"></div>
+
+    </div>
+{% endblock %}
+
+{% block modal %}
+    {% include "home_app/particles/createPost.html" %}
+
+    {% include "home_app/particles/createTag.html" %}
+
+    {% if not user.first_name %}
+        {% include "home_app/particles/username.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'home_app/js/home.js' %}"></script>
+    <script src="{% static 'post_app/js/post.js' %}"></script>
+    <script src="{% static 'post_app/js/load_post.js' %}"></script>
+    <script src="{% static 'post_app/js/tag.js' %}"></script>
+    <script>
+        const MINUS_ICON = "{% static 'post_app/images/minus_link.png' %}"
+    </script>
+
+    <script>
+        const DELETE_BUTTON = "{% static 'post_app/images/delete_photo.png' %}"
+    </script>
+{% endblock %}

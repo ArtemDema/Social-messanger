@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="tag-modal-window" style="display: none;">
+    <div class="tag-modal-info">
+        
+            <div class="post-button-exit">
+                <button class="tag-modal-exit">
+                    <img src="{% static 'post_app/images/modal-exit.png' %}" alt="">
+                </button>
+            </div>
+
+        <h1>Додати хештег</h1>
+
+        <div class="post-modal-form-div">
+            
+            <div class="tag-error-container"></div>
+            
+            <form method="post" action="{% url 'tag_page' %}" class="tag-modal-form">
+                {{ form_tag.as_p }}
+
+                <div class="confirm-tag-button">
+                    <button class="back" type="button">
+                        Скасувати
+                    </button>
+
+                    <button class="confirm" type="submit">
+                        Зберегти
+                    </button>
+                </div>
+                
+            </form>
+        
+        </div>
+    </div>
+</div>

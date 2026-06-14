@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="profile-block">
+    <div class="profile-img">
+        <div class='online-marker' data-id ='{{ user.id }}'></div>
+    </div>
+    
+    <h1 id="name">{{ user.first_name }}</h1>
+
+    <h3 id="username">{{ user.username }}</h3>
+    
+    <div class="info-profile">
+        
+        <div class="info">
+            <h1 class="count">566</h1>
+            
+            <h3 class="description">Дописи</h3>
+        </div>
+
+        <div class="vertical-line"></div>
+
+        <div class="info">
+            <h1 class="count">12.1К</h1>
+            <h3 class="description">Читачі</h3>
+        </div>
+
+        <div class="vertical-line"></div>
+        
+        <div class="info">
+            <h1 class="count">222</h1>
+            <h3 class="description">Друзі</h3>
+        </div>
+
+    </div>
+</div>

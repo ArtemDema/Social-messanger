@@ -1,0 +1,45 @@
+{% load static %}
+
+<div class="main-block-chat">
+    <div class="not-select">
+        <h3>Почніть нове спілкування</h3>
+        <h4 id="not-selected-info">Оберіть контакт із списку ліворуч <br> або створить групу, щоб почати спілкування</h4>
+    </div>
+
+    <div id="chat" style="display: none;">
+        <div id="current-user" data-id="{{ request.user.id }}"></div>
+        <div id="name">
+            
+            <div id="name-div">
+                <div id="name-left-div">
+                    <img src="{% static 'chat_app/images/close_chat.png' %}" alt="" id="back-from-chat">
+                    <div class="profile-img"></div>
+                    <div class="chat-name"></div>
+                </div>
+
+                <div id="settings-chat">
+                    {% include "chat_app/particles/chatSettings.html" %}
+                    <img src="{% static 'chat_app/images/settings_chat.png' %}" alt="" id="settings-chat-button">
+                </div>
+            </div>
+            <hr>
+
+        </div>
+        
+        <div id="messages">
+            <div id="load-message-line"></div>
+        </div>
+        
+        <div id="control-elements">
+
+            <input type="text" id="msg-input" placeholder="Повідомлення">
+            <div class="chat-menu">
+                <img src="{% static 'chat_app/images/emoji.png' %}" alt="">
+                <img src="{% static 'chat_app/images/add_photo_chat.png' %}" alt="" id="send-image">
+                <input type="file" id="message-files" accept="image/*" multiple>
+                <img src="{% static 'chat_app/images/send_message.png' %}" id = 'send-msg'>
+            </div>
+            
+        </div>
+    </div>
+</div>

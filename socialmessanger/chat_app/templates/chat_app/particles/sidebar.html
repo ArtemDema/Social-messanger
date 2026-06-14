@@ -1,0 +1,23 @@
+{% load static %}
+
+<button class="create-chat-btn">Створити груповий чат</button>
+
+<div class="side-block-chat">
+    <div class="name-chat-div">
+        <img src="{% static 'images/friends.png' %}" alt="">
+        <h3>Контакти</h3>
+    </div>
+
+    <input type="text" placeholder="Пошук">
+
+    <div class="contact-div-users">
+        {% for key, section in friends.items %}
+            {% for user in section %}
+            <div class="user-friends-div" data-id="{{ user.id }}">
+                <div class="profile-img"></div>
+                <h4>{{ user.first_name }}</h4>
+            </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>

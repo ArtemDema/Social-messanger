@@ -1,0 +1,11 @@
+.open{
+    display: flex !important;
+}
+
+.settings-menu{
+color: #E9E5EE; 
+width: clamp(0px, 17vw, 343px);
+height: clamp(0px, 8.8vh, 176px);
+border-radius: 10px;
+
+}

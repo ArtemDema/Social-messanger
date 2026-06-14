@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="edit-group-modal modal-window" style="display: none;">
+    <div class="modal-info group-modal-edit">
+
+        <form action="">
+            <p>Назва</p>
+            <input class="current-group-name" type="text">
+        </form>
+        
+        <div class="selected-users">
+            <div>
+                <h4>Учасники</h4>
+                <button type="button" class="add-to-group"  style="display: flex; flex-direction: row; gap: 0.5vw; width: 50%; align-items: center;">
+                    <img src="{% static 'chat_app/images/plus.png' %}" alt="" style="width: 16px; height: 16px;">
+                    <h3 style="color: #543C52;">Додайте учасника</h3>
+                </button>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1vh;" class="users">
+            </div>
+        </div>
+
+        <div class="chat-function-buttons">
+            <button type="button"  class="back-create-chat-modal second-button">Назад</button>
+            <button type="button" class="edit-group-btn first-button">Зберегти зміни</button>
+        </div>
+    </div>
+</div>

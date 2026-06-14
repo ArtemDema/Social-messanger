@@ -1,0 +1,24 @@
+.post-div{
+    width: 100%;
+    height:  clamp(0px, 8vh, 160px);
+    background-color: white;
+    border: 2px solid #CDCED2;
+    border-radius: 10px
+    
+}
+
+.post-div-text{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: left;
+
+}
+
+.post-div-button{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: right;
+    
+}

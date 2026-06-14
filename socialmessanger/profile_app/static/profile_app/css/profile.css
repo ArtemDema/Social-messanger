@@ -1,0 +1,44 @@
+.first-button{
+    background-color:  #543C52;
+    border-radius: 1234px;
+    font-family: 'GTWalsheimPro';
+    display: flex;
+    align-items: flex-start;
+    width: clamp(0px, 5.7vw, 110px);
+    height: clamp(0px, 4vh, 40px);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: none;
+}
+
+.second-button{
+    width: clamp(0px, 5vw, 94px);
+    height: clamp(0px, 4vh, 40px);
+    background-color: white ;
+    border-radius: 1234px;
+    font-family: 'GTWalsheimPro';
+    border: 2px solid #543C52;
+    color: #543C52;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5vw;
+}
+
+.profile-block{
+    padding: 10px;
+}
+
+.online-marker{
+    width: 20%;
+    height: 20%;
+    top: 110px;
+    left: 90px;
+    position: relative;
+}
+

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block meta %}
+    <meta name="csrf_token" content = '{{ csrf_token }}'>
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'chat_app/css/chat.css'%}">
+    <link rel="stylesheet" href="{% static 'chat_app/css/modal.css'%}">
+    <link rel="stylesheet" href="{% static 'chat_app/css/sidebar.css'%}">
+    <link rel="stylesheet" href="{% static 'chat_app/css/mainBlock.css'%}">
+    <link rel="stylesheet" href="{% static 'chat_app/css/rightBlock.css'%}">
+    <link rel="stylesheet" href="{% static 'chat_app/css/chatSettings.css'%}">
+
+    <link rel="stylesheet" href="{% static 'home_app/css/username.css'%}">
+{% endblock %} 
+
+{% block sidebar %}
+    {% include "chat_app/particles/sidebar.html" %}
+{% endblock%}
+
+{% block content %}
+    {% include "chat_app/particles/mainBlock.html" %}
+    
+    {% include "chat_app/particles/rightBlock.html" %}
+{% endblock%}
+
+{% block modal %}
+    {% include "chat_app/particles/createGroup.html" %}
+    {% include "chat_app/particles/settingsGroup.html" %}
+    {% include "chat_app/particles/chatModalSettings.html" %}
+    {% include "chat_app/particles/addToGroup.html" %}
+
+    {% if not user.first_name %}
+        {% include "home_app/particles/username.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'chat_app/js/chat.js' %}"></script>
+    <script src="{% static 'chat_app/js/modal.js' %}"></script>
+    <script src="{% static 'chat_app/js/chatSettings.js' %}"></script>
+
+    <script>
+        const DELETE_USER = "{% static 'chat_app/images/delete_user.png' %}"
+    </script>
+
+    <script>
+        const ONLINE_IMAGE = "{% static 'chat_app/images/online.png' %}"
+    </script>
+    
+    <script>
+        const OFFLINE_IMAGE = "{% static 'chat_app/images/offline.png' %}"
+    </script>
+{% endblock %}

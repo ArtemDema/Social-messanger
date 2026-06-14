@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+    <meta name="csrf_token" content = '{{ csrf_token }}'>
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'friends_app/css/friends.css'%}">
+{% endblock %} 
+
+{% block sidebar%}
+    <button data-section-link="main" class="settings-button select-button">Головна</button>
+    <button data-section-link="requests" class="settings-button">Запити</button>
+    <button data-section-link="recommendations" class="settings-button">Рекомендації</button>
+    <button data-section-link="friends" class="settings-button">Всі друзі</button>
+{% endblock %}
+
+{% block content %}
+    <div class="section main-cnt">
+        {% for key, section in sections.items %}
+            <div class="section-background">
+                <div class="section-top">
+                    <h2>{{ section.title }}</h2>
+                    <button data-section-link="{{ key }}">Дивитись усі</button>
+                </div>
+                
+                <div class="section-cards">
+                    {% include "friends_app/particles/friends_cards.html" with users=section.users section=key %}
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+    {% include "friends_app/particles/friends_section.html" %}
+{% endblock %}
+
+{% block modal %}
+    {% if not user.first_name %}
+        {% include "friends_app/particles/username.html" %}
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'friends_app/js/buttons.js' %}"></script>
+    <script src="{% static 'home_app/js/home.js' %}"></script>
+    <script src="{% static 'friends_app/js/friend_action.js' %}"></script>
+{% endblock %}
+

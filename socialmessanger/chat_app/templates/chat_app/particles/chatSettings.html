@@ -1,0 +1,37 @@
+{% load static %}
+<div class = 'settings-menu'>
+
+    <div class="chat-admin-settings" style = 'display: none;'>
+        <div class="close-button">
+            <img src="{% static 'chat_app/images/settings_chat.png' %}">
+        </div>
+
+        <div class="settings-buttons">
+            <div class="button edit">
+                <img src="{% static 'chat_app/images/chat-edit.png' %}">
+                <h4>Редагувати групу</h4>
+            </div>
+
+            <hr>
+
+            <div class="button delete">
+                <img src="{% static 'chat_app/images/chat-delete.png' %}">
+                <h4>Видалити чат</h4>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="chat-settings" style = 'display: none;'>
+        <div class="exit-button">
+            <img src="{% static 'chat_app/images/settings_chat.png' %}">
+        </div>
+            <hr>
+            <div class="button exit-group">
+                <img src="{% static 'chat_app/images/chat-exit.png' %}">
+                <h4>Покинути групу</h4>
+            </div>
+        </div>
+    </div>
+</div>

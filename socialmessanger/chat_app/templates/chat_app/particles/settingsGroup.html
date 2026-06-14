@@ -1,0 +1,33 @@
+{% load static %}
+
+
+<div class="settings-group-modal modal-window" style="display: none;">
+    <div class="modal-info group-modal-settings">
+        <div class="close-div-button">
+            <button class="close-settings-chat-modal">
+                <img src="{% static 'post_app/images/modal-exit.png' %}" alt="">
+            </button>
+        </div>
+
+        <h2>Нова група</h2>
+
+        <form action="">
+            <p>Назва</p>
+            {{ group_form.name }}
+            
+            <div class="group-add-photo">
+                {{ group_form.images }}
+                <img src="{% static 'chat_app/images/add_photo.png' %}" alt="" class="photo">
+                <img src="{% static 'chat_app/images/select_photo.png' %}" alt="" class="photo">
+            </div>
+        </form>
+        
+
+        <div class="selected-users"></div>
+
+        <div class="chat-function-buttons">
+            <button type="button"  class="back-create-chat-modal second-button">Назад</button>
+            <button type="button" class="create-chat-modal-btn first-button">Створити групу</button>
+        </div>
+    </div>
+</div>
