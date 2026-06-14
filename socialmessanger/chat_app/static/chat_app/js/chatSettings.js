@@ -10,16 +10,104 @@ const addUsersToGroupModalBtn = document.querySelector(".add-users-to-group-btn"
 const userCheckboxesAdd = addUsersToGroupModal.querySelectorAll("input[type='checkbox']")
 const currentGroupName = document.querySelector(".current-group-name")
 const confirmEditGroup = document.querySelector(".edit-group-btn")
- 
+const backAddMember = document.querySelectorAll(".close-add-to-chat-modal")
+const closeEditGroup = document.querySelectorAll(".close-edit-chat-modal")
+const settingsMemberModal = document.querySelector(".chat-settings-member")
+const closeSettingsMemberModal = document.querySelector(".close-button-member")
+const deleteBtn = document.querySelector(".delete")
+const deleteAdminBtn = document.querySelector(".delete-admin")
+
+
 let editChatId = 0;
 let editChatName = null;
+let listEditGroupUsers = []
+let listEditGroupUsersId = []
 
-settingsButton.addEventListener("click", () =>{
-    settingsModal.classList.add("open")
+settingsButton.addEventListener("click", async () =>{
+    const chatNowId = document.querySelector(".selected-chat").dataset.id
+    const responce = await fetch(`/chat/${ chatNowId }/getGroupUsers/`)
+    const data = await responce.json()
+    if(data.success){
+        if(currentUserId == data.admin){
+            settingsModal.classList.add("open")
+        }
+        else{
+            settingsMemberModal.classList.add("open")
+        }
+    }
 })
+
+deleteBtn.addEventListener("click", async () =>{
+    chatBtns.forEach(tab => {
+        if (tab.classList == "chat selected-chat") {
+            editChatId = tab.dataset.id
+        }
+    })
+
+    const formData = new FormData()
+    formData.append("to_delete", currentUserId)
+    formData.append("id_chat", editChatId)
+
+    const responce = await fetch('/chat/deleteGroup/', {
+        method: "POST",
+        headers: {
+            'X-CSRFToken' : csrfToken,
+            'X-Requested-With': 'XMLHttpRequest'
+        }, 
+        body: formData
+    })
+    const data = await responce.json()
+    if(data.success){
+        settingsMemberModal.classList.remove('open')
+    }
+})
+
+deleteAdminBtn.addEventListener("click", async () =>{
+    chatBtns.forEach(tab => {
+        if (tab.classList == "chat selected-chat") {
+            editChatId = tab.dataset.id
+        }
+    })
+
+    const formData = new FormData()
+    formData.append("to_delete", 'all')
+    formData.append("id_chat", editChatId)
+
+    const responce = await fetch('/chat/deleteGroup/', {
+        method: "POST",
+        headers: {
+            'X-CSRFToken' : csrfToken,
+            'X-Requested-With': 'XMLHttpRequest'
+        }, 
+        body: formData
+    })
+    const data = await responce.json()
+    if(data.success){
+        settingsModal.classList.remove('open')
+    }
+})
+
+
+closeSettingsMemberModal.addEventListener("click", () =>{
+    settingsMemberModal.classList.remove('open')
+})
+
 
 closeModalSettings.addEventListener("click", () =>{
     settingsModal.classList.remove('open')
+})
+
+backAddMember.forEach(member => {
+    member.addEventListener("click",() =>{
+        addUsersToGroupModal.style.display = "none"
+        realModalSettings.style.display = "flex"
+    })
+})
+
+closeEditGroup.forEach(member => {
+    member.addEventListener("click",() =>{
+        realModalSettings.style.display = "none"
+    })
 })
 
 editModal.addEventListener("click", async () =>{
@@ -35,51 +123,52 @@ editModal.addEventListener("click", async () =>{
     const responce = await fetch(`/chat/${editChatId}/getGroupUsers/`)
     const data = await responce.json()
     if (data.success){
-        const listEditGroupUsers = data.users_name
-        const listEditGroupUsersId = data.users_id
+        listEditGroupUsers = data.users_name
+        listEditGroupUsersId = data.users_id
 
         currentGroupName.value = data.name
 
         let count = 0
-        listEditGroupUsers.forEach(user => {
-            const userDiv = document.createElement("div")
-            const userDivAvatar = `
-                <div class="user-item-div">
-                    <div class="profile-img"></div>
-                    <h4>${ user }</h4>
-                </div>            
-            `
-            userDiv.innerHTML += userDivAvatar
-            userDiv.classList.add('member')
-            userDiv.dataset.id = listEditGroupUsersId[count]
+        listEditGroupUsers.forEach(user => {  
+            if(currentUserId != listEditGroupUsersId[count]){
+                const userDiv = document.createElement("div")
+                const userDivAvatar = `
+                    <div class="user-item-div">
+                        <div class="profile-img"></div>
+                        <h4>${ user }</h4>
+                    </div>            
+                `
+                userDiv.innerHTML += userDivAvatar
+                userDiv.classList.add('member')
+                userDiv.dataset.id = listEditGroupUsersId[count]
 
-            const deleteUserBtn = document.createElement("button")
-            deleteUserBtn.type = 'button'
+                const deleteUserBtn = document.createElement("button")
+                deleteUserBtn.type = 'button'
 
-            const photo_img = document.createElement('img')
-            photo_img.src = DELETE_USER
-            deleteUserBtn.appendChild(photo_img)
+                const photo_img = document.createElement('img')
+                photo_img.src = DELETE_USER
+                deleteUserBtn.appendChild(photo_img)
 
-            deleteUserBtn.addEventListener("click", ()=>{
-                const checkbox = document.querySelector(
-                    `input[type="checkbox"][data-id="${userDiv.dataset.id}"]`
-                );
+                deleteUserBtn.addEventListener("click", ()=>{
+                    const checkbox = document.querySelector(
+                        `input[type="checkbox"][data-id="${userDiv.dataset.id}"]`
+                    )
 
-                if (checkbox) {
-                    checkbox.checked = false;
-                }
+                    if (checkbox) {
+                        checkbox.checked = false;
+                    }
 
-                userDiv.remove()
-                deleteUserBtn.remove()
+                    userDiv.remove()
+                    deleteUserBtn.remove()
+                    
+                })
                 
-            })
-            
-            editUsersDiv.appendChild(userDiv)
-            userDiv.appendChild(deleteUserBtn)
+                editUsersDiv.appendChild(userDiv)
+                userDiv.appendChild(deleteUserBtn)
+            }
             count += 1
         })
     }
-
     realModalSettings.style.display = "flex"
 })
 
@@ -89,7 +178,7 @@ addUsersToGroup.addEventListener("click", () =>{
 })
 
 addUsersToGroupModalBtn.addEventListener('click', ()=>{
-    const selectedUsers = [...userCheckboxesAdd].filter(cb => cb.checked)
+    const selectedUsers = [...userCheckboxesAdd].filter(cb => cb.checked).filter(cb => !listEditGroupUsersId.includes(Number(cb.dataset.id)))
 
     selectedUsers.forEach(cb => {
         const userDiv = document.createElement("div")
@@ -113,7 +202,7 @@ addUsersToGroupModalBtn.addEventListener('click', ()=>{
         deleteUserBtn.addEventListener("click", ()=>{
             const checkbox = document.querySelector(
                 `input[type="checkbox"][data-id="${userDiv.dataset.id}"]`
-            );
+            )
 
             if (checkbox) {
                 checkbox.checked = false;
@@ -133,30 +222,33 @@ addUsersToGroupModalBtn.addEventListener('click', ()=>{
 })
 
 confirmEditGroup.addEventListener('click', async () =>{
-    realModalSettings.style.display = "none"
-    
     const currentMembers = [...document.querySelectorAll('.member')]
     const currentMembersId = []
 
     currentMembers.forEach(member =>{
         currentMembersId.push(member.dataset.id)
     })
+    currentMembersId.push(currentUserId)
 
     const currentName = currentGroupName.value
-
-    const formData = new FormData()
-
-    formData.append("id_members", currentMembersId)
-    formData.append("group_name", currentName)
-    formData.append("id_group", editChatId)
-
-    const responce = await fetch('/chat/editGroup/', {
-        method: "POST",
-        headers: {
-            'X-CSRFToken' : csrfToken,
-            'X-Requested-With': 'XMLHttpRequest'
-        }, 
-        body: formData
-    })
     
+    if (Array.from(currentName).length <= 20 && Array.from(currentName).length >= 4){
+        if (currentMembers.length >= 2){
+            const formData = new FormData()
+
+            formData.append("id_members", currentMembersId)
+            formData.append("group_name", currentName)
+            formData.append("id_group", editChatId)
+
+            const responce = await fetch('/chat/editGroup/', {
+                method: "POST",
+                headers: {
+                    'X-CSRFToken' : csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest'
+                }, 
+                body: formData
+            })
+            realModalSettings.style.display = "none"
+        }
+    }
 })

@@ -15,7 +15,7 @@ const chatName = document.querySelector(".chat-name")
 const friendDivs = document.querySelectorAll(".user-friends-div")
 const csrfToken = document.querySelector("meta[name='csrf_token']").content
 
-const currentUserId = document.getElementById('current-user').dataset.id;
+const currentUserId = document.getElementById('current-user').dataset.id
 
 const msgImageInput = document.querySelector("#message-files")
 
@@ -37,7 +37,8 @@ const backChat = document.querySelector("#back-from-chat")
 backChat.addEventListener('click', ()=>{
     chatDiv.style.display = "none"
     notSelectContainer.style.display = "flex"
-    if (chatSocket) chatSocket.close();
+    if (chatSocket) chatSocket.close()
+    chatId = null
 
     chatBtns.forEach(otherBtn => {
         otherBtn.classList.remove('selected-chat');
@@ -148,6 +149,7 @@ function createMessage(sender, text, date, time, is_author, images, isNew = true
 }
 
 function openChat(id){
+    settingsModal.classList.remove('open')
     if (observer != null) {
         observer.disconnect();
         observer = null;

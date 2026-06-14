@@ -189,17 +189,21 @@ class GetGroupUsers(LoginRequiredMixin, View):
             users_id = []
             users_name = []
             online_users_id = []
+            admin = chat.admin.id
+
             for user in chat.users.all():
                 users_id.append(user.id)
                 users_name.append(user.first_name)
                 if user.id in online_users:
                     online_users_id.append(user.id)
+
             return JsonResponse({
                 "success": True,
                 'name': chat.name,
                 'users_id': users_id,
                 'online_users_id': online_users_id,
                 "users_name": users_name,
+                "admin": admin
             })
         return JsonResponse({"success": False})
 
@@ -211,7 +215,6 @@ class EditGroup(LoginRequiredMixin, View):
         for member in id_members.split(","):
             list_new_members += User.objects.filter(id = int(member))
         
-        print(list_new_members)
         id_group = request.POST.get("id_group")
         name_group = request.POST.get("group_name")
         chat = Chat.objects.filter(id = id_group).first()
@@ -225,3 +228,19 @@ class EditGroup(LoginRequiredMixin, View):
             return JsonResponse({"success": True})
         
         return JsonResponse({"success": False})
+    
+
+class ExitGroup(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        member_to_delete = request.POST.get("to_delete")
+        id_chat_delete = request.POST.get("id_chat")
+        chat = Chat.objects.filter(id = id_chat_delete).first()
+        print(member_to_delete, id_chat_delete)
+
+        if member_to_delete == 'all':
+            chat.delete()
+            return JsonResponse({"success": True})
+        else:
+            user = User.objects.filter(id = member_to_delete).first()
+            chat.users.remove(user)
+            return JsonResponse({"success": True})

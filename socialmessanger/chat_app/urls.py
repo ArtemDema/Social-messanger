@@ -8,5 +8,6 @@ urlpatterns = [
     path('create/group/', CreateGroupView.as_view(), name = 'create_group'),
     path('create/message/', CreateMessageView.as_view(), name = 'create_mesage'),
     path('<int:id>/getGroupUsers/', GetGroupUsers.as_view(), name="getGroupUsers"),
-    path('editGroup/', EditGroup.as_view(), name="editGroup")
+    path('editGroup/', EditGroup.as_view(), name="editGroup"),
+    path('deleteGroup/', ExitGroup.as_view(), name="deleteGroup")
 ]

@@ -2,10 +2,22 @@
 
 <div class="edit-group-modal modal-window" style="display: none;">
     <div class="modal-info group-modal-edit">
+        <div class="close-div-button">
+            <button class="close-edit-chat-modal">
+                <img src="{% static 'post_app/images/modal-exit.png' %}" alt="">
+            </button>
+        </div>
+
+        <h2>Редагувати групи</h2>
 
         <form action="">
             <p>Назва</p>
             <input class="current-group-name" type="text">
+            
+            <div class="group-add-photo">
+                <img src="{% static 'chat_app/images/add_photo.png' %}" alt="" class="photo">
+                <img src="{% static 'chat_app/images/select_photo.png' %}" alt="" class="photo">
+            </div>
         </form>
         
         <div class="selected-users">
@@ -22,7 +34,7 @@
         </div>
 
         <div class="chat-function-buttons">
-            <button type="button"  class="back-create-chat-modal second-button">Назад</button>
+            <button type="button"  class="close-edit-chat-modal second-button">Назад</button>
             <button type="button" class="edit-group-btn first-button">Зберегти зміни</button>
         </div>
     </div>

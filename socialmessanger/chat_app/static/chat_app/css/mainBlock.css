@@ -85,9 +85,8 @@
     border: 2px solid #E9E5EE;
     display: flex;
     flex-direction: column;
-    width: 70%;
-    height: auto;
-    gap: 0.6vh;
+    width: 45%;
+    height: 55%;
     padding: 10px;
 }
 
