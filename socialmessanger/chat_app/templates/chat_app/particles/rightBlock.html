@@ -1,11 +1,18 @@
 {% load static %}
+{% load get_chat_data %}
 
 <div class="right-block-chat">
     <div class="message-right-block-chat">
         <div class="name-right-block-chat">
-            <div class="name-chat-div">
+            <div class="name-chat-div right">
+
                 <img src="{% static 'images/chats.png' %}" alt="">
-                <h4>Повідомлення</h4>
+                <div class="right-block-info">
+                    <h4>Повідомлення</h4>
+                    <div class = "main-unread-indiv" style="display: none;"></div>
+                    
+                </div>
+
             </div>
         </div>
 
@@ -16,11 +23,16 @@
                         
                         <div class="profile-img">
                             <div class = 'online-marker' data-id = '{{ chat_data.other_user.id }}' ></div>
-                            <!-- <img src="{% static 'chat_app/images/online.png' %}" alt="" class="status">
-                            <img src="{% static 'chat_app/images/offline.png' %}" alt="" class="status"> -->
                         </div>
                         <div class="text-chat">
-                            <h3>{{ chat_data.other_user.first_name }}</h3>
+                            <div class="chat-info-div">
+                                <h3>{{ chat_data.other_user.first_name }}</h3>
+                                {% get_unreaded_messages chat_data.chat_id user as count %}
+                                {% if count > 0%}
+                                    <h6 class="unread">{{ count }}</h6>
+                                {% endif %}
+                            </div>
+
                             <div class="chat-last-message-info">
                                 <h5>{{ chat_data.last_message.text }}</h5>
                                 <h5>{{ chat_data.last_message_date }}</h5>
@@ -35,8 +47,13 @@
     <div class="chats-right-block-chat">
         <div class="name-right-block-chat">
             <div class="name-chat-div">
+
                 <img src="{% static 'images/chats.png' %}" alt="">
-                <h4>Групові чати</h4>
+                <div class="right-block-info">
+                    <h4>Групові чати</h4>
+                    <div class = "main-unread-group" style="display: none;"></div>
+                </div>
+
             </div>
         </div>
 
@@ -46,11 +63,19 @@
                     <div class="chat-div-user">
                         <div class="profile-img"></div>
                         <div class="text-chat">
-                            <h3>{{ chat_data.chat_name }}</h3>
+                            <div class="chat-info-div">
+                                <h3>{{ chat_data.chat_name }}</h3>
+                                {% get_unreaded_messages chat_data.chat_id user as count %}
+                                {% if count > 0%}
+                                    <h6 class="unread">{{ count }}</h6>
+                                {% endif %}
+                            </div>
+    
                             <div class="chat-last-message-info">
                                 <h5>{{ chat_data.last_message.text }}</h5>
                                 <h5>{{ chat_data.last_message_date }}</h5>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

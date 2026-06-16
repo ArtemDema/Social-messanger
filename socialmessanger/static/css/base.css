@@ -172,4 +172,7 @@ button img{
     height: 20px;
     border-radius: 100%;
     background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

@@ -55,15 +55,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
     
     @database_sync_to_async
     def save_message(self, text):
-        user = self.scope.get("user")
-        new_message = Message.objects.create(text = text, chat_id=self.chat_id, sender=user)
+        sender_user = self.scope.get("user")
+        new_message = Message.objects.create(text = text, chat_id=self.chat_id, sender=sender_user)
         members_id = []
-        for user in new_message.chat.users.all():
-            members_id.append(user.id)
+        for member in new_message.chat.users.all():
+            members_id.append(member.id)
 
         local_time = timezone.localtime(new_message.created_at)
         return {
-            'sender_id': user.id,
+            'sender_id': sender_user.id,
             'sender': new_message.sender.first_name,
             'text': new_message.text,
             'date': str(local_time.strftime("%Y-%m-%d")),

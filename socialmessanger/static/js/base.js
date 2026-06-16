@@ -7,6 +7,5 @@ listButtons.forEach(currentButton => {
             notCurrentButton.classList.remove('select')
         })
         currentButton.classList.add('select')
-    console.log(currentButton.getAttribute('href'))
     }
 });

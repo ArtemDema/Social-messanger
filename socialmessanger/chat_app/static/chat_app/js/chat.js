@@ -21,6 +21,9 @@ const msgImageInput = document.querySelector("#message-files")
 
 const messages = document.querySelector('#messages')
 const loadLine = document.querySelector("#load-message-line")
+const unreadedMessageDiv = document.querySelector(`.main-unread-indiv`)
+const unreadedMessageDivGroup = document.querySelector(`.main-unread-group`)
+
 let pageNumber = 1
 let observer = null
 let chatId;
@@ -79,6 +82,48 @@ async function getGroupUsers(id){
 
     }
 }
+
+function renderCountUnreadedMessages(){
+    for (const containerName of ["chat-div"]){
+        const unreadeds = document.querySelectorAll(`.${containerName} .unread`)
+        
+        let globalCount = 0
+        unreadeds.forEach(unreaded => {
+            globalCount += Number(unreaded.textContent)
+        })
+        
+        console.log(globalCount);
+        
+        if (globalCount > 0){
+            unreadedMessageDiv.classList.add('open')
+            unreadedMessageDiv.innerHTML = `${globalCount}`
+        }else{
+            unreadedMessageDiv.classList.remove('open')
+            unreadedMessageDiv.innerHTML = ``
+        }
+    }
+     for (const containerName of ["chat-div-group"]){
+        const unreadeds = document.querySelectorAll(`.${containerName} .unread`)
+        
+        let globalCount = 0
+        unreadeds.forEach(unreaded => {
+            globalCount += Number(unreaded.textContent)
+        })
+        
+        console.log(globalCount);
+        
+        if (globalCount > 0){
+            unreadedMessageDivGroup.classList.add('open')
+            unreadedMessageDivGroup.innerHTML = `${globalCount}`
+        }else{
+            unreadedMessageDivGroup.classList.remove('open')
+            unreadedMessageDivGroup.innerHTML = ``
+        }
+    }
+
+}
+
+renderCountUnreadedMessages()
 
 async function loadMessages(){
     const oldHeight = messages.scrollHeight
@@ -193,6 +238,15 @@ function openChat(id){
     if (chatSocket){
         chatSocket.close()
     }
+    
+    const selectedChat = document.querySelector(`.selected-chat`)
+    const unreadCount = selectedChat.querySelector('.unread')
+    if (unreadCount){
+        unreadCount.remove()
+    }
+    
+    renderCountUnreadedMessages()
+
     let url = `ws://${window.location.host}/chat/${id}`;
     chatSocket = new WebSocket(url)
     chatSocket.onmessage = (event)=>{

@@ -3,7 +3,7 @@ const presenceSocket = new WebSocket(presence_url)
 
 presenceSocket.onmessage = (event) =>{
     const data = JSON.parse(event.data)
-    
+
     const userMarkers = document.querySelectorAll(".online-marker")
     if (data.type == 'get_online'){
         userMarkers.forEach(marker => {
@@ -27,8 +27,9 @@ presenceSocket.onmessage = (event) =>{
                     newUnread.classList.add('unread')
                     newUnread.textContent = 1
 
-                    chat.querySelector('.chat-last-message-info').append(newUnread)
+                    chat.querySelector('.chat-info-div').append(newUnread)
                 }
+                renderCountUnreadedMessages()
             }
         })
 

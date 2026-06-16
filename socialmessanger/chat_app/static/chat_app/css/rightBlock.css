@@ -89,3 +89,38 @@
 .text-chat{
     width: 80%;
 }
+
+.chat-info-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.main-unread-indiv{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: red;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.right-block-info{
+    display: flex;
+    flex-direction: row;
+    gap: 0.4vw;
+    align-items: center;
+}
+
+.main-unread-group{
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: red;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

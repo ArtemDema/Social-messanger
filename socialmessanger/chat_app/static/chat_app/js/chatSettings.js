@@ -128,6 +128,7 @@ editModal.addEventListener("click", async () =>{
 
         currentGroupName.value = data.name
 
+        editUsersDiv.textContent = ""
         let count = 0
         listEditGroupUsers.forEach(user => {  
             if(currentUserId != listEditGroupUsersId[count]){
@@ -249,6 +250,12 @@ confirmEditGroup.addEventListener('click', async () =>{
                 body: formData
             })
             realModalSettings.style.display = "none"
+
+            document.querySelector('.selected-chat .chat-info-div h3').textContent = currentName
+            document.querySelector('.selected-chat').dataset.name = currentName
+            document.querySelector('.chat-name h2').textContent = currentName
+            document.querySelector('.chat-name p').remove()
+            getGroupUsers(editChatId)
         }
     }
 })
