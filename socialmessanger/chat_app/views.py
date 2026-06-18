@@ -174,7 +174,9 @@ class CreateMessageView(LoginRequiredMixin, View):
                         'text': new_message.text,
                         'date': str(new_message.created_at.date()),
                         'time': new_message.created_at.strftime("%H:%M"),
-                        'images': list_url_image
+                        'images': list_url_image,
+                        'id': new_message.id,
+                        'chat_id': chat.id
                     },
                 }
             )

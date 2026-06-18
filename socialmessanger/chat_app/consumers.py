@@ -70,6 +70,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'time': str(local_time.strftime("%H:%M")),
             'images': [],
             "id": new_message.id,
+            'chat_id': self.chat_id,
             'members_id': members_id
         }
     

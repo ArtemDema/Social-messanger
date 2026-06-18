@@ -1,5 +1,5 @@
 .main-block-chat{
-    width: 40vw;
+    width:clamp(0px, 40vw, 778px);
     background-color: white;
     border-radius: 10px;
     padding: 10px;
@@ -73,8 +73,8 @@
 
 .message{
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: left;
     width: clamp(0px, 24vw, 493px);
     height: auto;
     gap: 1vh;
@@ -111,7 +111,7 @@
 }
 
 .text{
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
 }
 
 .date-title-div{
@@ -159,4 +159,11 @@
     width: clamp(0px, 15vw, 300px);
     height: clamp(0px, 27.5vh, 300px);
     border-radius: 16px;
+}
+
+.message-info{
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    
 }

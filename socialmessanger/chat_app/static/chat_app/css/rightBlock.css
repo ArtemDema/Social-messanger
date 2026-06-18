@@ -3,6 +3,7 @@
     flex-direction: column;
     gap: clamp(0px, 1vh, 20px);
     height: 100%;
+    width: clamp(0px, 24.2vw, 460px);
 }
 
 .message-right-block-chat{
@@ -123,4 +124,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.chat-last-message-info h5{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 18ch;
 }

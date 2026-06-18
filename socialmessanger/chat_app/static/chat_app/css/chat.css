@@ -36,7 +36,7 @@ p{
     height: clamp(0px, 90vh, 972px) !important;
     display: flex;
     flex-direction: row;
-    gap: 1vw;
+    gap: clamp(0px, 1vw, 20px);
 }
 
 .settings-button{

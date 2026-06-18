@@ -64,6 +64,7 @@
 
 .group-modal-edit{
     padding: 10px;
+    height: clamp(0px, 60vh, 600px) !important;
 }
 
 .group-modal-edit input{

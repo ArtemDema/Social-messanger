@@ -16,6 +16,9 @@ const groupName = document.querySelector("#id_name")
 
 const userCheckboxes = chatCreateDiv.querySelectorAll("input[type='checkbox']")
 
+const ErrorContainerCreate = document.querySelector("#error-create-group")
+const ErrorContainerSettings = document.querySelector("#error-settings-create-group")
+
 chatButton.addEventListener("click", ()=>{
     chatCreateDiv.style.display = "flex"
 })
@@ -36,6 +39,7 @@ nextChatButton.addEventListener("click", ()=>{
     const selectedUsers = [...userCheckboxes].filter(cb => cb.checked)
 
     if (selectedUsers.length >= 2) {
+        ErrorContainerCreate.textContent = ''
         selectedUsers.forEach(cb => {
             const userDiv = document.createElement("div")
             const userDivAvatar = `
@@ -74,6 +78,9 @@ nextChatButton.addEventListener("click", ()=>{
     
         chatCreateDiv.style.display = "none"
         chatSettingsDiv.style.display = "flex"
+    }
+    else{
+        ErrorContainerCreate.textContent = 'В групі має бути не менше 2 учасників'
     }
 })
 
@@ -138,7 +145,14 @@ createGroup.addEventListener('click', async()=> {
             groupChats.appendChild(newChat)
             chatBtns.push(newChat)
         }
+        else{
+            ErrorContainerSettings.textContent = 'Назва групи має бути від 4 до 20 символів'
+        }
     }
+    else{
+        ErrorContainerSettings.textContent = 'В групі має бути не менше 2 учасників'
+    }
+    
 })
 
 backChatButton.addEventListener("click", ()=>{

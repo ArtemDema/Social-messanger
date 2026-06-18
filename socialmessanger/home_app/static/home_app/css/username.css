@@ -18,7 +18,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 2vh;
+    gap: clamp(0px, 2vh, 30px);
     border-radius: 20px;
 }
 

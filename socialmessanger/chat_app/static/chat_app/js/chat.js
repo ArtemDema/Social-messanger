@@ -92,8 +92,6 @@ function renderCountUnreadedMessages(){
             globalCount += Number(unreaded.textContent)
         })
         
-        console.log(globalCount);
-        
         if (globalCount > 0){
             unreadedMessageDiv.classList.add('open')
             unreadedMessageDiv.innerHTML = `${globalCount}`
@@ -109,8 +107,6 @@ function renderCountUnreadedMessages(){
         unreadeds.forEach(unreaded => {
             globalCount += Number(unreaded.textContent)
         })
-        
-        console.log(globalCount);
         
         if (globalCount > 0){
             unreadedMessageDivGroup.classList.add('open')
@@ -159,19 +155,23 @@ function createMessage(sender, text, date, time, is_author, images, isNew = true
         }
         newMessage.classList.add('div-own-msg')
         newMessage.innerHTML = `
-        <div class="user-message own-message" data-date="${date}">
-            <h4 class="text">${text}</h4>
-            <h6 class="date-time">${time}</h6>
+        <div style="display: flex; width: 100%; flex-direction: row; justify-content: right;">
+            <div class="user-message own-message" data-date="${date}">
+                <h4 class="text">${text}</h4>
+                <h6 class="date-time">${time}</h6>
+            </div>
         </div>
         `
     }
     else{
         newMessage.innerHTML = `
-        <div class="profile-img"></div>
-        <div class="user-message">
-            <h5 class="sender">${sender}</h5>
-            <h4 class="text">${text}</h4>
-            <h6 class="date-time">${time}</h6>
+        <div class = 'message-info'>
+            <div class="profile-img"></div>
+            <div class="user-message">
+                <h5 class="sender">${sender}</h5>
+                <h4 class="text">${text}</h4>
+                <h6 class="date-time">${time}</h6>
+            </div>
         </div>
         `
     }
@@ -297,7 +297,7 @@ function createDateMessage(){
             dateTitle.textContent = message.dataset.date
             dateTitleDivForCenter.appendChild(dateTitle)
 
-            messages.insertBefore(dateTitleDiv, message.parentElement)
+            messages.insertBefore(dateTitleDiv, message.parentElement.parentElement)
         }
         previousMessageDate = message.dataset.date
     })

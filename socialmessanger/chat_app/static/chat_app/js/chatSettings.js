@@ -16,6 +16,7 @@ const settingsMemberModal = document.querySelector(".chat-settings-member")
 const closeSettingsMemberModal = document.querySelector(".close-button-member")
 const deleteBtn = document.querySelector(".delete")
 const deleteAdminBtn = document.querySelector(".delete-admin")
+const errorContainerEdit = document.querySelector("#error-edit-group")
 
 
 let editChatId = 0;
@@ -235,6 +236,8 @@ confirmEditGroup.addEventListener('click', async () =>{
     
     if (Array.from(currentName).length <= 20 && Array.from(currentName).length >= 4){
         if (currentMembers.length >= 2){
+            errorContainerEdit.textContent = ''
+
             const formData = new FormData()
 
             formData.append("id_members", currentMembersId)
@@ -257,5 +260,11 @@ confirmEditGroup.addEventListener('click', async () =>{
             document.querySelector('.chat-name p').remove()
             getGroupUsers(editChatId)
         }
+        else{
+            errorContainerEdit.textContent = 'В групі має бути не менше 2 учасників'
+        }
+    }
+    else{
+        errorContainerEdit.textContent = 'Назва групи має бути від 4 до 20 символів'
     }
 })
