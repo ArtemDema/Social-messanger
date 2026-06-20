@@ -7,12 +7,14 @@
             <h2>Запити</h2>
         </div>
 
-        <h3>Дивитись всі</h3>
+        <h3 id="show-request">Дивитись всі</h3>
     </div>
-    <div class="example-request"></div>
-    <div class="example-request"></div>
-    <div class="example-request"></div>
-    
+    {% for request in first_three_requests %}
+        <div class="example-request">
+            <div class="profile-img"></div>
+            {{ request.first_name}}
+        </div>
+    {% endfor %}
 </div>
 
 <div  class="block friends">
@@ -22,9 +24,12 @@
             <h2>Друзі</h2>
         </div>
         
-        <h3>Дивитись всі</h3>
+        <h3 id="show-friends">Дивитись всі</h3>
     </div>
-    <div class="example-friends"></div>
-    <div class="example-friends"></div>
-    <div class="example-friends"></div>
+    {% for friend in first_three_friends%}
+        <div class="example-friends">
+            <div class="profile-img"></div>
+            {{ friend.first_name}}
+        </div>
+    {% endfor %}
 </div>

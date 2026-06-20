@@ -44,6 +44,12 @@ postCreateForm.addEventListener("submit", async function(event){
     })
     const data = await responce.json()
     if (data.answer == true){
+        if (data.tag_html){
+            tagsContainer.insertAdjacentHTML("beforeend", data.tag_html)
+        }
+
+        postCreateForm.reset()
+
         pModalWindow.style.display = ''
         tagModalWindow.style.display = 'none'
     }

@@ -167,7 +167,7 @@ function createMessage(sender, text, date, time, is_author, images, isNew = true
         newMessage.innerHTML = `
         <div class = 'message-info'>
             <div class="profile-img"></div>
-            <div class="user-message">
+            <div class="user-message"  data-date="${date}">
                 <h5 class="sender">${sender}</h5>
                 <h4 class="text">${text}</h4>
                 <h6 class="date-time">${time}</h6>

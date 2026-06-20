@@ -78,9 +78,11 @@ class TagView(View):
         form = PostTagForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            tag = form.save()
+            tag_html = render_to_string('post_app/particles/tag_item.html', {'tag': tag})
             return JsonResponse(data={
-                "answer": True
+                "answer": True,
+                'tag_html': tag_html
             })
         
         return JsonResponse(data={

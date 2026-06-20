@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from post_app.models import Post
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
+from friends_app.utils.friends import get_friends_by_section
 
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -20,6 +21,10 @@ class HomeView(LoginRequiredMixin, ListView):
         context["home_form"] = SetUsernameForm()
         context["post_form"] = PostForm()
         context["tag_form"] = PostTagForm()
+        context["count_friends"] = len(get_friends_by_section(current_user = self.request.user, section = "friends"))
+        context["count_posts"] = len(Post.objects.filter(author = self.request.user))
+        context["first_three_friends"] = get_friends_by_section(current_user = self.request.user, section = "friends")[:3]
+        context["first_three_requests"] = get_friends_by_section(current_user = self.request.user, section = "requests")[:3]
         return context
     
     def get_queryset(self):
