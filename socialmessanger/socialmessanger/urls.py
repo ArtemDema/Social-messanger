@@ -26,7 +26,8 @@ urlpatterns = [
     path('post/', include('post_app.urls')),
     path('user/', include('user_app.urls')),
     path('chat/', include('chat_app.urls')),
-    path('profile/', include('profile_app.urls'))
+    path('profile/', include('profile_app.urls')),
+    path('settings/', include('settings_app.urls'))
 ]
 
 if settings.DEBUG:

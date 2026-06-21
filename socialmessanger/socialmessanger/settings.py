@@ -43,16 +43,10 @@ INSTALLED_APPS = [
     'post_app',
     'friends_app',
     "chat_app",
-    "profile_app"
+    "profile_app",
+    'settings_app'
 ]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# EMAIL_HOST = "smtp.gmail.com"
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-
-# EMAIL_HOST_USER = 'examplemailworldit@gmail.com'
-# EMAIL_HOST_PASSWORD = "Examplemailworldit1!"
 
 AUTH_USER_MODEL = "user_app.User"
 

@@ -257,6 +257,12 @@ function openChat(id){
             createMessage(data.message.sender, data.message.text, data.message.date, data.message.time, isAuthor,  data.message.images);
             messages.scrollTop = messages.scrollHeight
             createDateMessage()
+
+            const lastMessageInfo = document.querySelectorAll('.selected-chat .chat-last-message-info h5')
+            lastMessageInfo[0].textContent = data.message.text
+
+            const dateNewMessage = data.message.date.split('-')
+            lastMessageInfo[1].textContent = `${dateNewMessage[2]}.${dateNewMessage[1]}.${dateNewMessage[0]}`
         }
     }
 }

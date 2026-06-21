@@ -10,7 +10,7 @@ buttonRedirectFriends.addEventListener('click', () => {
 })
 
 buttonRedirectChat.addEventListener('click', () => {
-    window.location.href = '/cha'
+    window.location.href = '/chat'
 })
 
 function getCSRFToken(){

@@ -17,7 +17,11 @@ presenceSocket.onmessage = (event) =>{
     } 
     else if (data.type == 'send_message'){
         document.querySelectorAll('.chat').forEach(chat => {
-            if (chat.dataset.id != chatId && chat.dataset.id == data.chat_id){
+            if (chat.dataset.id != chatId && Number(chat.dataset.id) === Number(data.chat_id)){
+                const lastMessageInfo = chat.querySelectorAll('.chat-last-message-info h5')
+                lastMessageInfo[0].textContent = 'Нове повідомлення'
+                lastMessageInfo[1].textContent = ''
+
                 const unread = chat.querySelector('.unread')
                 
                 if(unread){

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block links%}
+    <link rel="stylesheet" href="{% static 'settings_app/css/settings.css' %}">
+{% endblock%}
+
+{% block sidebar %}
+    <button class="settings-button">Особиста інформація</button>
+{% endblock %}
+
+{% block content %}
+    {% include 'settings_app/particles/profile_card.html'%}
+    {% include 'settings_app/particles/info_card.html'%}
+    {% include 'settings_app/particles/signature_card.html'%}
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'settings_app/js/settings.js' %}"></script>
+{% endblock %}
