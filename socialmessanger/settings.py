@@ -23,10 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hw*@$&-7c7+7+%e@u+h@%spdosistc9k98v9wp0wx56$(+*-&^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.up.railway.app"
+]
 
 # Application definition
 
@@ -58,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'socialmessanger.urls'
@@ -132,9 +136,15 @@ CHANNEL_LAYERS = {
 }
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR/ 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 LOGIN_URL = 'auth_page'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+STORAGES = {
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    }
+}
