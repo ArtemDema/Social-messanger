@@ -1,0 +1,102 @@
+.visible-edit{
+    display: none;
+}
+
+.visible-dissable{
+    opacity: 0.5;
+}
+
+.input{
+    width: 200px;
+    height: 25px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#profile-form{
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #CDCED2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1vh;
+}
+
+#profile-info-form{
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #CDCED2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1vh;
+}
+
+#profile-form button{
+    width: 40%;
+}
+
+#profile-info-form button{
+    width: 40%;
+}
+
+.sidebar{
+    width: clamp(0px, 24.2vw, 460px);
+}
+
+.settings-button{
+    width: clamp(0px, 12vw, 220px);
+    background-color: #FAF8FF;
+    border: none;
+    font-family: 'GTWalsheimPro';
+    font-size: clamp(0px, 1vw, 1rem);
+    display: flex;
+    align-items: flex-start;
+}
+
+.edit{
+    width: clamp(0px, 4vw, 85px);
+    height: clamp(0px, 2vw, 30px);
+    border-radius: 30px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #543C52;
+    font-family: "GTWalsheimPro";
+    gap: clamp(0px, 0.5vw, 8px);
+    font-size: clamp(0px, 0.8vw, 0.85rem);
+}
+
+.save{
+    width: clamp(0px, 4vw, 85px);
+    height: clamp(0px, 2vw, 30px);
+    border-radius: 30px;
+    background-color: white;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #543C52;
+    font-family: "GTWalsheimPro";
+    gap: clamp(0px, 0.5vw, 8px);
+    font-size: clamp(0px, 0.8vw, 0.85rem);
+}
+
+#profile-form p{
+    font-family: "GTWalsheimPro";
+}
+
+#profile-info-form p{
+    font-family: "GTWalsheimPro";
+}
+
+
+#profile-info-form div{
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}

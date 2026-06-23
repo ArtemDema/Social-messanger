@@ -1,0 +1,179 @@
+@font-face {
+    font-family: 'GTWalsheimPro';
+    src: url('../fonts/GTWalsheimPro-Medium.ttf') format('truetype');
+    font-weight: normal; 
+    font-style: normal;
+}
+
+nav{
+    display: none !important;
+}
+
+.sidebar{
+    display: none !important;
+}
+
+.header-div{
+    justify-content: center !important;
+}
+
+.registration-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    width: clamp(0px, 34vw, 540px);
+    height: clamp(0px, 57vh, 540px);
+    background-color: white;
+    border-radius: 20px;
+    gap: clamp(0px, 1vw, 17px);
+    position: relative;
+    z-index: 30;
+}
+
+p{
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0px, 1vw, 17px);
+}
+
+body{
+    background-color: #E9E5EE;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0 !important;
+}
+
+.switch{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 1vh;
+}
+
+label{
+    font-family: 'GTWalsheimPro';
+}
+
+input{
+    height: clamp(0px, 3.5vh, 35px);
+    border-radius: 10px;
+    border: 2px solid #CDCED2;
+}
+
+.confirm{
+    width: clamp(0px, 18vw, 350px);
+    height: clamp(0px, 4vh, 35px);
+    border-radius: 1234px;
+    background-color: #543C52;
+    color: white;
+    border: 0px;
+    font-family: 'GTWalsheimPro';
+}
+
+form{
+    width: 100%;
+    display: flex;
+}
+
+.registration-content form{
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.registration-content h3{
+    text-align: center;
+}
+
+.content{
+    position: relative; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 94vh;
+}
+
+.content img{
+    width: clamp(0px, 65vw, 650px);
+    height: clamp(0px, 50vh, 500px);
+    position: relative;
+    right: clamp(0px, 2vw, 40px);
+    z-index: 2;
+}
+
+.hidden-form{
+    display: none !important;
+}
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm-form form{
+    flex-direction: 0;
+    gap: 0.5vw;
+    flex-direction: unset;
+}
+
+.confirm-form form input{
+    width: 3.5vw;
+    height: 5.5vh;
+}
+
+.confirm-form form button{
+    flex-basis: 60%;
+}
+
+.settings-button{
+    width: clamp(0px, 17vw, 170px);
+    background-color: white;
+    border: none;
+    font-family: 'GTWalsheimPro';
+    display: flex;
+    align-items: flex-start;
+    color: gray;
+    font-size: clamp(0px, 1.8vw, 1.8rem);
+}
+
+.select-button{
+    font-size: clamp(0px, 2vw, 2rem);
+    color: black !important;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
+.back{
+    font-size: clamp(0px, 1vw, 1rem);
+    text-underline-offset: 6px;
+    background-color: white;
+    border: none;
+    font-family: 'GTWalsheimPro';
+}
+
+.error{
+    display: flex;
+    flex-direction: row;
+    font-family: 'GTWalsheimPro';
+    font-size: clamp(0px, 0.8vw, 0.8rem);
+}

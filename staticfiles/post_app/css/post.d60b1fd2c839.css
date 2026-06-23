@@ -1,0 +1,120 @@
+@font-face {
+    font-family: 'GTWalsheimPro-Light';
+    src: url("../fonts/GTWalsheimPro-Light.3745e321a3e6.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1{
+    margin: 0;
+    padding: 0;
+}
+
+h3{
+    padding: 0;
+    margin: 0;
+    font-family: 'GTWalsheimPro-Light';
+}
+
+h4{
+    padding: 0;
+    margin: 0;
+    font-family: 'GTWalsheimPro';
+}
+
+p{
+    margin: 0;
+    padding: 0;
+    font-family: 'GTWalsheimPro-Light';
+}
+
+textarea{
+    width: 100%;
+    height: clamp(0px, 4.2vh, 90px);
+    resize: none;
+}
+
+.post{
+    display: flex;
+    width: 100%;
+    background-color: white;
+    border: 2px solid #CDCED2;
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+#post-list{
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0px, 2.3vh, 46px);
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0px, 2.3vh, 46px);
+}
+
+.first-name{
+    border: 1px solid #CDCED2;
+    height: clamp(0px, 3vh, 60px);
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    justify-content: space-between;
+    
+}
+
+.content-post img{
+    border-radius: 16px;
+    max-width: clamp(0px, 32vw, 420px);
+    max-height: clamp(0px, 35vh, 500px);
+}
+
+.content-post{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0px, 1vh, 20px);
+}
+
+.links-post a:link{
+    color: #543C52;
+}
+
+.links-post a:visited{
+    color: #543C52;
+}
+
+.image-post{
+    flex-wrap: wrap;
+}
+
+.remove-btn{
+    width: clamp(0px, 2.5vw, 35px);
+    height: clamp(0px, 3.5vh, 70px);
+    position: absolute;
+    left: clamp(0px, 12.5vw, 245px);
+    top: clamp(0px, 0.7vh, 14px);
+}
+
+.preview-wrapper{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.post-create-post{
+    width: clamp(0px, 12vw, 220px) !important;
+    display: flex;
+    flex: row;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(0px, 0.2vw, 4px);
+    height: clamp(0px, 4vh, 35px);
+    border-radius: 1234px;
+    background-color: #543C52;
+    color: white;
+    border: 0px;
+    font-family: 'GTWalsheimPro';
+}

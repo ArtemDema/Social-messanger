@@ -1,0 +1,151 @@
+.friends-div{
+    width: 80%;
+}
+
+.friend-list{
+    height: clamp(0px, 40vh, 432px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0px, 1vh, 20px);
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.user-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-item-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1vw;
+
+}
+
+.group-modal{
+    width: clamp(0px, 34vw, 500px) !important; 
+    height: clamp(0px, 72vh, 777px) !important;
+}
+
+.group-modal-settings{
+    width: clamp(0px, 34vw, 490px) !important;
+    height: clamp(0px, 66vh, 635px) !important;
+}
+
+.div-input input{
+    width: 94%;
+    height: clamp(0px, 3.8vh, 42px);
+    border: 0;
+}
+
+.div-input{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px; 
+    border: 1px solid #CDCED2; 
+    align-items: center;
+    padding-left: 10px;
+}
+
+.group-modal-settings input{
+    width: 100%;
+    height: clamp(0px, 3.8vh, 42px);
+    border-radius: 10px;
+    border: 1px solid #CDCED2;
+}
+
+.selected-users{
+    height: clamp(0px, 28vh, 280px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0px, 1vh, 20px);
+    width: 80%;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.close-div-button{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.close-div-button button{
+    background: none;
+    border: none;
+}
+
+.chat-function-buttons{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: clamp(0px, 1vw, 20px);
+}
+
+#id_images{
+    display: none;
+}
+
+.group-modal-settings form{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+
+}
+
+.selected-users button{
+    background-color: white;
+    border: 0;
+}
+
+.selected-users div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.div-input img{
+    width: clamp(0px, 1.5vw, 15px);
+    height: clamp(0px, 1.5vh, 15px);
+}
+
+.group-add-photo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1vw;
+}
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+  
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+  
+    outline: 2px solid #543C52;
+    outline-offset: -2px; 
+    cursor: pointer;
+  
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 12px 12px;
+}
+
+input[type="checkbox"]:checked {
+  background-image: url("../images/check_mark.png");
+}
+
+.create-chat-modal-btn {
+    width: clamp(0px, 8vw, 134px);
+}
