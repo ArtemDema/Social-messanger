@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from friends_app.utils.friends import get_friends_by_section
 
-
+ 
 class HomeView(LoginRequiredMixin, ListView):
     template_name = 'home_app/home.html'
     model = Post
