@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from django.urls import reverse_lazy
+import os, dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -47,7 +48,9 @@ INSTALLED_APPS = [
     'friends_app',
     "chat_app",
     "profile_app",
-    'settings_app'
+    'settings_app',
+    "cloudinary",
+    "cloudinary_storage",
 ]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -144,7 +147,18 @@ LOGIN_URL = 'auth_page'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
+dotenv.load_dotenv()
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv(key='CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv(key= 'CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv(key='CLOUDINARY_API_SECRET')
+}
+
 STORAGES = {
+    'default': {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"
+    },
     'staticfiles': {
         'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     }
